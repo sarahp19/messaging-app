@@ -5,7 +5,10 @@
   "main": "server/index.js",
   "scripts": {
     "server-start": "node server/index.js",
-    "server-dev": "nodemon server/index.js"
+    "server-dev": "nodemon server/index.js",
+    "client-serve": "webpack serve --mode=development --config ./webpack.config.js --open",
+    "client-build": "webpack --mode=production",
+    "dev": "concurrently \"npm run server-dev\" \"npm run client-serve\""
   },
   "repository": {
     "type": "git",

@@ -24,9 +24,12 @@
         "semi": "off",
         "no-underscore-dangle": "off",
         "no-console": "off",
+        "import/no-unresolved": "off",
+        "import/extensions": "off",
+        "jsx-a11y/control-has-associated-label": "off",
         "react/self-closing-comp": "off",
         "react/function-component-definition": "off",
-        "import/extensions": "off",
-        "import/no-unresolved": "off"
+        "react/button-has-type": "off",
+        "react/prop-types": "off"
     }
 }

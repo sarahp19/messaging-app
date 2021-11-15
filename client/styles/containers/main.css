@@ -4,8 +4,16 @@
   display: flex;
   overflow-y: hidden;
 }
+
 .main-wrap {
-  width: 100%;
   display: grid;
   grid-template-rows: auto 1fr;
+  width: 100%;
+}
+
+@media screen and (max-width: 768px) {
+  .main {
+    position: absolute;
+    width: 100%;
+  }
 }

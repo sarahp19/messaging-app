@@ -9,16 +9,16 @@
   grid-template-columns: auto 1fr auto;
   gap: 15px;
   align-items: center;
-  border-bottom: 1px solid #343a40;
-  padding: 20px 10px;
+  border-bottom: 1px solid #2b2d35;
+  padding: 20px 15px;
   cursor: pointer;
 }
 
 .inbox-cards:hover {
-  background: #343a4070;
+  background: #2b2d3570;
 }
 
-img {
+.avatar {
   display: block;
   width: 50px; height: 50px;
   border-radius: 50%;
@@ -64,9 +64,15 @@ img {
 }
 
 .inbox::-webkit-scrollbar-thumb {
-  background: #49505770;
+  background: #383b4270;
 }
 
 .inbox::-webkit-scrollbar-thumb:hover {
-  background: #495057;
+  background: #383b42;
+}
+
+@media screen and (max-width: 768px) {
+  .text .name .username {
+    display: none;
+  }
 }

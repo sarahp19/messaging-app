@@ -1,3 +1,21 @@
 .room {
-  background: #15171a;
+  background: #121316;
+  position: relative;
+  height: 100%;
+  display: flex;
+  overflow-y: hidden;
+}
+.room-wrap {
+  width: 100%;
+  display: grid;
+  grid-template-rows: auto 1fr;
+}
+
+@media screen and (max-width: 768px) {
+  .room {
+    position: absolute;
+    transform: translate(100%, 0);
+    width: 100%;
+    z-index: 9;
+  }
 }

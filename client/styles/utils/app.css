@@ -18,15 +18,19 @@
 input,
 textarea,
 button,
-p,
-body {
+p {
   font-family: averta-reguler, sans-serif;
   font-size: 1rem;
   color: #ffffffdd;
+  background: transparent;
+  border-radius: 0;
 }
 
 body {
-  background: #212529;
+  font-family: averta-reguler, sans-serif;
+  font-size: 1rem;
+  background: #191a1f;
+  color: #ffffffdd;
 }
 
 h1,
@@ -39,4 +43,29 @@ h2 {
   width: 100%; height: 100%;
   display: grid;
   grid-template-columns: 0.5fr 1fr;
+}
+
+@media screen and (max-width: 1000px)  {
+  .app {
+    grid-template-columns: 0.6fr 1fr;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  input,
+  textarea,
+  button,
+  p,
+  body {
+    font-size: 0.95rem;
+  }
+  
+  body {
+    overflow: hidden;
+  }
+
+  .app {
+    display: flex;
+    overflow: hidden;
+  }
 }

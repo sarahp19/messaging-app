@@ -1,0 +1,39 @@
+.minitab {
+  position: absolute;
+  right: 0;
+  background: #23252b;
+  transform: translate(-20px, 60px);
+  width: 200px;
+  display: none;
+  box-shadow: 0 2px 5px #111114;
+  z-index: 2;
+}
+
+.minitab.active {
+  display: grid;
+}
+
+.minitab.unactive {
+  display: none;
+}
+
+.btn {
+  background: transparent;
+  width: 100%;
+  padding: 10px 15px;
+  border-radius: 0;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background: #383a4170;
+}
+
+.btn:nth-last-child(1) {
+  margin: 20px 0 0 0;
+  border-top: 1px solid #383b42;
+}

@@ -1,0 +1,42 @@
+@font-face {
+  font-family: 'averta-reguler';
+  src: url('../../assets/fonts/averta-standard/averta-regular.ttf');
+}
+
+@font-face {
+  font-family: 'averta-bold';
+  src: url('../../assets/fonts/averta-standard/averta-bold.ttf');
+}
+
+* {
+  border: none;
+  outline: none;
+  margin: 0;
+  padding: 0;
+}
+
+input,
+textarea,
+button,
+p,
+body {
+  font-family: averta-reguler, sans-serif;
+  font-size: 1rem;
+  color: #ffffffdd;
+}
+
+body {
+  background: #212529;
+}
+
+h1,
+h2 {
+  font-family: averta-bold, sans-serif;
+}
+
+.app {
+  position: absolute;
+  width: 100%; height: 100%;
+  display: grid;
+  grid-template-columns: 0.5fr 1fr;
+}

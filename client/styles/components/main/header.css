@@ -1,0 +1,43 @@
+.header {
+  display: grid;
+  padding: 10px;
+  box-shadow: 0 2px 2px #15171a;
+  gap: 20px;
+  z-index: 1;
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navigation {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.btn {
+  display: flex;
+  background: transparent;
+  padding: 5px;
+  border-radius: 50%;
+  transition: cubic-bezier(0.215, 0.610, 0.355, 1) 0.1s;
+  cursor: pointer;
+}
+
+.btn * {
+  margin: auto;
+}
+
+.btn:hover {
+  background: #15171a;
+}
+
+.form-control {
+  background: transparent;
+  border-radius: 0;
+  width: 100%;
+  padding: 0 0 5px 0;
+}

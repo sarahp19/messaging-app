@@ -1,0 +1,11 @@
+.main {
+  position: relative;
+  height: 100%;
+  display: flex;
+  overflow-y: hidden;
+}
+.main-wrap {
+  width: 100%;
+  display: grid;
+  grid-template-rows: auto 1fr;
+}

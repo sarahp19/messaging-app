@@ -8,7 +8,7 @@
   "plugins": [
     "@babel/plugin-transform-runtime",
     ["wildcard", {
-      "exts": ["js", "es6", "es", "jsx"],
+      "exts": ["js", "es6", "es", "jsx", "jpg", "png"],
       "useCamelCase": true
     }]
   ]

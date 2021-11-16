@@ -24,6 +24,7 @@
         "semi": "off",
         "no-underscore-dangle": "off",
         "no-console": "off",
+        "default-param-last": "off",
         "import/no-unresolved": "off",
         "import/extensions": "off",
         "jsx-a11y/control-has-associated-label": "off",

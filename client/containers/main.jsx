@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import style from '../styles/containers/main.css';
 
 import * as comp from '../components/main';
 
 function Main() {
+  const props = useSelector((state) => state);
+
   const [state, setState] = useState({
     miniTabIsOpen: false,
     profileIsOpen: false,
@@ -39,7 +42,7 @@ function Main() {
   }
 
   return (
-    <div className={style.main}>
+    <div className={`${style.main} ${props.room ? style.active : null}`}>
       <div className={style['main-wrap']}>
         <comp.header
           handleMiniTabIsOpen={handleMiniTabIsOpen}

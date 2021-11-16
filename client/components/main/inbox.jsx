@@ -1,8 +1,13 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import style from '../../styles/components/main/inbox.css';
 import photo from '../../assets/images/default-profile.jpg';
 
+import * as action from '../../redux/actions';
+
 function Inbox() {
+  const dispatch = useDispatch();
+
   return (
     <div className={style.inbox}>
       <div className={style['inbox-cards']}>
@@ -14,7 +19,11 @@ function Inbox() {
           }}
         >
         </span>
-        <div className={style.text}>
+        <div
+          className={style.text}
+          aria-hidden="true"
+          onClick={() => dispatch(action.roomIsOpen(true))}
+        >
           <span className={style.name}>
             <h3 className={style['profile-name']}>Bill Gates</h3>
             <p className={style.username}>@billgates</p>

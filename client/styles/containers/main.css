@@ -15,5 +15,11 @@
   .main {
     position: absolute;
     width: 100%;
+    transform: translate(0, 0);
+    transition: cubic-bezier(0.785, 0.135, 0.15, 0.86) 0.5s;
+  }
+
+  .main.active {
+    transform: translate(-100%, 0);
   }
 }

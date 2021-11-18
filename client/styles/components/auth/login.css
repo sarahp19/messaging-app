@@ -1,0 +1,110 @@
+.login {
+  position: absolute;
+  max-width: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: cubic-bezier(0.785, 0.135, 0.15, 0.86) 0.5s;
+  opacity: 0;
+  z-index: 0;
+}
+.login.active {
+  opacity: 1;
+  z-index: 1;
+}
+.response {
+  transform: translate(0, 10px);
+  transition: cubic-bezier(0.785, 0.135, 0.15, 0.86) 0.3s;
+  opacity: 0;
+}
+.response.active {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+.login-wrap {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  padding: 20px;
+}
+h1, h3 {
+  font-family: averta-bold;
+}
+.header {
+  text-align: center;
+  padding: 0 20px;
+}
+.header p {
+  margin: 10px 0 0 0;
+  opacity: 0.8;
+}
+.control {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 40px 0 0 0;
+}
+.control .cards {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 20px;
+  align-items: center;
+  background: #23252b70;
+  padding: 0 15px;
+  cursor: pointer;
+}
+.control .input-field {
+  display: grid;
+}
+.control .label {
+  margin: 10px 0 0 0;
+  opacity: 0.5;
+  font-size: 0.9rem;
+}
+.control input {
+  width: 100%;
+  padding: 5px 0 10px 0;
+}
+.action {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 5px 0 10px 0;
+}
+.action .remember {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.submit {
+  display: flex;
+  justify-content: center;
+}
+.submit .btn {
+  background: #23252b;
+  padding: 15px 30px;
+  border-radius: 2rem;
+  cursor: pointer;
+}
+.forgot {
+  text-decoration: underline;
+}
+.footer {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  margin: 40px 0 0 0;
+}
+.footer .btn {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 760px) {
+  .control .cards {
+    background: #23252b70;
+  }
+  .footer {
+    flex-direction: column;
+    align-items: center;
+  }
+}

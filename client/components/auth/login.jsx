@@ -136,11 +136,12 @@ function Login({
                 id="usernameOrEmail"
                 value={formbody.usernameOrEmail}
                 onChange={handleChange}
+                required
               />
             </span>
             <box-icon
               name={control.usernameOrEmail ? 'check' : 'x'}
-              color="#ffffffdd"
+              color={`${control.usernameOrEmail ? '#73ba9b' : '#c1121f'}`}
             >
             </box-icon>
           </label>
@@ -154,11 +155,12 @@ function Login({
                 id="password"
                 value={formbody.password}
                 onChange={handleChange}
+                required
               />
             </span>
             <box-icon
               name={control.password ? 'check' : 'x'}
-              color="#ffffffdd"
+              color={`${control.password ? '#73ba9b' : '#c1121f'}`}
             >
             </box-icon>
           </label>

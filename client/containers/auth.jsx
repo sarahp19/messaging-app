@@ -35,6 +35,7 @@ function Auth() {
       <comp.register
         registerPage={registerPage}
         setRegisterPage={setRegisterPage}
+        setResponse={setResponse}
       />
       <div className={style.banner}>
         { strip.map((item) => <span key={item} className={style.strip}></span>) }

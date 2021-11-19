@@ -71,7 +71,7 @@
   border: none;
 }
 
-.info .cards span {
+.info .cards .text {
   display: grid;
   grid-template-columns: 1fr auto;
   border-bottom: 1px solid #2b2d35;
@@ -79,12 +79,18 @@
   padding: 0 0 5px 0;
 }
 
-.info .cards span.active {
+.info .cards .text.active {
   border-color: #3ed8ffdd;
   color: #3ed8ffdd;
 }
 
-.info .cards span button {
+.info .cards .text .num-code {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.info .cards .text button {
   background: transparent;
   transition: cubic-bezier(0.215, 0.610, 0.355, 1) 0.1s;
   cursor: pointer;

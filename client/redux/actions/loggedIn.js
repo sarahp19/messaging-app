@@ -1,6 +1,8 @@
-export default () => ({
+export default ({
+  active = true,
+}) => ({
   type: 'counter/loggedIn',
   payload: {
-    counter: true,
+    active,
   },
 });

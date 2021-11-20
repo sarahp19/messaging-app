@@ -33,7 +33,7 @@ function Login({
     try {
       event.preventDefault();
 
-      const url = isDev ? 'http://localhost:8080/api/users/login' : '/api/users/login';
+      const url = isDev ? 'http://localhost:8000/api/users/login' : '/api/users/login';
       const request = await (await fetch(url, {
         method: 'post',
         headers: {
@@ -62,7 +62,9 @@ function Login({
       localStorage.setItem('token', request.data);
 
       setTimeout(() => {
-        dispatch(action.loggedIn());
+        dispatch(action.loggedIn({
+          active: true,
+        }));
       }, 2000);
     }
     catch (error0) {

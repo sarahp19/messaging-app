@@ -31,7 +31,7 @@ function Register({
     try {
       event.preventDefault();
 
-      const url = isDev ? 'http://localhost:8080/api/users/register' : '/api/users/register';
+      const url = isDev ? 'http://localhost:8000/api/users/register' : '/api/users/register';
       const request = await (await fetch(url, {
         method: 'post',
         headers: {

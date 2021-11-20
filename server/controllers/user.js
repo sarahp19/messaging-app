@@ -17,7 +17,8 @@ exports.userRegister = async (req, res) => {
     }).save();
 
     const profile = await new ProfileModel({
-      userEmail: email,
+      userId: user._id,
+      profileName: username,
     }).save();
 
     // merge 2 responses

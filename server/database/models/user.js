@@ -24,6 +24,23 @@ exports.ProfileModel = model('profiles', new Schema({
     type: Schema.Types.String,
     required: true,
   },
+  username: {
+    type: Schema.Types.String,
+    required: true,
+    trim: true,
+    unique: true,
+  },
+  email: {
+    type: Schema.Types.String,
+    required: true,
+    trim: true,
+    unique: true,
+  },
+  profileName: {
+    type: Schema.Types.String,
+    trim: true,
+    default: '',
+  },
   photo: {
     avatar: {
       type: Schema.Types.String,
@@ -35,11 +52,6 @@ exports.ProfileModel = model('profiles', new Schema({
       trim: true,
       default: 'defaultBanner',
     },
-  },
-  profileName: {
-    type: Schema.Types.String,
-    trim: true,
-    default: '',
   },
   bio: {
     type: Schema.Types.String,

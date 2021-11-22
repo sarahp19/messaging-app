@@ -1,23 +1,64 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
 import style from '../../styles/components/main/profile.css';
 import * as img from '../../assets/images';
 
+import * as action from '../../redux/actions';
+import socket from '../../helpers/socket';
+
 function Profile({ handleProfileIsOpen, profileIsOpen }) {
+  const { user } = useSelector((state) => state);
+  const dispatch = useDispatch();
+
   const [readOnly, setReadOnly] = useState({
+    bio: true,
     email: true,
+    phone: true,
   });
 
-  const allowChanges = () => {
-    if (!readOnly.email) {
-      return setReadOnly((prev) => ({
-        ...prev, email: true,
-      }));
-    }
+  const [formbody, setFormbody] = useState({
+    profileName: user.profileName,
+    bio: user.bio,
+    phone: user.phone,
+  });
 
-    return setReadOnly((prev) => ({
-      ...prev, email: false,
+  const formatDate = (args) => {
+    const date = new Date(args).toLocaleDateString('en-US', {
+      day: '2-digit',
+      month: 'short',
+      year: 'numeric',
+    });
+    return date;
+  }
+
+  const handleChange = (event) => {
+    setFormbody((prev) => ({
+      ...prev,
+      [event.target.name]: event.target.value,
     }));
   }
+
+  const handleSubmit = () => {
+    const data = { _id: user.userId, ...formbody };
+
+    socket.emit('user/update', data);
+  }
+
+  useEffect(() => {
+    socket.on('user/update/callback', (args) => {
+      dispatch(action.getUser({
+        data: args.data,
+      }));
+
+      setFormbody((prev) => ({
+        ...prev,
+        profileName: args.data.profileName,
+        bio: args.data.bio,
+        phone: args.data.phone,
+      }));
+    });
+  }, []);
 
   return (
     <div
@@ -27,7 +68,7 @@ function Profile({ handleProfileIsOpen, profileIsOpen }) {
         <div
           className={style.header}
           style={{
-            background: `url(${img.museum}) center center no-repeat`,
+            background: `url(${img.banner}) center center no-repeat`,
             backgroundSize: 'cover',
           }}
         >
@@ -41,55 +82,107 @@ function Profile({ handleProfileIsOpen, profileIsOpen }) {
           <span
             className={style.avatar}
             style={{
-              background: `url(${img.defaultProfile}) center center no-repeat`,
+              background: `url(${img.avatar}) center center no-repeat`,
               backgroundSize: 'cover',
             }}
           >
           </span>
         </div>
-        <div className={style.info}>
+        <form method="post" className={style.info}>
           <div className={style.cards}>
-            <h1>Febriadji</h1>
-            <p>@febriadj</p>
+            <h1>{formbody.profileName}</h1>
+            <p>@{user.username}</p>
           </div>
           <div className={style.cards}>
             <box-icon name="info-circle" color="#ffffff70"></box-icon>
-            <span>
-              <p>#techenthusiast in the era of society 5.0</p>
-              <button><box-icon name="pencil" color="#ffffff70"></box-icon></button>
-            </span>
-          </div>
-          <div className={style.cards}>
-            <box-icon name="phone" color="#ffffff70"></box-icon>
-            <span>
-              <p>+62 851-5670-3982</p>
-              <button><box-icon name="pencil" color="#ffffff70"></box-icon></button>
-            </span>
-          </div>
-          <div className={style.cards}>
-            <box-icon name="envelope" color="#ffffff70"></box-icon>
-            <span
-              className={`${readOnly.email ? null : style.active}`}
+            <div
+              className={`${style.text} ${readOnly.bio ? null : style.active}`}
             >
-              <input
-                type="email"
-                name="email"
-                value="iamfebriadji@gmail.com"
-                readOnly={!!readOnly.email}
-              />
-              <button onClick={allowChanges}>
+              {
+                !readOnly.bio
+                  ? <input type="text" name="bio" value={formbody.bio} onChange={handleChange} />
+                  : <p>{formbody.bio}</p>
+              }
+              <button
+                type="button"
+                onClick={
+                  readOnly.bio
+                    ? () => setReadOnly((prev) => ({
+                      ...prev,
+                      bio: !prev.bio,
+                    }))
+                    : () => {
+                      setReadOnly((prev) => ({
+                        ...prev,
+                        bio: !prev.bio,
+                      }));
+                      handleSubmit();
+                    }
+                }
+              >
                 <box-icon
-                  name={readOnly.email ? 'pencil' : 'right-top-arrow-circle'}
-                  color={readOnly.email ? '#ffffff70' : '#3ed8ffdd'}
+                  name={readOnly.bio ? 'pencil' : 'right-top-arrow-circle'}
+                  color={readOnly.bio ? '#ffffff70' : '#848de9dd'}
                 >
                 </box-icon>
               </button>
-            </span>
+            </div>
           </div>
-        </div>
+          <div className={style.cards}>
+            <box-icon name="phone" color="#ffffff70"></box-icon>
+            <div
+              className={`${style.text} ${readOnly.phone ? null : style.active}`}
+            >
+              <span className={style['num-code']}>
+                <p>+62</p>
+                <input
+                  type="number"
+                  name="phone"
+                  value={formbody.phone}
+                  readOnly={!!readOnly.phone}
+                  onChange={handleChange}
+                />
+              </span>
+              <button
+                type="button"
+                onClick={
+                  readOnly.phone
+                    ? () => setReadOnly((prev) => ({
+                      ...prev,
+                      phone: !prev.phone,
+                    }))
+                    : () => {
+                      setReadOnly((prev) => ({
+                        ...prev,
+                        phone: !prev.phone,
+                      }));
+                      handleSubmit();
+                    }
+                }
+              >
+                <box-icon
+                  name={readOnly.phone ? 'pencil' : 'right-top-arrow-circle'}
+                  color={readOnly.phone ? '#ffffff70' : '#848de9dd'}
+                >
+                </box-icon>
+              </button>
+            </div>
+          </div>
+          <div className={style.cards}>
+            <box-icon name="envelope" color="#ffffff70"></box-icon>
+            <div className={style.text}>
+              <p>{user.email}</p>
+              <box-icon name="envelope" color="#00000000"></box-icon>
+            </div>
+          </div>
+        </form>
         <div className={style.footer}>
           <p>Joined Since</p>
-          <h1 className={style.date}>15 Nov 2021</h1>
+          <h1
+            className={style.date}
+          >
+            {formatDate(user.createdAt)}
+          </h1>
         </div>
       </div>
     </div>

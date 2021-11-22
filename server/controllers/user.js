@@ -18,11 +18,13 @@ exports.userRegister = async (req, res) => {
 
     const profile = await new ProfileModel({
       userId: user._id,
+      username,
+      email,
       profileName: username,
     }).save();
 
     // merge 2 responses
-    const data = { ...user._doc, ...profile._doc };
+    const data = { ...user._doc, profile: { ...profile._doc } };
     response({ res, data });
   }
   catch (error0) {
@@ -81,10 +83,32 @@ exports.userLogin = async (req, res) => {
   }
 }
 
-exports.userFindOne = async (req, res) => {
+exports.userFind = async (req, res) => {
   try {
-    // find user by _id
-    const data = await UserModel.findOne({ _id: { $eq: req.user.userId } });
+    let data;
+
+    switch (Object.keys(req.query)[0]) {
+      case 'init':
+        data = await ProfileModel.findOne({
+          userId: req.query.id,
+        });
+        break;
+      case 'profile': {
+        const identifier = new RegExp(req.query.profile, 'gi');
+
+        data = await ProfileModel.find({
+          $or: [
+            { username: { $regex: identifier } },
+            { email: { $regex: identifier } },
+          ],
+        });
+        break;
+      }
+      default:
+        data = await ProfileModel.find().sort({
+          createdAt: -1,
+        });
+    }
 
     response({ res, data });
   }

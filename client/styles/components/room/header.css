@@ -1,0 +1,33 @@
+.header {
+  background: #191a22;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 10px;
+  align-items: center;
+  padding: 10px 15px;
+  z-index: 1;
+}
+.close-btn {
+  width: 35px; height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+}
+.close-btn:hover {
+  background: #2a2c38bb;
+}
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.profile .avatar {
+  width: 50px; height: 50px;
+  border-radius: 50%;
+}
+.info .online {
+  margin: 5px 0 0 0;
+  font-size: 0.95rem;
+  color: #ffffff70;
+}

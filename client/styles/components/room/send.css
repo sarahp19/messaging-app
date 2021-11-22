@@ -1,0 +1,25 @@
+.send {
+  display: grid;
+  grid-template-columns: auto 1fr auto auto;
+  gap: 5px;
+  align-items: center;
+  padding: 10px 15px;
+  background: #191a22;
+}
+.form-control {
+  padding: 10px;
+}
+.form-control::placeholder {
+  color: #ffffff70;
+}
+.btn {
+  width: 35px; height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.btn:hover {
+  background: #2a2c38;
+}

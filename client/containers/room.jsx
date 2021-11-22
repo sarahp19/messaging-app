@@ -1,20 +1,20 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import style from '../styles/containers/room.css';
 
-import * as action from '../redux/actions';
+import * as comp from '../components/room';
 
 function Room() {
   const props = useSelector((state) => state);
-  const dispatch = useDispatch();
-
   return (
     <div
       className={`${style.room} ${props.room ? style.active : null}`}
-      aria-hidden="true"
-      onClick={() => dispatch(action.roomIsOpen(false))}
     >
-      <p>room</p>
+      <div className={style['room-wrap']}>
+        <comp.header />
+        <comp.chat />
+        <comp.send />
+      </div>
     </div>
   );
 }

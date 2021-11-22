@@ -10,6 +10,7 @@ function Main() {
   const [state, setState] = useState({
     miniTabIsOpen: false,
     profileIsOpen: false,
+    contactIsOpen: false,
   });
 
   const handleMiniTabIsOpen = () => {
@@ -32,6 +33,7 @@ function Main() {
         ...prev,
         miniTabIsOpen: false,
         profileIsOpen: true,
+        contactIsOpen: false,
       }));
     }
 
@@ -41,12 +43,29 @@ function Main() {
     }));
   }
 
+  const handleContactIsOpen = () => {
+    if (!state.contactIsOpen) {
+      return setState((prev) => ({
+        ...prev,
+        miniTabIsOpen: false,
+        profileIsOpen: false,
+        contactIsOpen: true,
+      }));
+    }
+
+    return setState((prev) => ({
+      ...prev,
+      contactIsOpen: false,
+    }));
+  }
+
   return (
     <div className={`${style.main} ${props.room ? style.active : null}`}>
       <div className={style['main-wrap']}>
         <comp.header
           handleMiniTabIsOpen={handleMiniTabIsOpen}
           miniTabIsOpen={state.miniTabIsOpen}
+          handleContactIsOpen={handleContactIsOpen}
         />
         <comp.minitab
           miniTabIsOpen={state.miniTabIsOpen}
@@ -55,6 +74,10 @@ function Main() {
         <comp.profile
           handleProfileIsOpen={handleProfileIsOpen}
           profileIsOpen={state.profileIsOpen}
+        />
+        <comp.contact
+          handleContactIsOpen={handleContactIsOpen}
+          contactIsOpen={state.contactIsOpen}
         />
         <comp.inbox />
       </div>

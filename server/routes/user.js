@@ -3,12 +3,12 @@ const authenticate = require('../middleware/auth');
 const {
   userRegister,
   userLogin,
-  userFindOne,
+  userFind,
 } = require('../controllers/user');
 
 router.post('/users/register', userRegister);
 router.post('/users/login', userLogin);
 
-router.get('/users', authenticate, userFindOne);
+router.get('/users', authenticate, userFind);
 
 module.exports = router;

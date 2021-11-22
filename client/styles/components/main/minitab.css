@@ -1,22 +1,23 @@
 .minitab {
   position: absolute;
   right: 0;
-  background: #23252b;
+  background: #22232e;
   transform: translate(-20px, 60px);
+  transition: cubic-bezier(.5,-.75,.7,2) 0.3s;
+  width: 20px; height: 20px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 2px 5px #0e0f14;
+  overflow: hidden;
+  opacity: 0;
+  z-index: -9;
+}
+.minitab.active {
   width: 200px;
-  display: none;
-  box-shadow: 0 2px 5px #111114;
+  height: 200px;
+  opacity: 1;
   z-index: 2;
 }
-
-.minitab.active {
-  display: grid;
-}
-
-.minitab.unactive {
-  display: none;
-}
-
 .btn {
   background: transparent;
   width: 100%;
@@ -28,12 +29,10 @@
   gap: 10px;
   cursor: pointer;
 }
-
 .btn:hover {
-  background: #383a4170;
+  background: #373a4970;
 }
-
 .btn:nth-last-child(1) {
   margin: 20px 0 0 0;
-  border-top: 1px solid #383b42;
+  border-top: 1px solid #373a49bb;
 }

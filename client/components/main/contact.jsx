@@ -31,13 +31,13 @@ function Contact({ handleContactIsOpen, contactIsOpen }) {
             onClick={handleContactIsOpen}
             className={style.btn}
           >
-            <box-icon name="arrow-back" color="#ffffffdd"></box-icon>
+            <box-icon name="arrow-back" color="#000000dd"></box-icon>
           </button>
         </div>
         <div className={style.new}>
           <div className={style.cards}>
             <span className={style.icon}>
-              <box-icon name="group" color="#ffffffdd"></box-icon>
+              <box-icon name="group" color="#000000dd"></box-icon>
             </span>
             <p>Create a New Group</p>
           </div>
@@ -47,7 +47,7 @@ function Contact({ handleContactIsOpen, contactIsOpen }) {
             aria-hidden="true"
           >
             <span className={style.icon}>
-              <box-icon name="user-plus" color="#ffffffdd"></box-icon>
+              <box-icon name="user-plus" color="#000000dd"></box-icon>
             </span>
             <p>Add New Contact</p>
           </div>
@@ -72,7 +72,7 @@ function Contact({ handleContactIsOpen, contactIsOpen }) {
               </span>
             </div>
             <span>
-              <box-icon name="dots-vertical-rounded" color="#ffffffdd"></box-icon>
+              <box-icon name="dots-vertical-rounded" color="#000000dd"></box-icon>
             </span>
           </div>
           <div className={style.cards}>
@@ -94,7 +94,7 @@ function Contact({ handleContactIsOpen, contactIsOpen }) {
               </span>
             </div>
             <span>
-              <box-icon name="dots-vertical-rounded" color="#ffffffdd"></box-icon>
+              <box-icon name="dots-vertical-rounded" color="#000000dd"></box-icon>
             </span>
           </div>
           <div className={style.cards}>
@@ -116,7 +116,7 @@ function Contact({ handleContactIsOpen, contactIsOpen }) {
               </span>
             </div>
             <span>
-              <box-icon name="dots-vertical-rounded" color="#ffffffdd"></box-icon>
+              <box-icon name="dots-vertical-rounded" color="#000000dd"></box-icon>
             </span>
           </div>
           <div className={style.cards}>
@@ -138,7 +138,7 @@ function Contact({ handleContactIsOpen, contactIsOpen }) {
               </span>
             </div>
             <span>
-              <box-icon name="dots-vertical-rounded" color="#ffffffdd"></box-icon>
+              <box-icon name="dots-vertical-rounded" color="#000000dd"></box-icon>
             </span>
           </div>
           <div className={style.cards}>
@@ -160,7 +160,7 @@ function Contact({ handleContactIsOpen, contactIsOpen }) {
               </span>
             </div>
             <span>
-              <box-icon name="dots-vertical-rounded" color="#ffffffdd"></box-icon>
+              <box-icon name="dots-vertical-rounded" color="#000000dd"></box-icon>
             </span>
           </div>
           <div className={style.cards}>
@@ -182,7 +182,7 @@ function Contact({ handleContactIsOpen, contactIsOpen }) {
               </span>
             </div>
             <span>
-              <box-icon name="dots-vertical-rounded" color="#ffffffdd"></box-icon>
+              <box-icon name="dots-vertical-rounded" color="#000000dd"></box-icon>
             </span>
           </div>
           <div className={style.cards}>
@@ -204,7 +204,7 @@ function Contact({ handleContactIsOpen, contactIsOpen }) {
               </span>
             </div>
             <span>
-              <box-icon name="dots-vertical-rounded" color="#ffffffdd"></box-icon>
+              <box-icon name="dots-vertical-rounded" color="#000000dd"></box-icon>
             </span>
           </div>
           <div className={style.cards}>
@@ -226,7 +226,7 @@ function Contact({ handleContactIsOpen, contactIsOpen }) {
               </span>
             </div>
             <span>
-              <box-icon name="dots-vertical-rounded" color="#ffffffdd"></box-icon>
+              <box-icon name="dots-vertical-rounded" color="#000000dd"></box-icon>
             </span>
           </div>
           <div className={style.cards}>
@@ -248,7 +248,7 @@ function Contact({ handleContactIsOpen, contactIsOpen }) {
               </span>
             </div>
             <span>
-              <box-icon name="dots-vertical-rounded" color="#ffffffdd"></box-icon>
+              <box-icon name="dots-vertical-rounded" color="#000000dd"></box-icon>
             </span>
           </div>
         </div>

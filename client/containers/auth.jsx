@@ -14,33 +14,35 @@ function Auth() {
   });
 
   return (
-    < >
-      <div className={`${style.response} ${response.active ? style.active : null}`}>
-        <div
-          className={style['response-wrap']}
-        >
-          <box-icon
-            name={`${response.success ? 'check' : 'x'}`}
-            color={`${response.success ? '#73ba9b' : '#c1121f'}`}
+    <div className={style.auth}>
+      <div className={style['auth-main']}>
+        <div className={`${style.response} ${response.active ? style.active : null}`}>
+          <div
+            className={style['response-wrap']}
           >
-          </box-icon>
-          <p>{response.message}</p>
+            <box-icon
+              name={`${response.success ? 'check' : 'x'}`}
+              color={`${response.success ? '#73ba9b' : '#c1121f'}`}
+            >
+            </box-icon>
+            <p>{response.message}</p>
+          </div>
         </div>
+        <comp.login
+          registerPage={registerPage}
+          setRegisterPage={() => setRegisterPage(true)}
+          setResponse={setResponse}
+        />
+        <comp.register
+          registerPage={registerPage}
+          setRegisterPage={setRegisterPage}
+          setResponse={setResponse}
+        />
       </div>
-      <comp.login
-        registerPage={registerPage}
-        setRegisterPage={() => setRegisterPage(true)}
-        setResponse={setResponse}
-      />
-      <comp.register
-        registerPage={registerPage}
-        setRegisterPage={setRegisterPage}
-        setResponse={setResponse}
-      />
       <div className={style.banner}>
-        { strip.map((item) => <span key={item} className={style.strip}></span>) }
+        {strip.map((item) => <span key={item} className={style.strip}></span>)}
       </div>
-    </>
+    </div>
   );
 }
 

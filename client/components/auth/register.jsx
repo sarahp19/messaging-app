@@ -138,9 +138,10 @@ function Register({
           method="post"
           className={style.control}
           onSubmit={handleSubmit}
+          autoComplete="off"
         >
           <label htmlFor="username" className={style.cards}>
-            <box-icon name="user" color="#ffffffdd"></box-icon>
+            <box-icon name="user" color="#000000dd"></box-icon>
             <span className={style['input-field']}>
               <p className={style.label}>Username</p>
               <input
@@ -159,7 +160,7 @@ function Register({
             </box-icon>
           </label>
           <label htmlFor="email" className={style.cards}>
-            <box-icon name="envelope" color="#ffffffdd"></box-icon>
+            <box-icon name="envelope" color="#000000dd"></box-icon>
             <span className={style['input-field']}>
               <p className={style.label}>Email Address</p>
               <input
@@ -178,7 +179,7 @@ function Register({
             </box-icon>
           </label>
           <label htmlFor="password-regis" className={style.cards}>
-            <box-icon name="lock-open" color="#ffffffdd"></box-icon>
+            <box-icon name="lock-open" color="#000000dd"></box-icon>
             <span className={style['input-field']}>
               <p className={style.label}>Password</p>
               <input

@@ -7,7 +7,10 @@ import * as img from '../../assets/images';
 import * as action from '../../redux/actions';
 import socket from '../../helpers/socket';
 
-function Profile({ handleProfileIsOpen, profileIsOpen }) {
+function Profile({
+  handleProfileIsOpen,
+  profileIsOpen,
+}) {
   const { user } = useSelector((state) => state);
   const dispatch = useDispatch();
 
@@ -21,6 +24,8 @@ function Profile({ handleProfileIsOpen, profileIsOpen }) {
     profileName: user.profileName,
     bio: user.bio,
     phone: user.phone,
+    avatar: user.photo.avatar,
+    banner: user.photo.banner,
   });
 
   const formatDate = (args) => {
@@ -68,7 +73,7 @@ function Profile({ handleProfileIsOpen, profileIsOpen }) {
         <div
           className={style.header}
           style={{
-            background: `url(${img.banner}) center center no-repeat`,
+            background: `url(${img[`${user.photo.banner}`]}) center center no-repeat`,
             backgroundSize: 'cover',
           }}
         >
@@ -82,7 +87,7 @@ function Profile({ handleProfileIsOpen, profileIsOpen }) {
           <span
             className={style.avatar}
             style={{
-              background: `url(${img.avatar}) center center no-repeat`,
+              background: `url(${img[`${user.photo.avatar}`]}) center center no-repeat`,
               backgroundSize: 'cover',
             }}
           >
@@ -94,7 +99,7 @@ function Profile({ handleProfileIsOpen, profileIsOpen }) {
             <p>@{user.username}</p>
           </div>
           <div className={style.cards}>
-            <box-icon name="info-circle" color="#ffffff70"></box-icon>
+            <box-icon name="info-circle" color="#000000dd"></box-icon>
             <div
               className={`${style.text} ${readOnly.bio ? null : style.active}`}
             >
@@ -122,14 +127,14 @@ function Profile({ handleProfileIsOpen, profileIsOpen }) {
               >
                 <box-icon
                   name={readOnly.bio ? 'pencil' : 'right-top-arrow-circle'}
-                  color={readOnly.bio ? '#ffffff70' : '#848de9dd'}
+                  color={readOnly.bio ? '#000000dd' : '#A7D0CD'}
                 >
                 </box-icon>
               </button>
             </div>
           </div>
           <div className={style.cards}>
-            <box-icon name="phone" color="#ffffff70"></box-icon>
+            <box-icon name="phone" color="#000000dd"></box-icon>
             <div
               className={`${style.text} ${readOnly.phone ? null : style.active}`}
             >
@@ -162,14 +167,14 @@ function Profile({ handleProfileIsOpen, profileIsOpen }) {
               >
                 <box-icon
                   name={readOnly.phone ? 'pencil' : 'right-top-arrow-circle'}
-                  color={readOnly.phone ? '#ffffff70' : '#848de9dd'}
+                  color={readOnly.phone ? '#000000dd' : '#A7D0CD'}
                 >
                 </box-icon>
               </button>
             </div>
           </div>
           <div className={style.cards}>
-            <box-icon name="envelope" color="#ffffff70"></box-icon>
+            <box-icon name="envelope" color="#000000dd"></box-icon>
             <div className={style.text}>
               <p>{user.email}</p>
               <box-icon name="envelope" color="#00000000"></box-icon>

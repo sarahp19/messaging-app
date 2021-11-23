@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import style from '../../../styles/components/main/add/newContact.css';
-import photo from '../../../assets/images/avatar.jpg';
+import photo from '../../../assets/images/avatar.png';
 
 function NewContact({
   handleContactTabIsOpen,
@@ -58,12 +58,12 @@ function NewContact({
             onClick={handleContactTabIsOpen}
             className={style.btn}
           >
-            <box-icon name="arrow-back" color="#ffffffdd"></box-icon>
+            <box-icon name="arrow-back" color="#000000dd"></box-icon>
           </button>
           <h2 className="title">Search.</h2>
         </div>
         <div className={style.form}>
-          <box-icon name="search-alt" color="#ffffffdd"></box-icon>
+          <box-icon name="search-alt" color="#000000dd"></box-icon>
           <input
             type="text"
             name="usernameOrEmail"
@@ -96,7 +96,7 @@ function NewContact({
                     </span>
                   </div>
                   <span>
-                    <box-icon name="dots-vertical-rounded" color="#ffffffdd"></box-icon>
+                    <box-icon name="dots-vertical-rounded" color="#000000dd"></box-icon>
                   </span>
                 </div>
               ))

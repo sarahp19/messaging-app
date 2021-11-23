@@ -16,7 +16,7 @@ function Header() {
         className={`${style['close-btn']}`}
         onClick={() => dispatch(action.roomIsOpen(false))}
       >
-        <box-icon name="arrow-back" color="#ffffffdd"></box-icon>
+        <box-icon name="arrow-back" color="#000000dd"></box-icon>
       </button>
       <div className={style.profile}>
         <span

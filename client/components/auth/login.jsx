@@ -129,7 +129,7 @@ function Login({
           onSubmit={handleSubmit}
         >
           <label htmlFor="usernameOrEmail" className={style.cards}>
-            <box-icon name="user" color="#ffffffdd"></box-icon>
+            <box-icon name="user" color="#000000dd"></box-icon>
             <span className={style['input-field']}>
               <p className={style.label}>Username or Email Address</p>
               <input
@@ -148,7 +148,7 @@ function Login({
             </box-icon>
           </label>
           <label htmlFor="password" className={style.cards}>
-            <box-icon name="lock-open" color="#ffffffdd"></box-icon>
+            <box-icon name="lock-open" color="#000000dd"></box-icon>
             <span className={style['input-field']}>
               <p className={style.label}>Password</p>
               <input

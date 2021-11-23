@@ -7,7 +7,7 @@ function Send() {
       <button
         className={style.btn}
       >
-        <box-icon name="smile" color="#ffffffdd"></box-icon>
+        <box-icon name="smile" color="#000000dd"></box-icon>
       </button>
       <input
         type="text"
@@ -19,12 +19,12 @@ function Send() {
       <button
         className={style.btn}
       >
-        <box-icon name="paperclip" color="#ffffffdd"></box-icon>
+        <box-icon name="paperclip" color="#000000dd"></box-icon>
       </button>
       <button
         className={style.btn}
       >
-        <box-icon type="solid" name="microphone-alt" color="#ffffffdd"></box-icon>
+        <box-icon type="solid" name="microphone-alt" color="#000000dd"></box-icon>
       </button>
     </div>
   );

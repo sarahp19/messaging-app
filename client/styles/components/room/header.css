@@ -1,5 +1,5 @@
 .header {
-  background: #191a22;
+  background: #ffffff;
   display: grid;
   grid-template-columns: auto 1fr auto;
   gap: 10px;
@@ -13,9 +13,10 @@
   justify-content: center;
   align-items: center;
   border-radius: 50%;
+  cursor: pointer;
 }
 .close-btn:hover {
-  background: #2a2c38bb;
+  background: #F2F2F2;
 }
 .profile {
   display: flex;
@@ -29,5 +30,5 @@
 .info .online {
   margin: 5px 0 0 0;
   font-size: 0.95rem;
-  color: #ffffff70;
+  color: #000000dd;
 }

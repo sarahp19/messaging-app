@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   overflow-y: auto;
-  background: #15161d;
+  background: #ffffff;
 }
 
 .inbox-cards {
@@ -10,13 +10,13 @@
   grid-template-columns: auto 1fr auto;
   gap: 15px;
   align-items: center;
-  border-bottom: 1px solid #2a2c38bb;
+  border-bottom: 1px solid #F2F2F2;
   padding: 20px 15px;
   cursor: pointer;
 }
 
 .inbox-cards:hover {
-  background: #2a2c3870;
+  background: #F2F2F270;
 }
 
 .avatar {

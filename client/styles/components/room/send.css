@@ -4,13 +4,13 @@
   gap: 5px;
   align-items: center;
   padding: 10px 15px;
-  background: #191a22;
+  background: #ffffff;
 }
 .form-control {
   padding: 10px;
 }
 .form-control::placeholder {
-  color: #ffffff70;
+  color: #00000070;
 }
 .btn {
   width: 35px; height: 35px;
@@ -21,5 +21,5 @@
   cursor: pointer;
 }
 .btn:hover {
-  background: #2a2c38;
+  background: #F2F2F2;
 }

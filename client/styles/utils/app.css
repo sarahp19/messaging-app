@@ -21,7 +21,6 @@ button,
 p {
   font-family: averta-reguler, sans-serif;
   font-size: 1rem;
-  color: #ffffffdd;
   background: transparent;
   border-radius: 0;
 }
@@ -29,8 +28,6 @@ p {
 body {
   font-family: averta-reguler, sans-serif;
   font-size: 1rem;
-  background: #191a1f;
-  color: #ffffffdd;
 }
 
 h1,
@@ -51,6 +48,7 @@ h2 {
   display: flex;
   justify-content: center;
   align-items: center;
+  background: #eaf5f4;
 }
 
 @media screen and (max-width: 1000px)  {

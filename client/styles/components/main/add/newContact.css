@@ -4,7 +4,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #15161dbb;
+  background: #eeeeee70;
   transition: cubic-bezier(.5,-.75,.7,2) 0.3s;
   opacity: 0;
   z-index: -9;
@@ -15,8 +15,8 @@
 }
 .contact-tab-main {
   width: 20px; height: 20px;
-  background: #22232e;
-  box-shadow: 0 2px 5px #111114;
+  background: #ffffff;
+  box-shadow: 0 2px 5px #dddddd;
   transition: cubic-bezier(.5,-.75,.7,2) 0.3s;
   margin: 20px;
   overflow: hidden;
@@ -48,7 +48,7 @@
   cursor: pointer;
 }
 .navigation .btn:hover {
-  background: #373a49bb;
+  background: #f2f2f270;
 }
 .form {
   display: grid;
@@ -59,7 +59,7 @@
 }
 .form .form-control {
   padding: 10px 0;
-  border-bottom: 1px solid #4d5166;
+  border-bottom: 1px solid #918c7e;
 }
 .list {
   display: flex;
@@ -74,11 +74,11 @@
   transition: 0s;
   transition-delay: 0s;
   padding: 15px;
-  border-bottom: 1px solid #373a49bb;
+  border-bottom: 1px solid #f2f2f2;
   cursor: pointer;
 }
 .list .cards:hover {
-  background: #373a4970;
+  background: #f2f2f270;
 }
 .list .cards .avatar {
   width: 50px; height: 50px;
@@ -92,10 +92,10 @@
   width: 8px;
 }
 .list::-webkit-scrollbar-thumb {
-  background: #41444d70;
+  background: #e6e3da;
 }
 .list::-webkit-scrollbar-thumb:hover {
-  background: #41444d;
+  background: #3c4450;
 }
 .blank {
   width: 100%; height: 100%;

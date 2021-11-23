@@ -1,12 +1,11 @@
 .login {
   position: absolute;
-  max-width: 500px;
+  height: 100%;
   display: flex;
-  justify-content: center;
-  align-items: center;
   transition: cubic-bezier(0.785, 0.135, 0.15, 0.86) 0.5s;
   opacity: 0;
   z-index: 0;
+  background: #ffffff;
 }
 .login.active {
   opacity: 1;
@@ -29,10 +28,6 @@
 h1, h3 {
   font-family: averta-bold;
 }
-.header {
-  text-align: center;
-  padding: 0 20px;
-}
 .header p {
   margin: 10px 0 0 0;
   opacity: 0.8;
@@ -48,8 +43,7 @@ h1, h3 {
   grid-template-columns: auto 1fr auto;
   gap: 20px;
   align-items: center;
-  background: #23252b70;
-  padding: 0 15px;
+  border-bottom: 1px solid #00000070;
   cursor: pointer;
 }
 .control .input-field {
@@ -77,12 +71,11 @@ h1, h3 {
 }
 .submit {
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
 }
 .submit .btn {
-  background: #23252b;
+  background: #eaf5f4;
   padding: 15px 30px;
-  border-radius: 2rem;
   cursor: pointer;
 }
 .forgot {
@@ -90,21 +83,10 @@ h1, h3 {
 }
 .footer {
   display: flex;
-  justify-content: center;
   gap: 5px;
   margin: 40px 0 0 0;
 }
 .footer .btn {
   text-decoration: underline;
   cursor: pointer;
-}
-
-@media screen and (max-width: 760px) {
-  .control .cards {
-    background: #23252b70;
-  }
-  .footer {
-    flex-direction: column;
-    align-items: center;
-  }
 }

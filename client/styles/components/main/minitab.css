@@ -1,13 +1,13 @@
 .minitab {
   position: absolute;
   right: 0;
-  background: #22232e;
+  background: #ffffff;
   transform: translate(-20px, 60px);
   transition: cubic-bezier(.5,-.75,.7,2) 0.3s;
   width: 20px; height: 20px;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 2px 5px #0e0f14;
+  box-shadow: 0 2px 5px #dfdfdf;
   overflow: hidden;
   opacity: 0;
   z-index: -9;
@@ -30,9 +30,9 @@
   cursor: pointer;
 }
 .btn:hover {
-  background: #373a4970;
+  background: #F2F2F270;
 }
 .btn:nth-last-child(1) {
   margin: 20px 0 0 0;
-  border-top: 1px solid #373a49bb;
+  border-top: 1px solid #F2F2F2;
 }

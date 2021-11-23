@@ -1,12 +1,11 @@
 .room {
-  background: #0e0e14;
+  background: #eaf5f4;
   position: relative;
   height: 100%;
   display: flex;
-  overflow-y: hidden;
+  overflow: hidden;
 }
 .room-wrap {
-  width: 100%;
   display: grid;
   grid-template-rows: auto 1fr;
 }

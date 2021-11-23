@@ -1,7 +1,7 @@
 .contact {
   position: absolute;
   width: 100%; height: 100%;
-  background: #15161d;
+  background: #ffffff;
   transform: translate(-100%, 0);
   transition: cubic-bezier(0.785, 0.135, 0.15, 0.86) 0.3s;
   z-index: 1;
@@ -20,7 +20,7 @@
   cursor: pointer;
 }
 .navigation .btn:hover {
-  background: #2a2c38bb;
+  background: #f2f2f270;
 }
 .new {
   display: grid;
@@ -33,10 +33,10 @@
   gap: 15px;
   padding: 10px 15px;
   cursor: pointer;
-  border-bottom: 1px solid #2a2c38bb;
+  border-bottom: 1px solid #F2F2F2;
 }
 .new .cards:hover {
-  background: #2a2c3870;
+  background: #F2F2F270;
 }
 .new .cards .icon {
   width: 50px; height: 50px;
@@ -44,7 +44,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #373a49;
+  background: #A7D0CD;
 }
 .list {
   display: flex;
@@ -57,11 +57,11 @@
   align-items: center;
   gap: 15px;
   padding: 15px;
-  border-bottom: 1px solid #2a2c38bb;
+  border-bottom: 1px solid #F2F2F2;
   cursor: pointer;
 }
 .list .cards:hover {
-  background: #2a2c3870;
+  background: #F2F2F270;
 }
 .list .cards .avatar {
   width: 50px; height: 50px;
@@ -75,8 +75,8 @@
   width: 8px;
 }
 .list::-webkit-scrollbar-thumb {
-  background: #373a4970;
+  background: #d1d1d1bb;
 }
 .list::-webkit-scrollbar-thumb:hover {
-  background: #373a49;
+  background: #d1d1d1;
 }

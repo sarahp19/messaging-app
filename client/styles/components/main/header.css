@@ -1,8 +1,9 @@
 .header {
   display: grid;
   padding: 10px 5px 10px 15px;
-  box-shadow: 0 2px 2px #0e0f14;
+  box-shadow: 0 2px 2px #dfdfdf;
   gap: 20px;
+  background: #ffffff;
   z-index: 1;
 }
 .top {
@@ -21,6 +22,9 @@
   gap: 15px;
   padding: 0 10px 0 0;
 }
+.search-bar .form-control::placeholder {
+  color: #00000070;
+}
 .btn {
   display: flex;
   background: transparent;
@@ -33,10 +37,10 @@
   margin: auto;
 }
 .btn.active {
-  background: #2a2c38;
+  background: #F2F2F2;
 }
 .btn:hover {
-  background: #2a2c38;
+  background: #F2F2F2;
 }
 .form-control {
   background: transparent;

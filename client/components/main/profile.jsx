@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import style from '../../styles/components/main/profile.css';
-import * as img from '../../assets/images';
 
 import * as action from '../../redux/actions';
 import socket from '../../helpers/socket';
@@ -11,6 +10,8 @@ function Profile({
   handleProfileIsOpen,
   profileIsOpen,
 }) {
+  const isDev = process.env.NODE_ENV === 'development';
+
   const { user } = useSelector((state) => state);
   const dispatch = useDispatch();
 
@@ -24,8 +25,8 @@ function Profile({
     profileName: user.profileName,
     bio: user.bio,
     phone: user.phone,
-    avatar: user.photo.avatar,
-    banner: user.photo.banner,
+    avatar: isDev ? `http://localhost:8000/api/images/${user.photo.avatar}` : `/api/images/${user.photo.avatar}`,
+    banner: isDev ? `http://localhost:8000/api/images/${user.photo.banner}` : `/api/images/${user.photo.banner}`,
   });
 
   const formatDate = (args) => {
@@ -73,7 +74,7 @@ function Profile({
         <div
           className={style.header}
           style={{
-            background: `url(${img[`${user.photo.banner}`]}) center center no-repeat`,
+            background: `url(${formbody.banner}) center center no-repeat`,
             backgroundSize: 'cover',
           }}
         >
@@ -81,17 +82,14 @@ function Profile({
             <button
               onClick={handleProfileIsOpen}
             >
-              <box-icon name="arrow-back" color="#ffffffdd"></box-icon>
+              <box-icon name="arrow-back" color="#000000dd"></box-icon>
             </button>
           </div>
-          <span
+          <img
             className={style.avatar}
-            style={{
-              background: `url(${img[`${user.photo.avatar}`]}) center center no-repeat`,
-              backgroundSize: 'cover',
-            }}
-          >
-          </span>
+            src={formbody.avatar}
+            alt={formbody.avatar}
+          />
         </div>
         <form method="post" className={style.info}>
           <div className={style.cards}>

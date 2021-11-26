@@ -1,14 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
 import style from '../../styles/components/main/contact.css';
-import * as photo from '../../assets/images';
 
 import * as comp from './add';
 
-function Contact({ handleContactIsOpen, contactIsOpen }) {
+import * as action from '../../redux/actions';
+import socket from '../../helpers/socket';
+
+function Contact({
+  handleContactIsOpen,
+  contactIsOpen,
+}) {
+  const isDev = process.env.NODE_ENV === 'development';
+
+  const dispatch = useDispatch();
+
+  const user = useSelector((state) => state.user);
   const [state, setState] = useState({
     groupTabIsOpen: false,
     contactTabIsOpen: false,
   });
+
+  const [data, setData] = useState([]);
 
   const handleContactTabIsOpen = () => {
     setState((prev) => ({
@@ -16,6 +30,27 @@ function Contact({ handleContactIsOpen, contactIsOpen }) {
       contactTabIsOpen: !prev.contactTabIsOpen,
     }));
   }
+
+  const handleGetContact = () => {
+    socket.emit('contact/get', {
+      ownerId: user.userId,
+    });
+
+    socket.on('contact/get/callback', (args) => {
+      setData(args.data);
+    });
+  }
+
+  const handleOpenChatRoom = (args) => {
+    dispatch(action.roomIsOpen({
+      active: true,
+      foreignId: args.foreignId,
+    }));
+  }
+
+  useEffect(() => {
+    handleGetContact();
+  }, []);
 
   return (
     <div
@@ -25,6 +60,7 @@ function Contact({ handleContactIsOpen, contactIsOpen }) {
         <comp.newContact
           handleContactTabIsOpen={handleContactTabIsOpen}
           contactTabIsOpen={state.contactTabIsOpen}
+          setDataContact={setData}
         />
         <div className={style.navigation}>
           <button
@@ -53,204 +89,35 @@ function Contact({ handleContactIsOpen, contactIsOpen }) {
           </div>
         </div>
         <div className={style.list}>
-          <div className={style.cards}>
-            <span
-              className={style.avatar}
-              style={{
-                background: `url(${photo.gates})`,
-                backgroundSize: 'cover',
-              }}
-            >
-            </span>
-            <div
-              className={style.text}
-              aria-hidden="true"
-            >
-              <span className={style.info}>
-                <h3 className={style['profile-name']}>Bill Gates</h3>
-                <p className={style.username}>@billgates</p>
-              </span>
-            </div>
-            <span>
-              <box-icon name="dots-vertical-rounded" color="#000000dd"></box-icon>
-            </span>
-          </div>
-          <div className={style.cards}>
-            <span
-              className={style.avatar}
-              style={{
-                background: `url(${photo.zuck})`,
-                backgroundSize: 'cover',
-              }}
-            >
-            </span>
-            <div
-              className={style.text}
-              aria-hidden="true"
-            >
-              <span className={style.info}>
-                <h3 className={style['profile-name']}>Mark Zuckerberg</h3>
-                <p className={style.username}>@zuck</p>
-              </span>
-            </div>
-            <span>
-              <box-icon name="dots-vertical-rounded" color="#000000dd"></box-icon>
-            </span>
-          </div>
-          <div className={style.cards}>
-            <span
-              className={style.avatar}
-              style={{
-                background: `url(${photo.linus})`,
-                backgroundSize: 'cover',
-              }}
-            >
-            </span>
-            <div
-              className={style.text}
-              aria-hidden="true"
-            >
-              <span className={style.info}>
-                <h3 className={style['profile-name']}>Linus Torvald</h3>
-                <p className={style.username}>@torvald</p>
-              </span>
-            </div>
-            <span>
-              <box-icon name="dots-vertical-rounded" color="#000000dd"></box-icon>
-            </span>
-          </div>
-          <div className={style.cards}>
-            <span
-              className={style.avatar}
-              style={{
-                background: `url(${photo.eich})`,
-                backgroundSize: 'cover',
-              }}
-            >
-            </span>
-            <div
-              className={style.text}
-              aria-hidden="true"
-            >
-              <span className={style.info}>
-                <h3 className={style['profile-name']}>Brendan Eich</h3>
-                <p className={style.username}>@eich</p>
-              </span>
-            </div>
-            <span>
-              <box-icon name="dots-vertical-rounded" color="#000000dd"></box-icon>
-            </span>
-          </div>
-          <div className={style.cards}>
-            <span
-              className={style.avatar}
-              style={{
-                background: `url(${photo})`,
-                backgroundSize: 'cover',
-              }}
-            >
-            </span>
-            <div
-              className={style.text}
-              aria-hidden="true"
-            >
-              <span className={style.info}>
-                <h3 className={style['profile-name']}>Bill Gates</h3>
-                <p className={style.username}>@billgates</p>
-              </span>
-            </div>
-            <span>
-              <box-icon name="dots-vertical-rounded" color="#000000dd"></box-icon>
-            </span>
-          </div>
-          <div className={style.cards}>
-            <span
-              className={style.avatar}
-              style={{
-                background: `url(${photo})`,
-                backgroundSize: 'cover',
-              }}
-            >
-            </span>
-            <div
-              className={style.text}
-              aria-hidden="true"
-            >
-              <span className={style.info}>
-                <h3 className={style['profile-name']}>Bill Gates</h3>
-                <p className={style.username}>@billgates</p>
-              </span>
-            </div>
-            <span>
-              <box-icon name="dots-vertical-rounded" color="#000000dd"></box-icon>
-            </span>
-          </div>
-          <div className={style.cards}>
-            <span
-              className={style.avatar}
-              style={{
-                background: `url(${photo})`,
-                backgroundSize: 'cover',
-              }}
-            >
-            </span>
-            <div
-              className={style.text}
-              aria-hidden="true"
-            >
-              <span className={style.info}>
-                <h3 className={style['profile-name']}>Bill Gates</h3>
-                <p className={style.username}>@billgates</p>
-              </span>
-            </div>
-            <span>
-              <box-icon name="dots-vertical-rounded" color="#000000dd"></box-icon>
-            </span>
-          </div>
-          <div className={style.cards}>
-            <span
-              className={style.avatar}
-              style={{
-                background: `url(${photo})`,
-                backgroundSize: 'cover',
-              }}
-            >
-            </span>
-            <div
-              className={style.text}
-              aria-hidden="true"
-            >
-              <span className={style.info}>
-                <h3 className={style['profile-name']}>Bill Gates</h3>
-                <p className={style.username}>@billgates</p>
-              </span>
-            </div>
-            <span>
-              <box-icon name="dots-vertical-rounded" color="#000000dd"></box-icon>
-            </span>
-          </div>
-          <div className={style.cards}>
-            <span
-              className={style.avatar}
-              style={{
-                background: `url(${photo})`,
-                backgroundSize: 'cover',
-              }}
-            >
-            </span>
-            <div
-              className={style.text}
-              aria-hidden="true"
-            >
-              <span className={style.info}>
-                <h3 className={style['profile-name']}>Bill Gates</h3>
-                <p className={style.username}>@billgates</p>
-              </span>
-            </div>
-            <span>
-              <box-icon name="dots-vertical-rounded" color="#000000dd"></box-icon>
-            </span>
-          </div>
+          {
+            data.map((item) => (
+              <div
+                className={style.cards}
+                key={item.foreignId}
+                onClick={() => handleOpenChatRoom({
+                  foreignId: item.foreignId,
+                })}
+                aria-hidden="true"
+              >
+                <img
+                  className={style.avatar}
+                  src={isDev ? `http://localhost:8000/api/images/${user.photo.avatar}` : `/api/images/${user.photo.avatar}`}
+                />
+                <div
+                  className={style.text}
+                  aria-hidden="true"
+                >
+                  <span className={style.info}>
+                    <h3 className={style['profile-name']}>{item.profileName}</h3>
+                    <p className={style.username}>{item.username}</p>
+                  </span>
+                </div>
+                <span>
+                  <box-icon name="dots-vertical-rounded" color="#000000dd"></box-icon>
+                </span>
+              </div>
+            ))
+          }
         </div>
       </div>
     </div>

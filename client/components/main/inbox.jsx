@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import style from '../../styles/components/main/inbox.css';
-import photo from '../../assets/images/zuck.jpg';
+import * as photo from '../../assets/images';
 
 import * as action from '../../redux/actions';
 
@@ -14,7 +14,7 @@ function Inbox() {
         <span
           className={style.avatar}
           style={{
-            background: `url(${photo})`,
+            background: `url(${photo.zuck})`,
             backgroundSize: 'cover',
           }}
         >
@@ -30,6 +30,28 @@ function Inbox() {
           </span>
           <p className={style.message}>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
           <p className={style.time}>2 minutes ago</p>
+        </div>
+      </div>
+      <div className={style['inbox-cards']}>
+        <span
+          className={style.avatar}
+          style={{
+            background: `url(${photo.avatar})`,
+            backgroundSize: 'cover',
+          }}
+        >
+        </span>
+        <div
+          className={style.text}
+          aria-hidden="true"
+          onClick={() => dispatch(action.roomIsOpen(true))}
+        >
+          <span className={style.name}>
+            <h3 className={style['profile-name']}>Larry Page</h3>
+            <p className={style.username}>@larrypage</p>
+          </span>
+          <p className={style.message}>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+          <p className={style.time}>Yesterday</p>
         </div>
       </div>
     </div>

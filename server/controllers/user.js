@@ -104,6 +104,11 @@ exports.userFind = async (req, res) => {
         });
         break;
       }
+      case 'id':
+        data = await ProfileModel.findOne({
+          userId: req.query.id,
+        });
+        break;
       default:
         data = await ProfileModel.find().sort({
           createdAt: -1,

@@ -1,6 +1,9 @@
 export default (args) => ({
   type: 'counter/roomIsOpen',
   payload: {
-    counter: args,
+    active: args.active,
+    data: {
+      foreignId: args.foreignId,
+    },
   },
 });

@@ -14,16 +14,9 @@ function Main() {
   });
 
   const handleMiniTabIsOpen = () => {
-    if (!state.miniTabIsOpen) {
-      return setState((prev) => ({
-        ...prev,
-        miniTabIsOpen: true,
-      }));
-    }
-
-    return setState((prev) => ({
+    setState((prev) => ({
       ...prev,
-      miniTabIsOpen: false,
+      miniTabIsOpen: !prev.miniTabIsOpen,
     }));
   }
 
@@ -60,7 +53,7 @@ function Main() {
   }
 
   return (
-    <div className={`${style.main} ${props.room ? style.active : null}`}>
+    <div className={`${style.main} ${props.room.active ? style.active : null}`}>
       <div className={style['main-wrap']}>
         <comp.header
           handleMiniTabIsOpen={handleMiniTabIsOpen}
@@ -79,6 +72,7 @@ function Main() {
           handleContactIsOpen={handleContactIsOpen}
           contactIsOpen={state.contactIsOpen}
         />
+        <comp.foreignProfile />
         <comp.inbox />
       </div>
     </div>

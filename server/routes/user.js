@@ -11,4 +11,4 @@ router.post('/users/login', userLogin);
 
 router.get('/users', authenticate, userFind);
 
-module.exports = router;
+module.exports = () => router;

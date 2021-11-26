@@ -27,7 +27,7 @@ app.use('/api', require('./routes'));
 
 app.use(express.static('client/public'));
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../client/public/index.html'));
+  res.sendFile(path.join(__dirname, '..', 'client', 'public', 'index.html'));
 });
 
 module.exports = server;

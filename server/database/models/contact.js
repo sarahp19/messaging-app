@@ -5,7 +5,7 @@ const ContactModel = model('contacts', new Schema({
     type: Schema.Types.String,
     required: true,
   },
-  userId: {
+  foreignId: {
     type: Schema.Types.String,
     required: true,
   },

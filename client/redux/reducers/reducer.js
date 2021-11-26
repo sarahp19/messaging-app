@@ -1,7 +1,16 @@
 const initialState = {
   loggedIn: false,
   user: null,
-  room: false,
+  foreignProfile: {
+    active: false,
+    userId: '',
+  },
+  room: {
+    active: false,
+    data: {
+      foreignId: '',
+    },
+  },
 }
 
 const reducer = (state = initialState, action) => {
@@ -16,16 +25,29 @@ const reducer = (state = initialState, action) => {
         ...state,
         user: action.payload.data,
       }
+    case 'counter/foreignProfile':
+      return {
+        ...state,
+        foreignProfile: {
+          active: action.payload.active,
+          userId: action.payload.userId,
+        },
+      }
     case 'counter/socketClient':
       return {
         ...state,
         socket: action.payload.socket,
       }
-    case 'counter/roomIsOpen':
+    case 'counter/roomIsOpen': {
+      const { active, data: { foreignId } } = action.payload;
       return {
         ...state,
-        room: action.payload.counter,
+        room: {
+          active,
+          data: { foreignId },
+        },
       }
+    }
     default:
       return state;
   }

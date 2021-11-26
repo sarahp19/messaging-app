@@ -1,3 +1,16 @@
-const userRouter = require('./user');
+const router = require('express').Router();
+const authenticate = require('../middleware/auth');
+const {
+  userRegister,
+  userLogin,
+  userFind,
+} = require('../controllers/user');
+const { getImage } = require('../controllers/file');
 
-module.exports = (userRouter);
+router.post('/users/register', userRegister);
+router.post('/users/login', userLogin);
+
+router.get('/users', authenticate, userFind);
+router.get('/images/:image', getImage);
+
+module.exports = router;

@@ -11,6 +11,7 @@ const initialState = {
       foreignId: '',
     },
   },
+  darkmode: false,
 }
 
 const reducer = (state = initialState, action) => {
@@ -48,6 +49,11 @@ const reducer = (state = initialState, action) => {
         },
       }
     }
+    case 'counter/darkmode':
+      return {
+        ...state,
+        darkmode: action.payload.active,
+      }
     default:
       return state;
   }

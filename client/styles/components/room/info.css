@@ -1,0 +1,21 @@
+.info {
+  position: absolute;
+  width: 100%; height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.info-wrap {
+  max-width: 400px;
+  padding: 0 15px
+}
+.title {
+  font-family: averta-bold, sans-serif;
+}
+.paragraf:nth-of-type(1) {
+  margin: 10px 0 20px 0;
+}
+.link {
+  display: block;
+  margin: 20px 0 0 0;
+}

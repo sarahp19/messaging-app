@@ -1,15 +1,17 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+
 import style from '../../styles/components/main/inbox.css';
 import * as photo from '../../assets/images';
 
 import * as action from '../../redux/actions';
 
 function Inbox() {
+  const { darkmode } = useSelector((state) => state);
   const dispatch = useDispatch();
 
   return (
-    <div className={style.inbox}>
+    <div className={`${style.inbox} ${darkmode ? style.dark : null}`}>
       <div className={style['inbox-cards']}>
         <span
           className={style.avatar}

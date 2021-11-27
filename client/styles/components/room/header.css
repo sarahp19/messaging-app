@@ -1,5 +1,6 @@
 .header {
   background: #ffffff;
+  box-shadow: 0 1px 5px #dfdfdf;
   display: grid;
   grid-template-columns: auto 1fr auto;
   gap: 10px;
@@ -31,4 +32,16 @@
   margin: 5px 0 0 0;
   font-size: 0.95rem;
   color: #000000dd;
+}
+
+/* darkmode */
+.header.dark {
+  background: #222831;
+  box-shadow: 0 1px 5px #14181d;
+}
+.header.dark .close-btn:hover {
+  background: #393E46;
+}
+.header.dark .info .online {
+  color: #ffffffdd;
 }

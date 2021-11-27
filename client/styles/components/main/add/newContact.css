@@ -4,7 +4,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #eeeeee70;
+  background: #f9f9fabb;
   transition: cubic-bezier(.5,-.75,.7,2) 0.3s;
   opacity: 0;
   z-index: -9;
@@ -16,7 +16,7 @@
 .contact-tab-main {
   width: 20px; height: 20px;
   background: #ffffff;
-  box-shadow: 0 2px 5px #dddddd;
+  box-shadow: 0 2px 10px #dddddd;
   transition: cubic-bezier(.5,-.75,.7,2) 0.3s;
   margin: 20px;
   overflow: hidden;
@@ -55,11 +55,11 @@
   grid-template-columns: auto 1fr;
   align-items: center;
   gap: 15px;
-  padding: 0 15px;
+  margin: 0 15px;
+  border-bottom: 1px solid #918c7e;
 }
 .form .form-control {
   padding: 10px 0;
-  border-bottom: 1px solid #918c7e;
 }
 .list {
   display: flex;
@@ -74,11 +74,7 @@
   transition: 0s;
   transition-delay: 0s;
   padding: 15px;
-  border-bottom: 1px solid #f2f2f2;
-  cursor: pointer;
-}
-.list .cards:hover {
-  background: #f2f2f270;
+  border-bottom: 1px solid #E8EAE6dd;
 }
 .list .cards .avatar {
   width: 50px; height: 50px;
@@ -88,14 +84,27 @@
   opacity: 0.5;
   margin: 5px 0 0 0;
 }
+.list .cards .add-btn {
+  transition: 0s;
+  transition-delay: 0s;
+  cursor: pointer;
+  width: 35px; height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+}
+.list .cards .add-btn:hover {
+  background: #F2F2F2;
+}
 .list::-webkit-scrollbar {
   width: 8px;
 }
 .list::-webkit-scrollbar-thumb {
-  background: #e6e3da;
+  background: #d1d1d1;
 }
 .list::-webkit-scrollbar-thumb:hover {
-  background: #3c4450;
+  background: #d1d1d1;
 }
 .blank {
   width: 100%; height: 100%;
@@ -105,4 +114,37 @@
 }
 .blank .title {
   color: #ffffff70;
+}
+
+/* darkmode */
+.contact-tab.dark {
+  background: #22283170;
+}
+.contact-tab.dark .contact-tab-main {
+  background: #393E46;
+  box-shadow: 0 2px 20px #171c22;
+}
+.contact-tab.dark .form {
+  border-bottom: 1px solid #ffffffdd;
+}
+.contact-tab.dark .form-control::placeholder {
+  color: #ffffff70;
+}
+.contact-tab.dark .form-control {
+  color: #ffffffdd;
+}
+.contact-tab.dark .navigation .btn:hover {
+  background: #4c525c70;
+}
+.contact-tab.dark .list .cards {
+  border-bottom: 1px solid #4c525cbb;
+}
+.contact-tab.dark .list .cards .add-btn:hover {
+  background: #4c525c;
+}
+.contact-tab.dark .list::-webkit-scrollbar-thumb {
+  background: #5c626ebb;
+}
+.contact-tab.dark .list::-webkit-scrollbar-thumb:hover {
+  background: #5c626e;
 }

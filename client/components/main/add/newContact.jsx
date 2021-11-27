@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import style from '../../../styles/components/main/add/newContact.css';
@@ -14,7 +14,9 @@ function NewContact({
 }) {
   const isDev = process.env.NODE_ENV === 'development';
 
-  const user = useSelector((state) => state.user);
+  const mounted = useRef(true);
+
+  const { user, darkmode } = useSelector((state) => state);
   const dispatch = useDispatch();
 
   const [data, setData] = useState([]);
@@ -78,11 +80,15 @@ function NewContact({
     socket.on('contact/add/callback', (args) => {
       setDataContact(args.data);
     });
+
+    return () => {
+      mounted.current = false;
+    }
   }, [blank]);
 
   return (
     <div
-      className={`${style['contact-tab']} ${contactTabIsOpen ? style.active : null}`}
+      className={`${style['contact-tab']} ${darkmode ? style.dark : null} ${contactTabIsOpen ? style.active : null}`}
     >
       <div className={style['contact-tab-main']}>
         <div className={style.navigation}>
@@ -90,12 +96,12 @@ function NewContact({
             onClick={handleContactTabIsOpen}
             className={style.btn}
           >
-            <box-icon name="arrow-back" color="#000000dd"></box-icon>
+            <box-icon name="arrow-back" color={darkmode ? '#ffffffdd' : '#000000dd'}></box-icon>
           </button>
           <h2 className="title">Search.</h2>
         </div>
         <div className={style.form}>
-          <box-icon name="search-alt" color="#000000dd"></box-icon>
+          <box-icon name="search-alt" color={darkmode ? '#ffffffdd' : '#000000dd'}></box-icon>
           <input
             type="text"
             name="usernameOrEmail"
@@ -143,7 +149,7 @@ function NewContact({
                       avatar: item.photo.avatar,
                     })}
                   >
-                    <box-icon name="user-plus" color="#000000dd"></box-icon>
+                    <box-icon name="user-plus" color={darkmode ? '#ffffffdd' : '#000000dd'}></box-icon>
                   </button>
                 </div>
               ))

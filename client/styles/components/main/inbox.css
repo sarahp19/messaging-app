@@ -2,74 +2,75 @@
   display: flex;
   flex-direction: column;
   overflow-y: auto;
-  background: #ffffff;
 }
-
 .inbox-cards {
   display: grid;
   grid-template-columns: auto 1fr auto;
   gap: 15px;
   align-items: center;
-  border-bottom: 1px solid #F2F2F2;
+  border-bottom: 1px solid #E8EAE6dd;
   padding: 20px 15px;
   cursor: pointer;
 }
-
 .inbox-cards:hover {
   background: #F2F2F270;
 }
-
 .avatar {
   display: block;
   width: 50px; height: 50px;
   border-radius: 50%;
 }
-
 .text {
   position: relative;
   display: grid;
   gap: 5px;
   overflow-x: hidden;
 }
-
 .text .name {
   display: flex;
   gap: 5px;
 }
-
 .text .name .profile-name {
   font-family: averta-bold;
 }
-
 .text .name .username {
   font-size: 0.9rem;
   opacity: 0.5;
 }
-
 .text .message {
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow-x: hidden;
   opacity: 0.9;
 }
-
 .text .time {
   position: absolute;
   right: 0;
   font-size: 0.9rem;
   opacity: 0.9;
 }
-
 .inbox::-webkit-scrollbar {
   width: 8px;
 }
-
 .inbox::-webkit-scrollbar-thumb {
   background: #373a4970;
 }
-
 .inbox::-webkit-scrollbar-thumb:hover {
   background: #373a49;
+}
+
+/* darkmode */
+.inbox.dark .inbox-cards {
+  border-bottom: 1px solid #393E46bb;
+}
+.inbox.dark .inbox-cards:hover {
+  background: #393E4670;
+}
+.inbox::-webkit-scrollbar-thumb {
+  background: #3f4958bb;
+}
+.inbox::-webkit-scrollbar-thumb:hover {
+  background: #3f4958;
 }
 
 @media screen and (max-width: 768px) {

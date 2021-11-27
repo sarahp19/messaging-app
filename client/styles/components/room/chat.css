@@ -13,7 +13,7 @@
   position: relative;
 }
 .message {
-  background: #ffffff;
+  background: #e6e8ea;
   border-radius: 15px;
   padding: 10px 15px 12px 15px;
 }
@@ -27,7 +27,7 @@
   left: 0;
   transform: translate(-12px, -6px) rotate(-60deg);
   width: 0; height: 0;
-  border-bottom:solid 25px #ffffff;
+  border-bottom:solid 25px #e6e8ea;
 	border-left:solid 15px transparent;
 	border-right:solid 15px transparent;
 }
@@ -36,7 +36,7 @@
   justify-content: flex-end;
 }
 .cards.is-user .message {
-  background: #A7D0CD;
+  background: #939eb3;
   margin: 0 0 0 80px;
 }
 .cards.is-user .tip {
@@ -46,7 +46,7 @@
   right: 0;
   transform: translate(12px, -6px) rotate(60deg);
   width: 0; height: 0;
-  border-bottom:solid 25px #A7D0CD;
+  border-bottom:solid 25px #939eb3;
 	border-left:solid 15px transparent;
 	border-right:solid 15px transparent;
 }
@@ -54,10 +54,30 @@
   width: 8px;
 }
 .chat::-webkit-scrollbar-thumb {
-  background: #a0b4b3bb;
+  background: #bbbbbbbb;
 }
 .chat::-webkit-scrollbar-thumb:hover {
-  background: #a0b4b3;
+  background: #bbbbbb;
+}
+
+/* darkmode */
+.chat.dark .cards.is-not-user .message {
+  background: #393E46;
+}
+.chat.dark .cards.is-not-user .tip {
+  border-bottom-color: #393E46;
+}
+.chat.dark .cards.is-user .message {
+  background: #6B778D;
+}
+.chat.dark .cards.is-user .tip {
+  border-bottom-color: #6B778D;
+}
+.chat.dark::-webkit-scrollbar-thumb {
+  background: #3f4958bb;
+}
+.chat.dark::-webkit-scrollbar-thumb:hover {
+  background: #3f4958;
 }
 
 @media screen and (max-width: 900px) {

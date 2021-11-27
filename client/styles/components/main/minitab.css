@@ -36,3 +36,18 @@
   margin: 20px 0 0 0;
   border-top: 1px solid #F2F2F2;
 }
+
+/* dakrmode */
+.minitab.dark {
+  background: #393E46;
+  box-shadow: 0 2px 5px #14181d;
+}
+.minitab.dark .btn {
+  color: #ffffffdd;
+}
+.minitab.dark .btn:hover {
+  background: #4c525c70;
+}
+.minitab.dark .btn:nth-last-child(1) {
+  border-color: #4c525cbb;
+}

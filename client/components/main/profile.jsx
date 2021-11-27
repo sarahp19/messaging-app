@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import style from '../../styles/components/main/profile.css';
@@ -12,7 +12,9 @@ function Profile({
 }) {
   const isDev = process.env.NODE_ENV === 'development';
 
-  const { user } = useSelector((state) => state);
+  const mounted = useRef(true);
+
+  const { user, darkmode } = useSelector((state) => state);
   const dispatch = useDispatch();
 
   const [readOnly, setReadOnly] = useState({
@@ -25,8 +27,8 @@ function Profile({
     profileName: user.profileName,
     bio: user.bio,
     phone: user.phone,
-    avatar: isDev ? `http://localhost:8000/api/images/${user.photo.avatar}` : `/api/images/${user.photo.avatar}`,
-    banner: isDev ? `http://localhost:8000/api/images/${user.photo.banner}` : `/api/images/${user.photo.banner}`,
+    avatar: user.photo.avatar,
+    banner: user.photo.banner,
   });
 
   const formatDate = (args) => {
@@ -64,17 +66,21 @@ function Profile({
         phone: args.data.phone,
       }));
     });
-  }, []);
+
+    return () => {
+      mounted.current = false;
+    }
+  });
 
   return (
     <div
-      className={`${style.profile} ${profileIsOpen ? style.active : null}`}
+      className={`${style.profile} ${darkmode ? style.dark : null} ${profileIsOpen ? style.active : null}`}
     >
       <div className={style['profile-wrap']}>
         <div
           className={style.header}
           style={{
-            background: `url(${formbody.banner}) center center no-repeat`,
+            background: `url(${isDev ? `http://localhost:8000/api/images/${formbody.banner}` : `/api/images/${formbody.banner}`}) center center no-repeat`,
             backgroundSize: 'cover',
           }}
         >
@@ -82,13 +88,12 @@ function Profile({
             <button
               onClick={handleProfileIsOpen}
             >
-              <box-icon name="arrow-back" color="#000000dd"></box-icon>
+              <box-icon name="arrow-back" color={darkmode ? '#ffffffdd' : '#000000dd'}></box-icon>
             </button>
           </div>
           <img
             className={style.avatar}
-            src={formbody.avatar}
-            alt={formbody.avatar}
+            src={isDev ? `http://localhost:8000/api/images/${formbody.avatar}` : `/api/images/${formbody.avatar}`}
           />
         </div>
         <form method="post" className={style.info}>
@@ -97,15 +102,18 @@ function Profile({
             <p>@{user.username}</p>
           </div>
           <div className={style.cards}>
-            <box-icon name="info-circle" color="#000000dd"></box-icon>
+            <box-icon name="info-circle" color={darkmode ? '#ffffffdd' : '#000000dd'}></box-icon>
             <div
               className={`${style.text} ${readOnly.bio ? null : style.active}`}
             >
-              {
-                !readOnly.bio
-                  ? <input type="text" name="bio" value={formbody.bio} onChange={handleChange} />
-                  : <p>{formbody.bio}</p>
-              }
+              <input
+                type="text"
+                name="bio"
+                className={style['form-control']}
+                value={formbody.bio}
+                readOnly={!!readOnly.bio}
+                onChange={handleChange}
+              />
               <button
                 type="button"
                 onClick={
@@ -125,20 +133,21 @@ function Profile({
               >
                 <box-icon
                   name={readOnly.bio ? 'pencil' : 'right-top-arrow-circle'}
-                  color={readOnly.bio ? '#000000dd' : '#A7D0CD'}
+                  color={darkmode ? '#ffffffdd' : '#000000dd'}
                 >
                 </box-icon>
               </button>
             </div>
           </div>
           <div className={style.cards}>
-            <box-icon name="phone" color="#000000dd"></box-icon>
+            <box-icon name="phone" color={darkmode ? '#ffffffdd' : '#000000dd'}></box-icon>
             <div
               className={`${style.text} ${readOnly.phone ? null : style.active}`}
             >
               <span className={style['num-code']}>
                 <p>+62</p>
                 <input
+                  className={style['form-control']}
                   type="number"
                   name="phone"
                   value={formbody.phone}
@@ -165,14 +174,14 @@ function Profile({
               >
                 <box-icon
                   name={readOnly.phone ? 'pencil' : 'right-top-arrow-circle'}
-                  color={readOnly.phone ? '#000000dd' : '#A7D0CD'}
+                  color={darkmode ? '#ffffffdd' : '#000000dd'}
                 >
                 </box-icon>
               </button>
             </div>
           </div>
           <div className={style.cards}>
-            <box-icon name="envelope" color="#000000dd"></box-icon>
+            <box-icon name="envelope" color={darkmode ? '#ffffffdd' : '#000000dd'}></box-icon>
             <div className={style.text}>
               <p>{user.email}</p>
               <box-icon name="envelope" color="#00000000"></box-icon>

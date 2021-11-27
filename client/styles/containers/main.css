@@ -2,8 +2,8 @@
   position: relative;
   height: 100%;
   display: flex;
-  background: #212433;
   overflow-y: hidden;
+  z-index: 1;
 }
 
 .main-wrap {

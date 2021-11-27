@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import style from '../../styles/components/main/contact.css';
@@ -15,8 +15,9 @@ function Contact({
   const isDev = process.env.NODE_ENV === 'development';
 
   const dispatch = useDispatch();
+  const mounted = useRef(true);
 
-  const user = useSelector((state) => state.user);
+  const { user, darkmode } = useSelector((state) => state);
   const [state, setState] = useState({
     groupTabIsOpen: false,
     contactTabIsOpen: false,
@@ -50,11 +51,15 @@ function Contact({
 
   useEffect(() => {
     handleGetContact();
+
+    return () => {
+      mounted.current = false;
+    }
   }, []);
 
   return (
     <div
-      className={`${style.contact} ${contactIsOpen ? style.active : null}`}
+      className={`${style.contact} ${darkmode ? style.dark : null} ${contactIsOpen ? style.active : null}`}
     >
       <div className={style['contact-wrap']}>
         <comp.newContact
@@ -67,7 +72,7 @@ function Contact({
             onClick={handleContactIsOpen}
             className={style.btn}
           >
-            <box-icon name="arrow-back" color="#000000dd"></box-icon>
+            <box-icon name="arrow-back" color={darkmode ? '#ffffffdd' : '#000000dd'}></box-icon>
           </button>
         </div>
         <div className={style.new}>
@@ -113,7 +118,7 @@ function Contact({
                   </span>
                 </div>
                 <span>
-                  <box-icon name="dots-vertical-rounded" color="#000000dd"></box-icon>
+                  <box-icon name="dots-vertical-rounded" color={darkmode ? '#ffffffdd' : '#000000dd'}></box-icon>
                 </span>
               </div>
             ))

@@ -6,52 +6,39 @@
   transition: cubic-bezier(0.785, 0.135, 0.15, 0.86) 0.3s;
   z-index: 1;
 }
-
 .profile.active {
   transform: translate(0, 0);
 }
-
 .profile-wrap {
   display: grid;
   grid-template-rows: auto 1fr auto;
   height: 100%;
 }
-
 .header {
   position: relative;
   height: 150px;
   display: grid;
 }
-
 .header .avatar {
   position: absolute;
   bottom: 0;
   width: 120px; height: 120px;
   border-radius: 50%;
   transform: translate(15px, 50%);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 40px;
-  color: #ffffffbb;
 }
-
 .navigation {
   position: absolute;
   display: flex;
   align-items: center;
 }
-
 .navigation button {
   background: transparent;
   padding: 10px 15px;
   cursor: pointer;
 }
-
 .navigation button:hover {
-  background: #2a2c38bb;
+  background: #393E4670;
 }
-
 .info {
   display: flex;
   gap: 10px;
@@ -59,23 +46,19 @@
   margin: 80px 0 0 0;
   padding: 0 15px;
 }
-
 .info .cards {
   display: grid;
   grid-template-columns: auto 1fr;
   gap: 10px;
 }
-
 .info .cards:nth-child(1) {
   grid-template-columns: auto;
   gap: 5px;
   margin: 0 0 10px 0;
 }
-
 .info .cards:nth-child(1) p {
   border: none;
 }
-
 .info .cards .text {
   display: grid;
   grid-template-columns: 1fr auto;
@@ -86,36 +69,45 @@
   padding: 5px;
   color: #000000dd;
 }
-
 .info .cards .text.active {
-  border-color: #A7D0CD;
-  background: #E4EFE770;
+  border-color: #6B778D;
+  background: #6B778D70;
 }
-
 .info .cards .text .num-code {
   display: flex;
   align-items: center;
   gap: 5px;
 }
-
 .info .cards .text button {
   background: transparent;
   transition: cubic-bezier(0.215, 0.610, 0.355, 1) 0.1s;
   cursor: pointer;
 }
-
 .footer {
   padding: 0 15px 10px 15px;
   color: #00000070;
 }
-
 .footer p {
   font-size: 0.9rem;
   color: #000000dd;
 }
-
 .footer .date {
   font-family: averta-bold, sans-serif;
+}
+
+/* darkmode */
+.profile.dark {
+  background: #222831;
+}
+.profile.dark .info .form-control, .profile.dark .info .text {
+  color: #ffffffdd;
+  border-color: #393E46dd;
+}
+.profile.dark .footer {
+  color: #ffffff70;
+}
+.profile.dark .footer p {
+  color: #ffffffdd;
 }
 
 @media screen and (max-width: 768px) {

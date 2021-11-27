@@ -5,6 +5,8 @@
   align-items: center;
   padding: 10px 15px;
   background: #ffffff;
+  box-shadow: 0 -1px 5px #dfdfdf;
+  z-index: 1;
 }
 .form-control {
   padding: 10px;
@@ -22,4 +24,19 @@
 }
 .btn:hover {
   background: #F2F2F2;
+}
+
+/* darkmode */
+.send.dark {
+  background: #222831;
+  box-shadow: 0 -1px 5px #14181d;
+}
+.send.dark .form-control {
+  color: #ffffffdd;
+}
+.send.dark .form-control::placeholder {
+  color: #ffffff70;
+}
+.send.dark .btn:hover {
+  background: #393E46;
 }

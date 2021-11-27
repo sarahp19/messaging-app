@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import style from './styles/utils/app.css';
@@ -10,13 +10,15 @@ import * as cont from './containers';
 import socket from './helpers/socket';
 
 function App() {
+  const mounted = useRef(true);
+
   const props = useSelector((state) => state);
   const dispatch = useDispatch();
 
   const [title, setTitle] = useState(document.title);
 
-  const handleGetUser = () => {
-    const token = localStorage.getItem('token');
+  const handleGetUser = async () => {
+    const token = await localStorage.getItem('token');
     socket.emit('user/findOne', { token });
 
     socket.on('user/findOne/callback', (args) => {
@@ -30,7 +32,7 @@ function App() {
     });
   }
 
-  useEffect(() => {
+  useEffect(async () => {
     const token = localStorage.getItem('token');
     if (token) {
       dispatch(action.loggedIn({
@@ -39,18 +41,22 @@ function App() {
     }
 
     if (props.loggedIn) {
-      handleGetUser();
+      await handleGetUser();
     }
 
     setTitle('Messaging - @febriadj');
     document.title = title;
+
+    return () => {
+      mounted.current = false;
+    }
   }, [
     title, props.loggedIn,
   ]);
 
   return (
     <div
-      className={`${style.app} ${props.loggedIn && props.user ? null : style.active}`}
+      className={`${style.app} ${props.darkmode ? style.dark : null} ${props.loggedIn && props.user ? null : style.active}`}
     >
       {
         props.loggedIn && props.user ? (

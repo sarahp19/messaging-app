@@ -33,7 +33,7 @@
   gap: 15px;
   padding: 10px 15px;
   cursor: pointer;
-  border-bottom: 1px solid #F2F2F2;
+  border-bottom: 1px solid #E8EAE6dd;
 }
 .new .cards:hover {
   background: #F2F2F270;
@@ -44,7 +44,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #A7D0CD;
+  background: #FF6768;
 }
 .list {
   display: flex;
@@ -57,7 +57,7 @@
   align-items: center;
   gap: 15px;
   padding: 15px;
-  border-bottom: 1px solid #F2F2F2;
+  border-bottom: 1px solid #E8EAE6dd;
   cursor: pointer;
 }
 .list .cards:hover {
@@ -79,4 +79,27 @@
 }
 .list::-webkit-scrollbar-thumb:hover {
   background: #d1d1d1;
+}
+
+/* darkmode */
+.contact.dark {
+  background: #222831;
+}
+.contact.dark .cards {
+  border-bottom: 1px solid #393E46dd;
+}
+.contact.dark .new .cards .icon {
+  background: #FF6768;
+}
+.contact.dark .navigation .btn:hover {
+  background: #393E4670;
+}
+.contact.dark .cards:hover {
+  background: #393E4670;
+}
+.contact.dark .list::-webkit-scrollbar-thumb {
+  background: #3f4958bb;
+}
+.contact.dark .list::-webkit-scrollbar-thumb:hover {
+  background: #3f4958;
 }

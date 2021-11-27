@@ -1,8 +1,8 @@
 .header {
   display: grid;
   padding: 10px 5px 10px 15px;
-  box-shadow: 0 2px 2px #dfdfdf;
   gap: 20px;
+  box-shadow: 0 1px 5px #dfdfdf;
   background: #ffffff;
   z-index: 1;
 }
@@ -47,4 +47,19 @@
   border-radius: 0;
   width: 100%;
   padding: 0 0 5px 0;
+}
+
+/* darkmode */
+.header.dark {
+  background: #222831;
+  box-shadow: 0 1px 5px #14181d;
+}
+.header.dark .search-bar .form-control::placeholder {
+  color: #ffffff70;
+}
+.header.dark .btn.active {
+  background: #393E46;
+}
+.header.dark .btn:hover {
+  background: #393E46;
 }

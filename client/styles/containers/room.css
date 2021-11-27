@@ -1,13 +1,19 @@
 .room {
-  background: #eaf5f4;
   position: relative;
   height: 100%;
   display: flex;
+  background: #f9f9fa;
   overflow: hidden;
 }
 .room-wrap {
+  width: 100%;
   display: grid;
   grid-template-rows: auto 1fr;
+}
+
+/* darkmode */
+.room.dark {
+  background: #222831;
 }
 
 @media screen and (max-width: 768px) {

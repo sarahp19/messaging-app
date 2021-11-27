@@ -5,15 +5,24 @@ import style from '../styles/containers/room.css';
 import * as comp from '../components/room';
 
 function Room() {
-  const props = useSelector((state) => state);
+  const { room, darkmode } = useSelector((state) => state);
+
   return (
     <div
-      className={`${style.room} ${props.room ? style.active : null}`}
+      className={`${style.room} ${darkmode ? style.dark : null} ${room.active ? style.active : null}`}
     >
       <div className={style['room-wrap']}>
-        <comp.header />
-        <comp.chat />
-        <comp.send />
+        {
+          room.active
+            ? (
+              < >
+                <comp.header />
+                <comp.chat />
+                <comp.send />
+              </>
+            )
+            : <comp.info />
+        }
       </div>
     </div>
   );

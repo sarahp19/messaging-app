@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import style from './styles/utils/app.css';
@@ -7,10 +7,8 @@ import 'boxicons';
 import * as action from './redux/actions';
 import * as cont from './containers';
 
-import socket from './helpers/socket';
-
 function App() {
-  const mounted = useRef(true);
+  const isDev = process.env.NODE_ENV === 'development';
 
   const props = useSelector((state) => state);
   const dispatch = useDispatch();
@@ -18,18 +16,19 @@ function App() {
   const [title, setTitle] = useState(document.title);
 
   const handleGetUser = async () => {
-    const token = await localStorage.getItem('token');
-    socket.emit('user/findOne', { token });
+    const token = localStorage.getItem('token');
+    const url = isDev ? 'http://localhost:8000/api/users?init=true' : '/api/users?init=true';
 
-    socket.on('user/findOne/callback', (args) => {
-      if (!args.success) {
-        console.log(args.message);
-      }
+    const request = await (await fetch(url, {
+      method: 'get',
+      headers: {
+        Authorization: `bearer ${token}`,
+      },
+    })).json();
 
-      dispatch(action.getUser({
-        data: args.data,
-      }));
-    });
+    dispatch(action.getUser({
+      data: request.data,
+    }));
   }
 
   useEffect(async () => {
@@ -41,15 +40,11 @@ function App() {
     }
 
     if (props.loggedIn) {
-      await handleGetUser();
+      handleGetUser();
     }
 
     setTitle('Messaging - @febriadj');
     document.title = title;
-
-    return () => {
-      mounted.current = false;
-    }
   }, [
     title, props.loggedIn,
   ]);

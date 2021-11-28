@@ -90,7 +90,7 @@ exports.userFind = async (req, res) => {
     switch (Object.keys(req.query)[0]) {
       case 'init':
         data = await ProfileModel.findOne({
-          userId: req.query.id,
+          userId: req.user.userId,
         });
         break;
       case 'profile': {

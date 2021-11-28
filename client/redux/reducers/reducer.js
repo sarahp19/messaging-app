@@ -9,9 +9,10 @@ const initialState = {
     active: false,
     data: {
       foreignId: '',
+      roomId: '',
     },
   },
-  darkmode: false,
+  darkmode: true,
 }
 
 const reducer = (state = initialState, action) => {
@@ -40,12 +41,17 @@ const reducer = (state = initialState, action) => {
         socket: action.payload.socket,
       }
     case 'counter/roomIsOpen': {
-      const { active, data: { foreignId } } = action.payload;
+      const {
+        active, data: {
+          foreignId, roomId,
+        },
+      } = action.payload;
+
       return {
         ...state,
         room: {
           active,
-          data: { foreignId },
+          data: { foreignId, roomId },
         },
       }
     }

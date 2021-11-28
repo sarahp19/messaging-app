@@ -4,7 +4,7 @@ const { ProfileModel } = require('../database/models/user');
 module.exports = (io, socket) => {
   socket.on('user/findOne', async (args) => {
     try {
-      const request = await jwt.verify(args.token, process.env.JWT_PRIVATE_TOKEN);
+      const request = await jwt.verify(args.token);
       const data = await ProfileModel.findOne({ userId: request.userId });
 
       io.emit('user/findOne/callback', {

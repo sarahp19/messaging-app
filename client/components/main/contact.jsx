@@ -46,6 +46,7 @@ function Contact({
     dispatch(action.roomIsOpen({
       active: true,
       foreignId: args.foreignId,
+      userId: user.userId,
     }));
   }
 
@@ -98,7 +99,7 @@ function Contact({
             data.map((item) => (
               <div
                 className={style.cards}
-                key={item.foreignId}
+                key={item._id}
                 onClick={() => handleOpenChatRoom({
                   foreignId: item.foreignId,
                 })}

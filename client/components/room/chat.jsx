@@ -1,78 +1,50 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
 import style from '../../styles/components/room/chat.css';
 
+import socket from '../../helpers/socket';
+
 function Chat() {
-  const { darkmode } = useSelector((state) => state);
+  const { room, user, darkmode } = useSelector((state) => state);
+
+  const [chats, setChats] = useState([]);
+
+  const handleGetChats = () => {
+    socket.emit('chat/get', {
+      roomId: room.data.roomId,
+    });
+
+    socket.on('chat/get/callback', (args) => {
+      if (!args.success) {
+        setChats([])
+      } else {
+        setChats(args.data);
+      }
+    });
+  }
+
+  useEffect(() => {
+    handleGetChats();
+  }, [room]);
 
   return (
     <div
       className={`${style.chat} ${darkmode ? style.dark : null}`}
     >
-      <div className={`${style.cards} ${style['is-not-user']}`}>
-        <p className={style.message}>
-          <span className={style.tip}></span>
-          Lorem ipsum dolor sit amet consectetur
-        </p>
-      </div>
-      <div className={`${style.cards} ${style['is-user']}`}>
-        <p className={style.message}>
-          <span className={style.tip}></span>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        </p>
-      </div>
-      <div className={`${style.cards} ${style['is-not-user']}`}>
-        <p className={style.message}>
-          <span className={style.tip}></span>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Nulla nihil
-        </p>
-      </div>
-      <div className={`${style.cards} ${style['is-not-user']}`}>
-        <p className={style.message}>
-          <span className={style.tip}></span>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Nulla nihil iusto omnis architecto perspiciatis
-        </p>
-      </div>
-      <div className={`${style.cards} ${style['is-not-user']}`}>
-        <p className={style.message}>
-          <span className={style.tip}></span>
-          Lorem ipsum dolor sit amet
-        </p>
-      </div>
-      <div className={`${style.cards} ${style['is-not-user']}`}>
-        <p className={style.message}>
-          <span className={style.tip}></span>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        </p>
-      </div>
-      <div className={`${style.cards} ${style['is-user']}`}>
-        <p className={style.message}>
-          <span className={style.tip}></span>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        </p>
-      </div>
-      <div className={`${style.cards} ${style['is-not-user']}`}>
-        <p className={style.message}>
-          <span className={style.tip}></span>
-          Lorem ipsum dolor sit amet consectetur adipisicing
-        </p>
-      </div>
-      <div className={`${style.cards} ${style['is-not-user']}`}>
-        <p className={style.message}>
-          <span className={style.tip}></span>
-          Lorem ipsum dolor sit
-        </p>
-      </div>
-      <div className={`${style.cards} ${style['is-user']}`}>
-        <p className={style.message}>
-          <span className={style.tip}></span>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Natus quos ipsa qui dolor culpa mollitia veritatis
-        </p>
-      </div>
+      {
+        chats.length !== 0 && (
+          chats.map((item) => (
+            <div
+              className={`${style.cards} ${item.userId === user.userId ? style['is-user'] : style['is-not-user']}`}
+              key={item._id}
+            >
+              <span className={style.tip}></span>
+              <p className={style.message}>{item.message}</p>
+            </div>
+          ))
+        )
+      }
     </div>
   );
 }

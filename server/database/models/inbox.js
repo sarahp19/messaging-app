@@ -4,9 +4,31 @@ const InboxModel = model('inboxs', new Schema({
   roomType: {
     type: Schema.Types.String,
     required: true,
+    default: 'private',
+  },
+  roomId: {
+    type: Schema.Types.String,
+    required: true,
   },
   owners: {
     type: Schema.Types.Array,
+  },
+  to: {
+    foreignId: {
+      type: Schema.Types.String,
+      required: true,
+    },
+    avatar: {
+      type: Schema.Types.String,
+    },
+    profileName: {
+      type: Schema.Types.String,
+      required: true,
+    },
+    username: {
+      type: Schema.Types.String,
+      required: true,
+    },
   },
   lastMessage: {
     from: {

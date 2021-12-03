@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import style from '../../styles/components/main/profile.css';
@@ -11,8 +11,6 @@ function Profile({
   profileIsOpen,
 }) {
   const isDev = process.env.NODE_ENV === 'development';
-
-  const mounted = useRef(true);
 
   const { user, darkmode } = useSelector((state) => state);
   const dispatch = useDispatch();
@@ -66,10 +64,6 @@ function Profile({
         phone: args.data.phone,
       }));
     });
-
-    return () => {
-      mounted.current = false;
-    }
   });
 
   return (
@@ -98,7 +92,7 @@ function Profile({
         </div>
         <form method="post" className={style.info}>
           <div className={style.cards}>
-            <h1>{formbody.profileName}</h1>
+            <h1 className={style['profile-name']}>{formbody.profileName}</h1>
             <p>@{user.username}</p>
           </div>
           <div className={style.cards}>

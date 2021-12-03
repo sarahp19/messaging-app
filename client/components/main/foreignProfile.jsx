@@ -8,7 +8,7 @@ import * as action from '../../redux/actions';
 function ForeignProfile() {
   const isDev = process.env.NODE_ENV === 'development';
 
-  const foreignProfile = useSelector((state) => state.foreignProfile);
+  const { foreignProfile, darkmode } = useSelector((state) => state);
   const dispatch = useDispatch();
 
   const [user, setUser] = useState({
@@ -70,7 +70,7 @@ function ForeignProfile() {
 
   return (
     <div
-      className={`${style['foreign-profile']} ${foreignProfile.active ? style.active : null}`}
+      className={`${style['foreign-profile']} ${foreignProfile.active ? style.active : null} ${darkmode ? style.dark : null}`}
     >
       <div className={style['foreign-profile-wrap']}>
         <div

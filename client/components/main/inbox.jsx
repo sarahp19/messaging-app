@@ -3,12 +3,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 
 import style from '../../styles/components/main/inbox.css';
-import * as photo from '../../assets/images';
 
-import * as action from '../../redux/actions';
 import socket from '../../helpers/socket';
 
 function Inbox() {
+  const isDev = process.env.NODE_ENV === 'development';
+
   const { user, darkmode } = useSelector((state) => state);
   const dispatch = useDispatch();
 
@@ -16,6 +16,7 @@ function Inbox() {
 
   const handleGetInboxs = () => {
     socket.emit('inbox/get', {
+      socketId: socket.id,
       userId: user.userId,
     });
 
@@ -34,6 +35,7 @@ function Inbox() {
   }
 
   const handleFormatTime = (args) => moment(args).fromNow();
+  const inboxOwner = (args) => args.find((item) => item.userId !== user.userId);
 
   useEffect(() => {
     handleGetInboxs();
@@ -44,29 +46,31 @@ function Inbox() {
       {
         inboxs.map((item) => (
           <div className={style['inbox-cards']} key={item._id}>
-            <span
+            <img
+              src={isDev ? `http://localhost:8000/api/images/${inboxOwner(item.owners).avatar}` : `/api/images/${inboxOwner(item.owners).avatar}`}
               className={style.avatar}
-              style={{
-                background: `url(${photo.zuck})`,
-                backgroundSize: 'cover',
-              }}
-            >
-            </span>
+            />
             <div
               className={style.text}
               aria-hidden="true"
-              onClick={() => dispatch(action.roomIsOpen({
-                active: true,
-                userId: user.userId,
-                foreignId: item.to.foreignId,
-              }))}
+              onClick={() => dispatch({
+                type: 'counter/roomIsOpen',
+                payload: {
+                  active: true,
+                  display: true,
+                  data: {
+                    foreignId: inboxOwner(item.owners).userId,
+                    roomId: item.roomId,
+                  },
+                },
+              })}
             >
               <span className={style.name}>
-                <h3 className={style['profile-name']}>{item.to.profileName}</h3>
-                <p className={style.username}>@{item.to.username}</p>
+                <h3 className={style['profile-name']}>{inboxOwner(item.owners).profileName}</h3>
+                <p className={style.username}>@{inboxOwner(item.owners).username}</p>
               </span>
               <p className={style.message}>{item.lastMessage.text}</p>
-              <p className={style.time}>{handleFormatTime(item.createdAt)}</p>
+              <p className={style.time}>{handleFormatTime(item.updatedAt)}</p>
             </div>
           </div>
         ))

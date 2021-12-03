@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import style from '../../../styles/components/main/add/newContact.css';
-import photo from '../../../assets/images/avatar.png';
 
 import * as action from '../../../redux/actions';
 import socket from '../../../helpers/socket';
@@ -19,6 +18,7 @@ function NewContact({
   const { user, darkmode } = useSelector((state) => state);
   const dispatch = useDispatch();
 
+  const [inputvalue, setInputvalue] = useState('');
   const [data, setData] = useState([]);
   const [blank, setBlank] = useState(false);
 
@@ -45,6 +45,8 @@ function NewContact({
     const token = localStorage.getItem('token');
     const { value } = event.target;
 
+    setInputvalue(value);
+
     const url = isDev ? `http://localhost:8000/api/users?profile=${value}` : `/api/users?profile=${value}`;
 
     if (value.length === 0) {
@@ -67,6 +69,8 @@ function NewContact({
   }
 
   const handleAddContact = (event) => {
+    setInputvalue('');
+
     setTimeout(() => {
       handleContactTabIsOpen();
     }, 200);
@@ -109,6 +113,7 @@ function NewContact({
             className={style['form-control']}
             onChange={handleChange}
             autoComplete="off"
+            value={inputvalue}
           />
         </div>
         <div className={style.list}>
@@ -120,14 +125,10 @@ function NewContact({
                   key={item._id}
                   aria-hidden="true"
                 >
-                  <span
+                  <img
                     className={style.avatar}
-                    style={{
-                      background: `url(${photo})`,
-                      backgroundSize: 'cover',
-                    }}
-                  >
-                  </span>
+                    src={isDev ? `http://localhost:8000/api/images/${item.photo.avatar}` : `/api/images/${item.photo.avatar}`}
+                  />
                   <div
                     className={style.text}
                     aria-hidden="true"
@@ -142,6 +143,7 @@ function NewContact({
                     className={style['add-btn']}
                     type="button"
                     onClick={() => handleAddContact({
+                      socketId: socket.id,
                       ownerId: user.userId,
                       foreignId: item.userId,
                       username: item.username,

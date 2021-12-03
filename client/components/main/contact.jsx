@@ -34,6 +34,7 @@ function Contact({
 
   const handleGetContact = () => {
     socket.emit('contact/get', {
+      socketId: socket.id,
       ownerId: user.userId,
     });
 
@@ -45,6 +46,7 @@ function Contact({
   const handleOpenChatRoom = (args) => {
     dispatch(action.roomIsOpen({
       active: true,
+      display: true,
       foreignId: args.foreignId,
       userId: user.userId,
     }));
@@ -107,7 +109,7 @@ function Contact({
               >
                 <img
                   className={style.avatar}
-                  src={isDev ? `http://localhost:8000/api/images/${user.photo.avatar}` : `/api/images/${user.photo.avatar}`}
+                  src={isDev ? `http://localhost:8000/api/images/${item.avatar}` : `/api/images/${item.avatar}`}
                 />
                 <div
                   className={style.text}

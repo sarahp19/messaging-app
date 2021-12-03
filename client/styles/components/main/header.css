@@ -2,7 +2,6 @@
   display: grid;
   padding: 10px 5px 10px 15px;
   gap: 20px;
-  box-shadow: 0 1px 5px #dfdfdf;
   background: #ffffff;
   z-index: 1;
 }
@@ -52,7 +51,6 @@
 /* darkmode */
 .header.dark {
   background: #222831;
-  box-shadow: 0 1px 5px #14181d;
 }
 .header.dark .search-bar .form-control::placeholder {
   color: #ffffff70;

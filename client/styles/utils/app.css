@@ -1,12 +1,4 @@
-@font-face {
-  font-family: 'averta-reguler';
-  src: url('../../assets/fonts/averta-standard/averta-regular.ttf');
-}
-
-@font-face {
-  font-family: 'averta-bold';
-  src: url('../../assets/fonts/averta-standard/averta-bold.ttf');
-}
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&display=swap');
 
 * {
   border: none;
@@ -19,20 +11,21 @@ input,
 textarea,
 button,
 p {
-  font-family: averta-reguler, sans-serif;
+  font-family: 'Outfit', sans-serif;
   font-size: 1rem;
   background: transparent;
   border-radius: 0;
 }
 
 body {
-  font-family: averta-reguler, sans-serif;
+  font-family: 'Outfit', sans-serif;
   font-size: 1rem;
 }
 
 h1,
-h2 {
-  font-family: averta-bold, sans-serif;
+h2,
+h3 {
+  font-family: 'Outfit', sans-serif;
 }
 
 .app {

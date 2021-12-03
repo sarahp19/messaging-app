@@ -51,6 +51,9 @@
   grid-template-columns: auto 1fr;
   gap: 10px;
 }
+.info .cards .profile-name {
+  font-family: 'Outfit', sans-serif;
+}
 .info .cards:nth-child(1) {
   grid-template-columns: auto;
   gap: 5px;
@@ -92,7 +95,7 @@
   color: #000000dd;
 }
 .footer .date {
-  font-family: averta-bold, sans-serif;
+  font-family: 'Outfit', sans-serif;
 }
 
 /* darkmode */

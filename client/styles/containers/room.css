@@ -2,7 +2,7 @@
   position: relative;
   height: 100%;
   display: flex;
-  background: #f9f9fa;
+  background: #f2f2f2;
   overflow: hidden;
 }
 .room-wrap {
@@ -13,7 +13,7 @@
 
 /* darkmode */
 .room.dark {
-  background: #222831;
+  background: #191d24;
 }
 
 @media screen and (max-width: 768px) {

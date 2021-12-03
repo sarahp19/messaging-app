@@ -4,28 +4,36 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 15px;
+  gap: 30px;
 }
 .cards {
+  position: relative;
   width: 100%;
   display: flex;
-  justify-content: flex-start;
-  position: relative;
+}
+.cards .message .time {
+  font-size: 0.85rem;
+  position: absolute;
+  bottom: 0;
+  transform: translate(0, 20px);
 }
 .message {
   background: #e6e8ea;
+  display: grid;
+  gap: 10px;
   border-radius: 15px;
   padding: 10px 15px 12px 15px;
 }
 .cards.is-not-user .message {
   margin: 0 80px 0 0;
+  transform: translate(8px, 0);
 }
 .cards.is-not-user .tip {
   display: block;
   position: absolute;
   top: 0;
   left: 0;
-  transform: translate(-12px, -6px) rotate(-60deg);
+  transform: translate(-4px, -6px) rotate(-60deg);
   width: 0; height: 0;
   border-bottom:solid 25px #e6e8ea;
 	border-left:solid 15px transparent;
@@ -36,17 +44,19 @@
   justify-content: flex-end;
 }
 .cards.is-user .message {
-  background: #939eb3;
+  background: #a5afc2;
   margin: 0 0 0 80px;
+  transform: translate(-8px, 0);
+  justify-items: flex-end;
 }
 .cards.is-user .tip {
   display: block;
   position: absolute;
   top: 0;
   right: 0;
-  transform: translate(12px, -6px) rotate(60deg);
+  transform: translate(4px, -6px) rotate(60deg);
   width: 0; height: 0;
-  border-bottom:solid 25px #939eb3;
+  border-bottom:solid 25px #a5afc2;
 	border-left:solid 15px transparent;
 	border-right:solid 15px transparent;
 }
@@ -85,9 +95,9 @@
     padding: 15px 20px;
   }
   .cards.cards.is-not-user .message {
-    margin: 0 20px 0 0;
+    margin: 0 40px 0 0;
   }
   .cards.is-user .message {
-    margin: 0 0 0 20px;
+    margin: 0 0 0 40px;
   }
 }

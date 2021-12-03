@@ -1,15 +1,15 @@
 .send {
   display: grid;
   grid-template-columns: auto 1fr auto auto;
-  gap: 5px;
+  gap: 10px;
   align-items: center;
   padding: 10px 15px;
   background: #ffffff;
-  box-shadow: 0 -1px 5px #dfdfdf;
   z-index: 1;
 }
 .form-control {
-  padding: 10px;
+  width: 100%;
+  padding: 10px 0;
 }
 .form-control::placeholder {
   color: #00000070;
@@ -29,7 +29,6 @@
 /* darkmode */
 .send.dark {
   background: #222831;
-  box-shadow: 0 -1px 5px #14181d;
 }
 .send.dark .form-control {
   color: #ffffffdd;

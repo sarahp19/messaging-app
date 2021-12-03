@@ -7,6 +7,7 @@ const initialState = {
   },
   room: {
     active: false,
+    display: false,
     data: {
       foreignId: '',
       roomId: '',
@@ -41,17 +42,17 @@ const reducer = (state = initialState, action) => {
         socket: action.payload.socket,
       }
     case 'counter/roomIsOpen': {
-      const {
-        active, data: {
-          foreignId, roomId,
-        },
-      } = action.payload;
+      const { foreignId, roomId } = action.payload.data;
 
       return {
         ...state,
         room: {
-          active,
-          data: { foreignId, roomId },
+          active: action.payload.active,
+          display: action.payload.display,
+          data: {
+            foreignId,
+            roomId,
+          },
         },
       }
     }

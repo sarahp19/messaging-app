@@ -52,17 +52,10 @@ function Room() {
       className={`${style.room} ${darkmode ? style.dark : null} ${room.active ? style.active : null}`}
     >
       <div className={style['room-wrap']}>
-        {
-          room.active
-            ? (
-              < >
-                <comp.header foreign={data} />
-                <comp.chat />
-                <comp.send foreign={data} />
-              </>
-            )
-            : <comp.info />
-        }
+        <comp.header foreign={data} />
+        <comp.chat />
+        <comp.send foreign={data} />
+        <comp.info />
       </div>
     </div>
   );

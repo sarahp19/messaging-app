@@ -1,11 +1,37 @@
 .send {
+  background: #ffffff;
+  z-index: 1;
+  display: grid;
+  grid-template-rows: 1fr auto;
+}
+.emoji {
+  position: relative;
+  width: 100%; height: 200px;
+  display: flex;
+  padding: 0 0 10px 0;
+}
+.emoji .strip {
+  position: absolute;
+  display: block;
+  width: 100%; height: 40px;
+  background: #ffffff;
+  z-index: 9;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+}
+.emoji .strip .text {
+  font-family: 'Outfit', sans-serif;
+}
+.emoji.active {
+  display: block;
+}
+.send-wrap {
   display: grid;
   grid-template-columns: auto 1fr auto auto;
   gap: 10px;
   align-items: center;
   padding: 10px 15px;
-  background: #ffffff;
-  z-index: 1;
 }
 .form-control {
   width: 100%;
@@ -25,9 +51,25 @@
 .btn:hover {
   background: #F2F2F2;
 }
+.btn.active {
+  background: #F2F2F2;
+}
+.send *::-webkit-scrollbar {
+  background: transparent;
+  width: 8px;
+}
+.send *::-webkit-scrollbar-thumb {
+  background: #bdbdbdbb;
+}
+.send *::-webkit-scrollbar-thumb:hover {
+  background: #bdbdbd;
+}
 
 /* darkmode */
 .send.dark {
+  background: #222831;
+}
+.send.dark .strip {
   background: #222831;
 }
 .send.dark .form-control {
@@ -38,4 +80,14 @@
 }
 .send.dark .btn:hover {
   background: #393E46;
+}
+.send.dark .btn.active {
+  background: #393E46;
+}
+
+.send.dark *::-webkit-scrollbar-thumb {
+  background: #3f4958bb;
+}
+.send.dark *::-webkit-scrollbar-thumb:hover {
+  background: #3f4958;
 }

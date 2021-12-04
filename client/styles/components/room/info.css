@@ -4,6 +4,16 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  background: #f2f2f2;
+  transition: linear 0.1s;
+  text-align: center;
+  opacity: 1;
+  z-index: 1;
+}
+.info.active {
+  opacity: 0;
+  z-index: -9;
+  transition-delay: 0s;
 }
 .info-wrap {
   max-width: 400px;
@@ -18,4 +28,14 @@
 .link {
   display: block;
   margin: 20px 0 0 0;
+}
+
+.info.dark {
+  background: #191d24;
+}
+
+@media screen and (max-width: 768px) {
+  .info {
+    display: none;
+  }
 }

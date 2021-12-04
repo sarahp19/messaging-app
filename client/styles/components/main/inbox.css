@@ -43,6 +43,12 @@
   overflow-x: hidden;
   opacity: 0.9;
 }
+.text .ctx {
+  display: flex;
+  align-items: center;
+  overflow-x: hidden;
+  gap: 5px;
+}
 .text .time {
   position: absolute;
   right: 0;
@@ -53,10 +59,10 @@
   width: 8px;
 }
 .inbox::-webkit-scrollbar-thumb {
-  background: #373a4970;
+  background: #bdbdbdbb;
 }
 .inbox::-webkit-scrollbar-thumb:hover {
-  background: #373a49;
+  background: #bdbdbd;
 }
 
 /* darkmode */
@@ -73,7 +79,7 @@
   background: #3f4958;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1224px) {
   .text .name .username {
     display: none;
   }

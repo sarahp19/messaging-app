@@ -78,10 +78,10 @@
   width: 8px;
 }
 .list::-webkit-scrollbar-thumb {
-  background: #d1d1d1bb;
+  background: #bdbdbdbb;
 }
 .list::-webkit-scrollbar-thumb:hover {
-  background: #d1d1d1;
+  background: #bdbdbd;
 }
 
 /* darkmode */

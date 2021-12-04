@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import style from './styles/utils/app.css';
 import 'boxicons';
 
+import socket from './helpers/socket';
+
 import * as action from './redux/actions';
 import * as cont from './containers';
 
@@ -25,6 +27,11 @@ function App() {
         Authorization: `bearer ${token}`,
       },
     })).json();
+
+    socket.emit('user/connected', {
+      socketId: socket.id,
+      userId: request.data.userId,
+    });
 
     dispatch(action.getUser({
       data: request.data,

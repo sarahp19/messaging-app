@@ -8,7 +8,7 @@ import * as action from '../../redux/actions';
 function Header({ foreign }) {
   const isDev = process.env.NODE_ENV === 'development';
 
-  const { room, darkmode } = useSelector((state) => state);
+  const { user, room, darkmode } = useSelector((state) => state);
   const dispatch = useDispatch();
 
   return (
@@ -18,6 +18,7 @@ function Header({ foreign }) {
         className={`${style['close-btn']}`}
         onClick={() => dispatch(action.roomIsOpen({
           active: false,
+          userId: user.userId,
           foreignId: room.data.foreignId,
         }))}
       >

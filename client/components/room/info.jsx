@@ -3,10 +3,12 @@ import { useSelector } from 'react-redux';
 import style from '../../styles/components/room/info.css';
 
 function Info() {
-  const { darkmode } = useSelector((state) => state);
+  const { room, darkmode } = useSelector((state) => state);
 
   return (
-    <div className={style.info}>
+    <div
+      className={`${style.info} ${room.active ? style.active : null} ${darkmode ? style.dark : null}`}
+    >
       <div className={style['info-wrap']}>
         <h1 className={style.title}>Messaging.</h1>
         <p className={style.paragraf}>

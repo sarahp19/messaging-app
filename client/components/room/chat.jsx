@@ -12,6 +12,8 @@ function Chat() {
 
   const handleGetChats = () => {
     socket.emit('chat/get', {
+      socketId: socket.id,
+      foreignId: room.data.foreignId,
       roomId: room.data.roomId,
     });
 
@@ -22,6 +24,14 @@ function Chat() {
         setChats(args.data);
       }
     });
+  }
+
+  const formatTime = (args) => {
+    const displayTime = new Date(args).toLocaleTimeString('en-US', {
+      hour: '2-digit',
+      minute: '2-digit',
+    });
+    return displayTime;
   }
 
   useEffect(() => {
@@ -40,7 +50,10 @@ function Chat() {
               key={item._id}
             >
               <span className={style.tip}></span>
-              <p className={style.message}>{item.message}</p>
+              <div className={style.message}>
+                <p className={style.text}>{item.message}</p>
+                <p className={style.time}>{formatTime(item.createdAt)}</p>
+              </div>
             </div>
           ))
         )

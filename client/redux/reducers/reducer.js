@@ -7,7 +7,6 @@ const initialState = {
   },
   room: {
     active: false,
-    display: false,
     data: {
       foreignId: '',
       roomId: '',
@@ -50,8 +49,8 @@ const reducer = (state = initialState, action) => {
           active: action.payload.active,
           display: action.payload.display,
           data: {
-            foreignId,
-            roomId,
+            foreignId: foreignId || state.room.data.foreignId,
+            roomId: roomId || state.room.data.roomId,
           },
         },
       }

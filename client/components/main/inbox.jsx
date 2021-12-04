@@ -69,7 +69,10 @@ function Inbox() {
                 <h3 className={style['profile-name']}>{inboxOwner(item.owners).profileName}</h3>
                 <p className={style.username}>@{inboxOwner(item.owners).username}</p>
               </span>
-              <p className={style.message}>{item.lastMessage.text}</p>
+              <span className={style.ctx}>
+                <p>{item.lastMessage.from === user.userId ? 'You: ' : 'Him: '}</p>
+                <p className={style.message}>{item.lastMessage.text}</p>
+              </span>
               <p className={style.time}>{handleFormatTime(item.updatedAt)}</p>
             </div>
           </div>

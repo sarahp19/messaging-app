@@ -117,7 +117,7 @@ function Contact({
                 >
                   <span className={style.info}>
                     <h3 className={style['profile-name']}>{item.profileName}</h3>
-                    <p className={style.username}>{item.username}</p>
+                    <p className={style.username}>@{item.username}</p>
                   </span>
                 </div>
                 <span>

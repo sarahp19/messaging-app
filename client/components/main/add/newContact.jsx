@@ -73,6 +73,7 @@ function NewContact({
 
     setTimeout(() => {
       handleContactTabIsOpen();
+      setData([]);
     }, 200);
 
     setTimeout(() => {

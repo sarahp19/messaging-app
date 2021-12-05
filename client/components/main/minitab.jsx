@@ -3,8 +3,10 @@ import { useSelector } from 'react-redux';
 import style from '../../styles/components/main/minitab.css';
 
 function MiniTab({
-  miniTabIsOpen,
   handleProfileIsOpen,
+  handleSettingIsOpen,
+  handleLogoutTabIsOpen,
+  miniTabIsOpen,
 }) {
   const { darkmode } = useSelector((state) => state);
 
@@ -23,13 +25,19 @@ function MiniTab({
         <box-icon type="reguler" name="star" color={darkmode ? '#ffffffdd' : '#000000dd'}></box-icon>
         <p>Star Message</p>
       </button>
-      <button className={style.btn}>
+      <button
+        className={style.btn}
+        onClick={handleSettingIsOpen}
+      >
         <box-icon type="reguler" name="cog" color={darkmode ? '#ffffffdd' : '#000000dd'}></box-icon>
         <p>Setting</p>
       </button>
-      <button className={style.btn}>
+      <button
+        className={style.btn}
+        onClick={handleLogoutTabIsOpen}
+      >
         <box-icon type="reguler" name="log-out-circle" color={darkmode ? '#ffffffdd' : '#000000dd'}></box-icon>
-        <p>LogOut</p>
+        <p>Logout</p>
       </button>
     </div>
   );

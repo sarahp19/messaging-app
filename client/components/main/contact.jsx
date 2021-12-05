@@ -77,6 +77,7 @@ function Contact({
           >
             <box-icon name="arrow-back" color={darkmode ? '#ffffffdd' : '#000000dd'}></box-icon>
           </button>
+          <h2 className={style.title}>Contact</h2>
         </div>
         <div className={style.new}>
           <div className={style.cards}>

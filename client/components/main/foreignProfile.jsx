@@ -84,7 +84,7 @@ function ForeignProfile() {
             <button
               onClick={closeForeignProfile}
             >
-              <box-icon name="arrow-back" color="#000000dd"></box-icon>
+              <box-icon name="arrow-back" color={darkmode ? '#ffffffdd' : '#000000dd'}></box-icon>
             </button>
           </div>
           <img
@@ -94,17 +94,17 @@ function ForeignProfile() {
         </div>
         <form method="post" className={style.info}>
           <div className={style.cards}>
-            <h1>{user.profileName}</h1>
-            <p>@{user.username}</p>
+            <h1 className={style['profile-name']}>{user.profileName}</h1>
+            <p className={style.username}>@{user.username}</p>
           </div>
           <div className={style.cards}>
-            <box-icon name="info-circle" color="#000000dd"></box-icon>
+            <box-icon name="info-circle" color={darkmode ? '#ffffffdd' : '#000000dd'}></box-icon>
             <div className={style.text}>
               <p>{user.bio}</p>
             </div>
           </div>
           <div className={style.cards}>
-            <box-icon name="phone" color="#000000dd"></box-icon>
+            <box-icon name="phone" color={darkmode ? '#ffffffdd' : '#000000dd'}></box-icon>
             <div className={style.text}>
               <span className={style['num-code']}>
                 <p>+62</p>
@@ -113,7 +113,7 @@ function ForeignProfile() {
             </div>
           </div>
           <div className={style.cards}>
-            <box-icon name="envelope" color="#000000dd"></box-icon>
+            <box-icon name="envelope" color={darkmode ? '#ffffffdd' : '#000000dd'}></box-icon>
             <div className={style.text}>
               <p>{user.email}</p>
             </div>

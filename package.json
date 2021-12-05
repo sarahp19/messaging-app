@@ -59,6 +59,7 @@
     "moment": "^2.29.1",
     "mongoose": "^6.0.12",
     "ngrok": "^4.2.2",
+    "nodemailer": "^6.7.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.6",

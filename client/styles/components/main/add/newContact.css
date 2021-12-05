@@ -4,7 +4,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #f2f2f270;
+  background: #e9e9e970;
   transition: cubic-bezier(.5,-.75,.7,2) 0.3s;
   opacity: 0;
   z-index: -9;
@@ -48,7 +48,7 @@
   cursor: pointer;
 }
 .navigation .btn:hover {
-  background: #f2f2f270;
+  background: #e9e9e9bb;
 }
 .form {
   display: grid;
@@ -56,7 +56,7 @@
   align-items: center;
   gap: 15px;
   margin: 0 15px;
-  border-bottom: 1px solid #918c7e;
+  border-bottom: 1px solid #212121;
   padding: 0 0 5px 0;
 }
 .form .form-control {
@@ -75,7 +75,8 @@
   transition: 0s;
   transition-delay: 0s;
   padding: 15px;
-  border-bottom: 1px solid #E8EAE6dd;
+  border-bottom: 1px solid #e9e9e9;
+  cursor: pointer;
 }
 .list .cards .avatar {
   width: 50px; height: 50px;
@@ -99,7 +100,7 @@
   border-radius: 50%;
 }
 .list .cards .add-btn:hover {
-  background: #F2F2F2;
+  background: #e9e9e9;
 }
 .list::-webkit-scrollbar {
   width: 8px;
@@ -139,13 +140,13 @@
   color: #ffffffdd;
 }
 .contact-tab.dark .navigation .btn:hover {
-  background: #4c525c70;
+  background: #555a64bb;
 }
 .contact-tab.dark .list .cards {
-  border-bottom: 1px solid #4c525cbb;
+  border-bottom: 1px solid #555a64;
 }
 .contact-tab.dark .list .cards .add-btn:hover {
-  background: #4c525c;
+  background: #555a64;
 }
 .contact-tab.dark .list::-webkit-scrollbar-thumb {
   background: #5c626ebb;

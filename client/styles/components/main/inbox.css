@@ -8,7 +8,7 @@
   grid-template-columns: auto 1fr auto;
   gap: 15px;
   align-items: center;
-  border-bottom: 1px solid #E8EAE6dd;
+  border-bottom: 1px solid #e9e9e9;
   padding: 20px 15px;
   cursor: pointer;
 }
@@ -67,10 +67,10 @@
 
 /* darkmode */
 .inbox.dark .inbox-cards {
-  border-bottom: 1px solid #393E46bb;
+  border-bottom: 1px solid #343941;
 }
 .inbox.dark .inbox-cards:hover {
-  background: #393E4670;
+  background: #34394170;
 }
 .inbox::-webkit-scrollbar-thumb {
   background: #3f4958bb;

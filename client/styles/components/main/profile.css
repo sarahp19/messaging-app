@@ -36,9 +36,6 @@
   padding: 10px 15px;
   cursor: pointer;
 }
-.navigation button:hover {
-  background: #393E4670;
-}
 .info {
   display: flex;
   gap: 10px;
@@ -66,7 +63,7 @@
   display: grid;
   grid-template-columns: 1fr auto;
   gap: 10px;
-  border-bottom: 1px solid #e6e3da;
+  border-bottom: 1px solid #e9e9e9;
   transition: cubic-bezier(0.215, 0.610, 0.355, 1) 0.1s;
   transform: translate(0, -5px);
   padding: 5px;
@@ -104,7 +101,7 @@
 }
 .profile.dark .info .form-control, .profile.dark .info .text {
   color: #ffffffdd;
-  border-color: #393E46dd;
+  border-color: #343941;
 }
 .profile.dark .footer {
   color: #ffffff70;

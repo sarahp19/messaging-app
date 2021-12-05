@@ -80,10 +80,10 @@
   border-bottom-color: #393E46;
 }
 .chat.dark .cards.is-user .message {
-  background: #6B778D;
+  background: #5a6477;
 }
 .chat.dark .cards.is-user .tip {
-  border-bottom-color: #6B778D;
+  border-bottom-color: #5a6477;
 }
 .chat.dark::-webkit-scrollbar-thumb {
   background: #3f4958bb;

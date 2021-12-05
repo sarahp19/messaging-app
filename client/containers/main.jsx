@@ -11,6 +11,8 @@ function Main() {
     miniTabIsOpen: false,
     profileIsOpen: false,
     contactIsOpen: false,
+    settingIsOpen: false,
+    logoutTabIsOpen: false,
   });
 
   const handleMiniTabIsOpen = () => {
@@ -52,6 +54,22 @@ function Main() {
     }));
   }
 
+  const handleSettingIsOpen = () => {
+    setState((prev) => ({
+      ...prev,
+      settingIsOpen: !prev.settingIsOpen,
+      miniTabIsOpen: false,
+    }));
+  }
+
+  const handleLogoutTabIsOpen = () => {
+    setState((prev) => ({
+      ...prev,
+      logoutTabIsOpen: !prev.logoutTabIsOpen,
+      miniTabIsOpen: false,
+    }));
+  }
+
   return (
     <div className={`${style.main} ${props.room.active ? style.active : null}`}>
       <div className={style['main-wrap']}>
@@ -61,8 +79,10 @@ function Main() {
           handleContactIsOpen={handleContactIsOpen}
         />
         <comp.minitab
-          miniTabIsOpen={state.miniTabIsOpen}
           handleProfileIsOpen={handleProfileIsOpen}
+          handleSettingIsOpen={handleSettingIsOpen}
+          handleLogoutTabIsOpen={handleLogoutTabIsOpen}
+          miniTabIsOpen={state.miniTabIsOpen}
         />
         <comp.profile
           handleProfileIsOpen={handleProfileIsOpen}
@@ -73,6 +93,14 @@ function Main() {
           contactIsOpen={state.contactIsOpen}
         />
         <comp.foreignProfile />
+        <comp.setting
+          handleSettingIsOpen={handleSettingIsOpen}
+          settingIsOpen={state.settingIsOpen}
+        />
+        <comp.logout
+          handleLogoutTabIsOpen={handleLogoutTabIsOpen}
+          logoutTabIsOpen={state.logoutTabIsOpen}
+        />
         <comp.inbox />
       </div>
     </div>

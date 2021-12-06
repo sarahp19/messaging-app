@@ -45,12 +45,12 @@ exports.ProfileModel = model('profiles', new Schema({
     avatar: {
       type: Schema.Types.String,
       trim: true,
-      default: 'defaultAvatar',
+      default: 'avatar.png',
     },
     banner: {
       type: Schema.Types.String,
       trim: true,
-      default: 'defaultBanner',
+      default: 'banner.png',
     },
   },
   bio: {
@@ -65,10 +65,6 @@ exports.ProfileModel = model('profiles', new Schema({
   },
   contacts: {
     type: Schema.Types.Array,
-  },
-  isActive: {
-    type: Schema.Types.Boolean,
-    default: false,
   },
 }, {
   timestamps: true,

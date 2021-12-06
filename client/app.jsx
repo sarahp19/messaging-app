@@ -16,6 +16,7 @@ function App() {
   const dispatch = useDispatch();
 
   const [title, setTitle] = useState(document.title);
+  const [block, setBlock] = useState(false);
 
   const handleGetUser = async () => {
     const token = localStorage.getItem('token');
@@ -28,9 +29,17 @@ function App() {
       },
     })).json();
 
-    socket.emit('user/connected', {
+    socket.emit('user/connect', {
       socketId: socket.id,
       userId: request.data.userId,
+    });
+
+    socket.on('user/connect/callback', (args) => {
+      if (args.success) {
+        setBlock(true);
+      } else {
+        setBlock(false);
+      }
     });
 
     dispatch(action.getUser({
@@ -61,7 +70,23 @@ function App() {
       className={`${style.app} ${props.darkmode ? style.dark : null} ${props.loggedIn && props.user ? null : style.active}`}
     >
       {
-        props.loggedIn && props.user ? (
+        !block && (
+          <div className={`${style.multiple} ${props.darkmode ? style.dark : null}`}>
+            <div className={style['multiple-wrap']}>
+              <h2 className={style.title}>
+                Your access is <span className={style.skin}>denied</span>.
+              </h2>
+              <p className={style.paragraf}>
+                your account is detected as active on another device/tab,
+                for the convenience of users, we don't allow you
+                to use an account on a different device/tab
+              </p>
+            </div>
+          </div>
+        )
+      }
+      {
+        block && props.loggedIn && props.user ? (
           < >
             <cont.main />
             <cont.room />
@@ -69,7 +94,7 @@ function App() {
         ) : <cont.auth />
       }
     </div>
-  )
+  );
 }
 
 export default App;

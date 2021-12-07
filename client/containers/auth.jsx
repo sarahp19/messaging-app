@@ -1,47 +1,30 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import style from '../styles/containers/auth.css';
 
 import * as comp from '../components/auth';
 
 function Auth() {
+  const { darkmode } = useSelector((state) => state);
   const [registerPage, setRegisterPage] = useState(false);
-  const strip = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
-  const [response, setResponse] = useState({
-    success: true,
-    message: '',
-    active: false,
-  });
+  const handleRegisterPage = () => {
+    setRegisterPage(!registerPage);
+  }
 
   return (
-    <div className={style.auth}>
+    <div className={`${style.auth} ${darkmode ? style.dark : null}`}>
       <div className={style['auth-main']}>
-        <div className={`${style.response} ${response.active ? style.active : null}`}>
-          <div
-            className={style['response-wrap']}
-          >
-            <box-icon
-              name={`${response.success ? 'check' : 'x'}`}
-              color={`${response.success ? '#73ba9b' : '#c1121f'}`}
-            >
-            </box-icon>
-            <p>{response.message}</p>
-          </div>
-        </div>
         <comp.login
           registerPage={registerPage}
-          setRegisterPage={() => setRegisterPage(true)}
-          setResponse={setResponse}
+          setRegisterPage={setRegisterPage}
         />
         <comp.register
           registerPage={registerPage}
-          setRegisterPage={setRegisterPage}
-          setResponse={setResponse}
+          setRegisterPage={handleRegisterPage}
         />
       </div>
-      <div className={style.banner}>
-        {strip.map((item) => <span key={item} className={style.strip}></span>)}
-      </div>
+      <div className={style.banner}></div>
     </div>
   );
 }

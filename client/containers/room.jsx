@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import style from '../styles/containers/room.css';
-
 import * as comp from '../components/room';
 
 function Room() {

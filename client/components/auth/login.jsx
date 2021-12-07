@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import style from '../../styles/components/auth/login.css';
 import * as action from '../../redux/actions';
@@ -7,10 +7,10 @@ import * as action from '../../redux/actions';
 function Login({
   registerPage,
   setRegisterPage,
-  setResponse,
 }) {
   const isDev = process.env.NODE_ENV === 'development';
   const dispatch = useDispatch();
+  const { darkmode } = useSelector((state) => state);
 
   const [formbody, setFormbody] = useState({
     usernameOrEmail: '',
@@ -20,6 +20,12 @@ function Login({
   const [control, setControl] = useState({
     usernameOrEmail: false,
     password: false,
+  });
+
+  const [response, setResponse] = useState({
+    success: true,
+    message: '',
+    active: false,
   });
 
   const handleChange = (event) => {
@@ -32,6 +38,13 @@ function Login({
   const handleSubmit = async (event) => {
     try {
       event.preventDefault();
+
+      if (!control.usernameOrEmail || !control.password) {
+        const newError = {
+          message: 'Form data is not approved, please fill in the form correctly',
+        }
+        throw newError;
+      }
 
       const url = isDev ? 'http://localhost:8000/api/users/login' : '/api/users/login';
       const request = await (await fetch(url, {
@@ -61,6 +74,10 @@ function Login({
 
       localStorage.setItem('token', request.data);
 
+      setFormbody((prev) => ({
+        ...prev, usernameOrEmail: '', password: '',
+      }));
+
       setTimeout(() => {
         dispatch(action.loggedIn({
           active: true,
@@ -74,18 +91,11 @@ function Login({
         message: error0.message,
         active: true,
       }));
-
-      setTimeout(() => {
-        setResponse((prev) => ({
-          ...prev,
-          active: false,
-        }));
-      }, 10000);
     }
   }
 
   useEffect(() => {
-    if (formbody.usernameOrEmail.length >= 3) {
+    if (formbody.usernameOrEmail.length >= 6) {
       setControl((prev) => ({
         ...prev,
         usernameOrEmail: true,
@@ -116,7 +126,11 @@ function Login({
 
   return (
     <div
-      className={`${style.login} ${registerPage ? null : style.active}`}
+      className={`
+        ${style.login}
+        ${registerPage ? null : style.active}
+        ${darkmode ? style.dark : null}
+      `}
     >
       <div className={style['login-wrap']}>
         <div className={style.header}>
@@ -129,7 +143,11 @@ function Login({
           onSubmit={handleSubmit}
         >
           <label htmlFor="usernameOrEmail" className={style.cards}>
-            <box-icon name="user" color="#000000dd"></box-icon>
+            <box-icon
+              name="user"
+              color={darkmode ? '#ffffffdd' : '#000000dd'}
+            >
+            </box-icon>
             <span className={style['input-field']}>
               <p className={style.label}>Username or Email Address</p>
               <input
@@ -142,13 +160,17 @@ function Login({
               />
             </span>
             <box-icon
-              name={control.usernameOrEmail ? 'check' : 'x'}
-              color={`${control.usernameOrEmail ? '#73ba9b' : '#c1121f'}`}
+              name={control.usernameOrEmail ? 'check-circle' : 'x-circle'}
+              color={`${control.usernameOrEmail ? '#00A19D' : '#B91646'}`}
             >
             </box-icon>
           </label>
           <label htmlFor="password" className={style.cards}>
-            <box-icon name="lock-open" color="#000000dd"></box-icon>
+            <box-icon
+              name="lock-open"
+              color={darkmode ? '#ffffffdd' : '#000000dd'}
+            >
+            </box-icon>
             <span className={style['input-field']}>
               <p className={style.label}>Password</p>
               <input
@@ -161,16 +183,24 @@ function Login({
               />
             </span>
             <box-icon
-              name={control.password ? 'check' : 'x'}
-              color={`${control.password ? '#73ba9b' : '#c1121f'}`}
+              name={control.password ? 'check-circle' : 'x-circle'}
+              color={`${control.password ? '#00A19D' : '#B91646'}`}
             >
             </box-icon>
           </label>
+          <div className={`${style.response} ${response.active ? style.active : null}`}>
+            <box-icon
+              name={`${response.success ? 'check-circle' : 'x-circle'}`}
+              color={`${response.success ? '#00A19D' : '#B91646'}`}
+            >
+            </box-icon>
+            <p>{response.message}</p>
+          </div>
           <div className={style.action}>
-            <span className={style.remember}>
-              <input type="checkbox" name="" id="" />
+            <div className={style.remember}>
+              <button type="button" className={style['remember-check']}></button>
               <p>Remember Me</p>
-            </span>
+            </div>
             <button className={style.forgot}>Forgot Password</button>
           </div>
           <span className={style.submit}>

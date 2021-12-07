@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+
 import style from '../../styles/components/auth/register.css';
+
+import ConfirmRegister from './confirmRegister';
 
 function Register({
   registerPage,
   setRegisterPage,
-  setResponse,
 }) {
   const isDev = process.env.NODE_ENV === 'development';
+  const { darkmode } = useSelector((state) => state);
 
   const [formbody, setFormbody] = useState({
     username: '',
@@ -20,6 +24,14 @@ function Register({
     password: false,
   });
 
+  const [confirmForm, setConfirmForm] = useState(false);
+
+  const [response, setResponse] = useState({
+    success: true,
+    message: '',
+    active: false,
+  });
+
   const handleChange = (event) => {
     setFormbody((prev) => ({
       ...prev,
@@ -30,6 +42,13 @@ function Register({
   const handleSubmit = async (event) => {
     try {
       event.preventDefault();
+
+      if (!control.username || !control.email || !control.password) {
+        const newError = {
+          message: 'Form data is not approved, please fill in the form correctly',
+        }
+        throw newError;
+      }
 
       const url = isDev ? 'http://localhost:8000/api/users/register' : '/api/users/register';
       const request = await (await fetch(url, {
@@ -58,9 +77,15 @@ function Register({
         active: true,
       }));
 
+      localStorage.setItem('pending', JSON.stringify(request.data));
+
+      setFormbody((prev) => ({
+        ...prev, username: '', email: '', password: '',
+      }));
+
       setTimeout(() => {
-        setRegisterPage(false);
-      }, 2000);
+        setConfirmForm(true);
+      }, 1500);
     }
     catch (error0) {
       setResponse((prev) => ({
@@ -69,18 +94,22 @@ function Register({
         message: error0.message,
         active: true,
       }));
-
-      setTimeout(() => {
-        setResponse((prev) => ({
-          ...prev,
-          active: false,
-        }));
-      }, 10000);
     }
   }
 
   useEffect(() => {
-    if (formbody.username.length >= 3) {
+    const storage = localStorage.getItem('pending');
+
+    if (storage) {
+      setConfirmForm(true);
+    }
+
+    const usernameValid = /^[a-z]*$/g.test(formbody.username);
+    if (
+      usernameValid
+      && formbody.username.length >= 6
+      && formbody.username.length < 17
+    ) {
       setControl((prev) => ({
         ...prev,
         username: true,
@@ -125,7 +154,11 @@ function Register({
 
   return (
     <div
-      className={`${style.register} ${registerPage ? style.active : null}`}
+      className={`
+        ${style.register}
+        ${registerPage ? style.active : null}
+        ${darkmode ? style.dark : null}
+      `}
     >
       <div className={style['register-wrap']}>
         <div className={style.header}>
@@ -134,78 +167,107 @@ function Register({
             Register your account & start a conversation with your friends any + where/time.
           </p>
         </div>
-        <form
-          method="post"
-          className={style.control}
-          onSubmit={handleSubmit}
-          autoComplete="off"
-        >
-          <label htmlFor="username" className={style.cards}>
-            <box-icon name="user" color="#000000dd"></box-icon>
-            <span className={style['input-field']}>
-              <p className={style.label}>Username</p>
-              <input
-                type="text"
-                name="username"
-                id="username"
-                value={formbody.username}
-                onChange={handleChange}
-                required
-              />
-            </span>
-            <box-icon
-              name={control.username ? 'check' : 'x'}
-              color={`${control.username ? '#73ba9b' : '#c1121f'}`}
+        {
+          confirmForm ? (
+            <ConfirmRegister
+              setRegisterPage={setRegisterPage}
+              setConfirmForm={() => setConfirmForm(false)}
+            />
+          ) : (
+            <form
+              method="post"
+              className={style.form}
+              onSubmit={handleSubmit}
+              autoComplete="off"
             >
-            </box-icon>
-          </label>
-          <label htmlFor="email" className={style.cards}>
-            <box-icon name="envelope" color="#000000dd"></box-icon>
-            <span className={style['input-field']}>
-              <p className={style.label}>Email Address</p>
-              <input
-                type="email"
-                name="email"
-                id="email"
-                value={formbody.email}
-                onChange={handleChange}
-                required
-              />
-            </span>
-            <box-icon
-              name={control.email ? 'check' : 'x'}
-              color={`${control.email ? '#73ba9b' : '#c1121f'}`}
-            >
-            </box-icon>
-          </label>
-          <label htmlFor="password-regis" className={style.cards}>
-            <box-icon name="lock-open" color="#000000dd"></box-icon>
-            <span className={style['input-field']}>
-              <p className={style.label}>Password</p>
-              <input
-                type="password"
-                name="password"
-                id="password-regis"
-                value={formbody.password}
-                onChange={handleChange}
-                required
-              />
-            </span>
-            <box-icon
-              name={control.password ? 'check' : 'x'}
-              color={`${control.password ? '#73ba9b' : '#c1121f'}`}
-            >
-            </box-icon>
-          </label>
-          <span className={style.submit}>
-            <button type="submit" className={style.btn}>Create Account</button>
-          </span>
-        </form>
+              <label htmlFor="username" className={style.cards}>
+                <box-icon
+                  name="user"
+                  color={darkmode ? '#ffffffdd' : '#000000dd'}
+                >
+                </box-icon>
+                <span className={style['input-field']}>
+                  <p className={style.label}>Username</p>
+                  <input
+                    type="text"
+                    name="username"
+                    id="username"
+                    value={formbody.username}
+                    onChange={handleChange}
+                    required
+                  />
+                </span>
+                <box-icon
+                  name={control.username ? 'check-circle' : 'x-circle'}
+                  color={`${control.username ? '#00A19D' : '#B91646'}`}
+                >
+                </box-icon>
+              </label>
+              <label htmlFor="email" className={style.cards}>
+                <box-icon
+                  name="envelope"
+                  color={darkmode ? '#ffffffdd' : '#000000dd'}
+                >
+                </box-icon>
+                <span className={style['input-field']}>
+                  <p className={style.label}>Email Address</p>
+                  <input
+                    type="email"
+                    name="email"
+                    id="email"
+                    value={formbody.email}
+                    onChange={handleChange}
+                    required
+                  />
+                </span>
+                <box-icon
+                  name={control.email ? 'check-circle' : 'x-circle'}
+                  color={`${control.email ? '#00A19D' : '#B91646'}`}
+                >
+                </box-icon>
+              </label>
+              <label htmlFor="password-regis" className={style.cards}>
+                <box-icon
+                  name="lock-open"
+                  color={darkmode ? '#ffffffdd' : '#000000dd'}
+                >
+                </box-icon>
+                <span className={style['input-field']}>
+                  <p className={style.label}>Password</p>
+                  <input
+                    type="password"
+                    name="password"
+                    id="password-regis"
+                    value={formbody.password}
+                    onChange={handleChange}
+                    required
+                  />
+                </span>
+                <box-icon
+                  name={control.password ? 'check-circle' : 'x-circle'}
+                  color={`${control.password ? '#00A19D' : '#B91646'}`}
+                >
+                </box-icon>
+              </label>
+              <div className={`${style.response} ${response.active ? style.active : null}`}>
+                <box-icon
+                  name={`${response.success ? 'check-circle' : 'x-circle'}`}
+                  color={`${response.success ? '#00A19D' : '#B91646'}`}
+                >
+                </box-icon>
+                <p>{response.message}</p>
+              </div>
+              <span className={style.submit}>
+                <button type="submit" className={style.btn}>Create Account</button>
+              </span>
+            </form>
+          )
+        }
         <div className={style.footer}>
           <p>Already have an account?</p>
           <button
             className={style.btn}
-            onClick={() => setRegisterPage(false)}
+            onClick={setRegisterPage}
           >
             Login
           </button>

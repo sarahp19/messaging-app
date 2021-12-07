@@ -13,6 +13,7 @@ function Main() {
     contactIsOpen: false,
     settingIsOpen: false,
     logoutTabIsOpen: false,
+    archiveIsOpen: false,
   });
 
   const handleMiniTabIsOpen = () => {
@@ -70,6 +71,14 @@ function Main() {
     }));
   }
 
+  const handleArchiveIsOpen = () => {
+    setState((prev) => ({
+      ...prev,
+      archiveIsOpen: !prev.archiveIsopen,
+      miniTabIsOpen: false,
+    }));
+  }
+
   return (
     <div className={`${style.main} ${props.room.active ? style.active : null}`}>
       <div className={style['main-wrap']}>
@@ -101,7 +110,13 @@ function Main() {
           handleLogoutTabIsOpen={handleLogoutTabIsOpen}
           logoutTabIsOpen={state.logoutTabIsOpen}
         />
-        <comp.inbox />
+        <comp.archivebox
+          handleArchiveIsOpen={handleArchiveIsOpen}
+          archiveIsOpen={state.archiveIsOpen}
+        />
+        <comp.inbox
+          handleArchiveIsOpen={handleArchiveIsOpen}
+        />
       </div>
     </div>
   );

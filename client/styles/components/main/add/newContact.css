@@ -83,7 +83,7 @@
   border-radius: 50%;
 }
 .list .cards .profile-name {
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-body);
 }
 .list .cards .username {
   opacity: 0.5;
@@ -118,7 +118,7 @@
   align-items: center;
 }
 .blank .title {
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-body);
   color: #ffffff70;
 }
 

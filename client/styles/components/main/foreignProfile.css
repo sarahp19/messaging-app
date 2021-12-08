@@ -67,7 +67,7 @@
   border: none;
 }
 .info .cards .profile-name {
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-body);
 }
 .info .cards .text {
   display: grid;

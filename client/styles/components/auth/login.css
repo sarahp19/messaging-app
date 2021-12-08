@@ -5,7 +5,6 @@
   transition: cubic-bezier(0.785, 0.135, 0.15, 0.86) 0.5s;
   opacity: 0;
   z-index: 0;
-  background: #ffffff;
 }
 .login.active {
   opacity: 1;
@@ -23,7 +22,7 @@
 .login-wrap {
   display: grid;
   grid-template-rows: auto 1fr auto;
-  padding: 20px;
+  padding: 20px 15px;
 }
 h1, h3 {
   font-family: averta-bold;
@@ -35,8 +34,7 @@ h1, h3 {
 .control {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  margin: 40px 0 0 0;
+  margin: 20px 0 0 0;
 }
 .control .cards {
   display: grid;
@@ -51,31 +49,34 @@ h1, h3 {
 }
 .control .label {
   margin: 10px 0 0 0;
-  opacity: 0.5;
-  font-size: 0.9rem;
 }
 .control input {
   width: 100%;
   padding: 5px 0 10px 0;
 }
 .action {
+  margin: 10px 0 20px 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 5px 0 10px 0;
 }
 .action .remember {
   display: flex;
   align-items: center;
   gap: 10px;
 }
+.remember-check {
+  width: 15px; height: 15px;
+  border: 1px solid #212121;
+  border-radius: 50%;
+}
 .submit {
   display: flex;
-  justify-content: flex-end;
 }
 .submit .btn {
-  background: #eaf5f4;
-  padding: 15px 30px;
+  color: #ffffff;
+  background: #393E46;
+  padding: 10px 20px;
   cursor: pointer;
 }
 .forgot {
@@ -89,4 +90,30 @@ h1, h3 {
 .footer .btn {
   text-decoration: underline;
   cursor: pointer;
+}
+
+.response {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 10px 0;
+  opacity: 0;
+}
+.response.active {
+  opacity: 1;
+}
+
+/* darkmode */
+.login.dark {
+  background: #222831;
+}
+.login.dark .control .cards {
+  border-color: #ffffffdd;
+}
+.login.dark * {
+  color: #ffffffdd;
+}
+.login.dark .remember-check {
+  border-color: #ffffffdd;
 }

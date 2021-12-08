@@ -14,7 +14,7 @@
 .register-wrap {
   display: grid;
   grid-template-rows: auto 1fr auto;
-  padding: 20px;
+  padding: 20px 15px;
 }
 h1, h3 {
   font-family: averta-bold;
@@ -23,39 +23,36 @@ h1, h3 {
   margin: 10px 0 0 0;
   opacity: 0.8;
 }
-.control {
+.form {
   width: 100%;
   display: flex;
   flex-direction: column;
-  margin: 40px 0 0 0;
+  margin: 20px 0 0 0;
 }
-.control .cards {
+.form .cards {
   display: grid;
   grid-template-columns: auto 1fr auto;
   gap: 20px;
   align-items: center;
   cursor: pointer;
-  border-bottom: 1px solid #00000070;
+  border-bottom: 1px solid #393E4670;
 }
-.control .input-field {
+.form .input-field {
   display: grid;
 }
-.control .label {
+.form .label {
   margin: 10px 0 0 0;
-  opacity: 0.5;
-  font-size: 0.9rem;
 }
-.control input {
+.form input {
   padding: 5px 0 10px 0;
 }
 .submit {
-  margin: 40px 0 0 0;
   display: flex;
-  justify-content: flex-end;
 }
 .submit .btn {
-  background: #eaf5f4;
-  padding: 15px 30px;
+  color: #ffffff;
+  background: #393E46;
+  padding: 10px 20px;
   cursor: pointer;
 }
 .forgot {
@@ -69,4 +66,27 @@ h1, h3 {
 .footer .btn {
   text-decoration: underline;
   cursor: pointer;
+}
+
+.response {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 20px;
+  align-items: center;
+  padding: 10px 0 20px 0;
+  opacity: 0;
+}
+.response.active {
+  opacity: 1;
+}
+
+/* darkmode */
+.register.dark {
+  background: #222831;
+}
+.register.dark .form .cards {
+  border-color: #ffffffdd;
+}
+.register.dark * {
+  color: #ffffffdd;
 }

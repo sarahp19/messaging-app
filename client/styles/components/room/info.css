@@ -20,7 +20,7 @@
   padding: 0 15px
 }
 .title {
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-body);
 }
 .paragraf:nth-of-type(1) {
   margin: 10px 0 20px 0;

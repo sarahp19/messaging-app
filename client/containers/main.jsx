@@ -74,7 +74,7 @@ function Main() {
   const handleArchiveIsOpen = () => {
     setState((prev) => ({
       ...prev,
-      archiveIsOpen: !prev.archiveIsopen,
+      archiveIsOpen: !prev.archiveIsOpen,
       miniTabIsOpen: false,
     }));
   }
@@ -110,7 +110,7 @@ function Main() {
           handleLogoutTabIsOpen={handleLogoutTabIsOpen}
           logoutTabIsOpen={state.logoutTabIsOpen}
         />
-        <comp.archivebox
+        <comp.archive
           handleArchiveIsOpen={handleArchiveIsOpen}
           archiveIsOpen={state.archiveIsOpen}
         />

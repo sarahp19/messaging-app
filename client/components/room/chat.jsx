@@ -14,6 +14,7 @@ function Chat() {
     socket.emit('chat/get', {
       socketId: socket.id,
       foreignId: room.data.foreignId,
+      userId: user.userId,
       roomId: room.data.roomId,
     });
 
@@ -27,12 +28,18 @@ function Chat() {
   }
 
   const formatTime = (args) => {
-    const displayTime = new Date(args).toLocaleTimeString('en-US', {
+    const displayTime = new Date(args).toLocaleTimeString([], {
+      hour12: false,
       hour: '2-digit',
       minute: '2-digit',
     });
     return displayTime;
   }
+
+  useEffect(() => {
+    const parent = document.getElementsByClassName(style.chat)[0];
+    parent.scrollTop = parent.scrollHeight;
+  });
 
   useEffect(() => {
     handleGetChats();

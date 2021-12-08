@@ -13,23 +13,6 @@ const InboxModel = model('inboxs', new Schema({
   owners: {
     type: Schema.Types.Array,
   },
-  to: {
-    foreignId: {
-      type: Schema.Types.String,
-      required: true,
-    },
-    avatar: {
-      type: Schema.Types.String,
-    },
-    profileName: {
-      type: Schema.Types.String,
-      required: true,
-    },
-    username: {
-      type: Schema.Types.String,
-      required: true,
-    },
-  },
   lastMessage: {
     from: {
       type: Schema.Types.String,
@@ -37,13 +20,24 @@ const InboxModel = model('inboxs', new Schema({
     },
     condition: {
       type: Schema.Types.String,
-      enum: ['notsend', 'sent', 'read'],
+      enum: ['pending', 'sent', 'read'],
       default: 'sent',
     },
     text: {
       type: Schema.Types.String,
       trim: true,
     },
+    createdAt: {
+      type: Schema.Types.Date,
+    },
+  },
+  total: {
+    type: Schema.Types.Number,
+    default: 0,
+  },
+  archived: {
+    type: Schema.Types.Boolean,
+    default: false,
   },
 }, {
   timestamps: true,

@@ -1,0 +1,48 @@
+.form {
+  margin: 20px 0 0 0;
+  display: flex;
+  flex-direction: column;
+}
+.form .cards {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 20px;
+  align-items: center;
+  cursor: pointer;
+  border-bottom: 1px solid #393E4670;
+}
+.form .input-field {
+  display: grid;
+}
+.form .label {
+  margin: 10px 0 0 0;
+}
+.form input {
+  padding: 5px 0 10px 0;
+}
+.submit {
+  display: flex;
+}
+.submit .btn {
+  color: #ffffff;
+  background: #393E46;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.response {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 20px;
+  align-items: center;
+  padding: 10px 0 20px 0;
+  opacity: 0;
+}
+.response.active {
+  opacity: 1;
+}
+
+/* darkmode */
+.form.dark .cards {
+  border-color: #ffffffdd;
+}

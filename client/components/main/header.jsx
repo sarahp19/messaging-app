@@ -1,17 +1,65 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import style from '../../styles/components/main/header.css';
+
+import action from '../../redux/actions/selectedInbox';
+import socket from '../../helpers/socket';
 
 function Header({
   handleMiniTabIsOpen,
   miniTabIsOpen,
   handleContactIsOpen,
 }) {
-  const { darkmode } = useSelector((state) => state);
+  const { darkmode, user, selectedInbox } = useSelector((state) => state);
+  const dispatch = useDispatch();
+
+  const handleArchived = () => {
+    socket.emit('inbox/update/archived', {
+      active: true,
+      data: selectedInbox.data,
+      userId: user.userId,
+    });
+
+    dispatch(action.clear());
+  }
 
   return (
-    <div className={`${style.header} ${darkmode ? style.dark : null}`}>
+    <div
+      className={`
+        ${style.header}
+        ${darkmode ? style.dark : null}
+      `}
+    >
       <div className={style.top}>
+        <div className={`${style.focused} ${selectedInbox.active ? style.active : null}`}>
+          <div className={style['focused-wrap']}>
+            <div className={style.left}>
+              <button
+                onClick={() => dispatch(action.clear())}
+                className={style.btn}
+              >
+                <box-icon name="arrow-back" color={darkmode ? '#ffffffdd' : '#000000dd'}></box-icon>
+              </button>
+              <h3 className={style.count}>{selectedInbox.data.length}</h3>
+            </div>
+            <div className={style.right}>
+              <button
+                type="button"
+                className={`${style.btn}`}
+                onClick={handleArchived}
+              >
+                <box-icon name="archive" color={darkmode ? '#ffffffdd' : '#000000dd'}></box-icon>
+              </button>
+              <button
+                type="button"
+                className={`${style.btn} ${style['message-btn']}`}
+                onClick={handleContactIsOpen}
+              >
+                <box-icon name="trash" color={darkmode ? '#ffffffdd' : '#000000dd'}></box-icon>
+              </button>
+            </div>
+          </div>
+        </div>
         <h2 className={style.title}>Messaging.</h2>
         <div className={style.navigation}>
           <button
@@ -37,7 +85,9 @@ function Header({
         </div>
       </div>
       <div className={style['search-bar']}>
-        <box-icon name="search-alt" color={darkmode ? '#ffffffdd' : '#000000dd'}></box-icon>
+        <span className={style.icon}>
+          <box-icon name="search-alt" color={darkmode ? '#ffffffdd' : '#000000dd'}></box-icon>
+        </span>
         <input
           type="search"
           name="search"

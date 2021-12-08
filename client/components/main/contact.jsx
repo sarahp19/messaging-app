@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import style from '../../styles/components/main/contact.css';
@@ -15,7 +15,6 @@ function Contact({
   const isDev = process.env.NODE_ENV === 'development';
 
   const dispatch = useDispatch();
-  const mounted = useRef(true);
 
   const { user, darkmode } = useSelector((state) => state);
   const [state, setState] = useState({
@@ -46,7 +45,6 @@ function Contact({
   const handleOpenChatRoom = (args) => {
     dispatch(action.roomIsOpen({
       active: true,
-      display: true,
       foreignId: args.foreignId,
       userId: user.userId,
     }));
@@ -54,10 +52,6 @@ function Contact({
 
   useEffect(() => {
     handleGetContact();
-
-    return () => {
-      mounted.current = false;
-    }
   }, []);
 
   return (
@@ -84,7 +78,7 @@ function Contact({
             <span className={style.icon}>
               <box-icon name="group" color="#000000dd"></box-icon>
             </span>
-            <p>Create a New Group</p>
+            <p>Create a new group</p>
           </div>
           <div
             className={style.cards}
@@ -94,7 +88,7 @@ function Contact({
             <span className={style.icon}>
               <box-icon name="user-plus" color="#000000dd"></box-icon>
             </span>
-            <p>Add New Contact</p>
+            <p>Add new contact</p>
           </div>
         </div>
         <div className={style.list}>

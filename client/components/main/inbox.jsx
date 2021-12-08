@@ -1,18 +1,24 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 
+import sound from '../../assets/sound/message.mp3';
+
 import style from '../../styles/components/main/inbox.css';
 
+import action from '../../redux/actions/selectedInbox';
 import socket from '../../helpers/socket';
 
-function Inbox() {
+function Inbox({
+  handleArchiveIsOpen,
+}) {
   const isDev = process.env.NODE_ENV === 'development';
 
-  const { user, darkmode } = useSelector((state) => state);
+  const { user, darkmode, selectedInbox } = useSelector((state) => state);
   const dispatch = useDispatch();
 
   const [inboxs, setInboxs] = useState([]);
+  const [inboxShadow, setInboxShadow] = useState(0);
 
   const handleGetInboxs = () => {
     socket.emit('inbox/get', {
@@ -21,62 +27,194 @@ function Inbox() {
     });
 
     socket.on('inbox/get/callback', (args) => {
-      try {
-        if (!args.success) {
-          throw args;
-        }
+      if (args.sound) {
+        const audio = new Audio(sound);
+        audio.volume = 1;
 
-        setInboxs(args.data);
+        audio.play();
       }
-      catch (error0) {
-        console.log(error0.message);
-      }
+
+      setInboxs(args.data);
+      setInboxShadow(1);
     });
   }
 
   const handleFormatTime = (args) => moment(args).fromNow();
   const inboxOwner = (args) => args.find((item) => item.userId !== user.userId);
 
+  const Condition = ({ condition }) => {
+    if (condition === 'read') {
+      return (
+        <span
+          className={style['condition-icon']}
+        >
+          <box-icon
+            name="check-double"
+            color={darkmode ? '#00A19D' : '#00A19D'}
+          >
+          </box-icon>
+        </span>
+      );
+    }
+
+    return (
+      <span
+        className={style['condition-icon']}
+      >
+        <box-icon
+          name="check-double"
+          color={darkmode ? '#ffffffdd' : '#000000dd'}
+        >
+        </box-icon>
+      </span>
+    );
+  }
+
+  const intervalRef = useRef(null);
+
+  const handleHoldStart = (event, args) => {
+    if (intervalRef.current) return;
+    let counter = 0;
+
+    intervalRef.current = setInterval(() => {
+      counter += 1;
+
+      if (counter >= 7) {
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
+
+        dispatch(action.insert({
+          data: args,
+        }));
+      }
+    }, 100);
+  }
+
+  const handleHoldEnd = () => {
+    clearInterval(intervalRef.current);
+    intervalRef.current = null;
+  }
+
+  const handleSelectedInbox = (data) => {
+    const arr = selectedInbox.data;
+
+    if (arr.includes(data)) {
+      dispatch(action.remove({ data }));
+      return;
+    }
+
+    dispatch(action.insert({ data }));
+  }
+
+  const handleOpenRoom = (args) => {
+    dispatch({
+      type: 'counter/roomIsOpen',
+      payload: {
+        active: true,
+        data: {
+          foreignId: inboxOwner(args.owners).userId,
+          roomId: args.roomId,
+        },
+      },
+    });
+
+    if (args.lastMessage.from !== user.userId) {
+      socket.emit('chat/read', {
+        socketId: socket.id,
+        userId: user.userId,
+        foreignId: inboxOwner(args.owners).userId,
+        roomId: args.roomId,
+      });
+    }
+  }
+
+  useEffect(() => setInboxShadow(1));
+
   useEffect(() => {
     handleGetInboxs();
-  }, []);
+  }, [
+    inboxShadow,
+  ]);
 
   return (
     <div className={`${style.inbox} ${darkmode ? style.dark : null}`}>
+      <div
+        className={`${style['archive-box']} ${inboxs.filter((item) => item.archived).length > 0 ? style.active : null}`}
+        aria-hidden="true"
+        onClick={handleArchiveIsOpen}
+      >
+        <span className={style.icon}>
+          <box-icon name="archive" color={darkmode ? '#ffffffdd' : '#000000dd'}></box-icon>
+        </span>
+        <h3 className={style.title}>Archived</h3>
+        <p className={style.total}>{inboxs.filter((item) => item.archived).length}</p>
+      </div>
       {
-        inboxs.map((item) => (
-          <div className={style['inbox-cards']} key={item._id}>
-            <img
-              src={isDev ? `http://localhost:8000/api/images/${inboxOwner(item.owners).avatar}` : `/api/images/${inboxOwner(item.owners).avatar}`}
-              className={style.avatar}
-            />
+        inboxs
+          .filter((item) => !item.archived)
+          .map((item) => (
             <div
-              className={style.text}
+              className={`${style['inbox-cards']} ${selectedInbox.data.includes(item.roomId) ? style.focus : null}`}
+              key={item._id}
               aria-hidden="true"
-              onClick={() => dispatch({
-                type: 'counter/roomIsOpen',
-                payload: {
-                  active: true,
-                  display: true,
-                  data: {
-                    foreignId: inboxOwner(item.owners).userId,
-                    roomId: item.roomId,
-                  },
-                },
-              })}
+              onTouchStart={(event) => handleHoldStart(event, item.roomId)}
+              onTouchEnd={handleHoldEnd}
+              onMouseDown={(event) => handleHoldStart(event, item.roomId)}
+              onMouseUp={handleHoldEnd}
             >
-              <span className={style.name}>
-                <h3 className={style['profile-name']}>{inboxOwner(item.owners).profileName}</h3>
-                <p className={style.username}>@{inboxOwner(item.owners).username}</p>
-              </span>
-              <span className={style.ctx}>
-                <p>{item.lastMessage.from === user.userId ? 'You: ' : 'Him: '}</p>
-                <p className={style.message}>{item.lastMessage.text}</p>
-              </span>
-              <p className={style.time}>{handleFormatTime(item.updatedAt)}</p>
+              <img
+                src={isDev ? `http://localhost:8000/api/images/${inboxOwner(item.owners).avatar}` : `/api/images/${inboxOwner(item.owners).avatar}`}
+                className={style.avatar}
+              />
+              <div
+                className={style.text}
+                aria-hidden="true"
+                onClick={() => (
+                  selectedInbox.active ? handleSelectedInbox(item.roomId) : handleOpenRoom(item)
+                )}
+              >
+                <span className={style.top}>
+                  <h3 className={style['profile-name']}>{inboxOwner(item.owners).profileName}</h3>
+                  <p className={style.time}>{handleFormatTime(item.lastMessage.createdAt)}</p>
+                </span>
+                <span className={style.ctx}>
+                  {
+                    item.lastMessage.from === user.userId
+                    && (
+                      <Condition
+                        condition={item.lastMessage.condition}
+                      />
+                    )
+                  }
+                  <p
+                    className={style.message}
+                    style={{
+                      margin: item.lastMessage.from === user.userId ? '0' : '0 40px 0 0',
+                    }}
+                  >
+                    {item.lastMessage.text}
+                  </p>
+                  <p
+                    className={style.total}
+                    style={{
+                      opacity: (() => {
+                        if (item.lastMessage.from === user.userId ? 0 : 1) {
+                          if (item.total > 0) return 1;
+                          return 0;
+                        }
+                        return null;
+                      })(),
+                    }}
+                  >
+                    {
+                      item.lastMessage.from !== user.userId && item.total > 0
+                      && item.total
+                    }
+                  </p>
+                </span>
+              </div>
             </div>
-          </div>
-        ))
+          ))
       }
     </div>
   );

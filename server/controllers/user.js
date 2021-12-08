@@ -54,7 +54,6 @@ exports.userRegisterStep1 = async (req, res) => {
 
 exports.userRegisterStep2 = async (req, res) => {
   try {
-    console.log(req.body);
     const { username, email, password } = req.body;
 
     const user = await new UserModel({
@@ -70,7 +69,6 @@ exports.userRegisterStep2 = async (req, res) => {
       profileName: username,
     }).save();
 
-    console.log(user, profile);
     // merge 2 responses
     const data = { ...user, ...profile };
     response({ res, data });

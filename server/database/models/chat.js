@@ -14,6 +14,11 @@ const ChatModel = model('chats', new Schema({
     trim: true,
     required: true,
   },
+  condition: {
+    type: Schema.Types.String,
+    enum: ['pending', 'sent', 'read'],
+    default: 'sent',
+  },
   reply: {
     type: Schema.Types.String,
   },

@@ -107,7 +107,7 @@ function Register({
     const usernameValid = /^[a-z]*$/g.test(formbody.username);
     if (
       usernameValid
-      && formbody.username.length >= 6
+      && formbody.username.length >= 3
       && formbody.username.length < 17
     ) {
       setControl((prev) => ({
@@ -163,9 +163,18 @@ function Register({
       <div className={style['register-wrap']}>
         <div className={style.header}>
           <h2>Register.</h2>
-          <p>
-            Register your account & start a conversation with your friends any + where/time.
-          </p>
+          {
+            confirmForm ? (
+              <p>
+                to continue registering your account,
+                please enter your registration code that we have sent via Gmail.
+              </p>
+            ) : (
+              <p>
+                Register your account & start a conversation with your friends any + where/time.
+              </p>
+            )
+          }
         </div>
         {
           confirmForm ? (
@@ -192,6 +201,7 @@ function Register({
                     type="text"
                     name="username"
                     id="username"
+                    placeholder="Length 3-16, must be lowercase"
                     value={formbody.username}
                     onChange={handleChange}
                     required
@@ -238,6 +248,7 @@ function Register({
                     type="password"
                     name="password"
                     id="password-regis"
+                    placeholder="Must contain A-Za-z, 0-9 & symbols"
                     value={formbody.password}
                     onChange={handleChange}
                     required

@@ -95,7 +95,7 @@ function Login({
   }
 
   useEffect(() => {
-    if (formbody.usernameOrEmail.length >= 6) {
+    if (formbody.usernameOrEmail.length >= 3) {
       setControl((prev) => ({
         ...prev,
         usernameOrEmail: true,
@@ -177,6 +177,7 @@ function Login({
                 type="password"
                 name="password"
                 id="password"
+                placeholder="Must contain A-Za-z, 0-9 & symbols"
                 value={formbody.password}
                 onChange={handleChange}
                 required

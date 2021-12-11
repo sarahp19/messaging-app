@@ -75,6 +75,12 @@ function ConfirmRegister({
     const validation = /^[0-9]*$/g.test(key);
     const storage = JSON.parse(localStorage.getItem('pending'));
 
+    if (storage) {
+      setTimeout(() => {
+        setKey(String(storage.key));
+      }, 5000);
+    }
+
     if (
       validation
       && key === String(storage.key)
@@ -84,7 +90,7 @@ function ConfirmRegister({
     } else {
       setControl(false);
     }
-  });
+  }, [key]);
 
   return (
     <form
@@ -104,6 +110,7 @@ function ConfirmRegister({
             type="key"
             name="key"
             id="key"
+            placeholder="Enter your registration code"
             value={key}
             onChange={handleChange}
             required

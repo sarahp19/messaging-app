@@ -9,6 +9,10 @@ const ChatModel = model('chats', new Schema({
     type: Schema.Types.String,
     required: true,
   },
+  from: {
+    type: Schema.Types.String,
+    required: true,
+  },
   message: {
     type: Schema.Types.String,
     trim: true,

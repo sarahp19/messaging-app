@@ -117,18 +117,7 @@ function Inbox({
         },
       },
     });
-
-    if (args.lastMessage.from !== user.userId) {
-      socket.emit('chat/read', {
-        socketId: socket.id,
-        userId: user.userId,
-        foreignId: inboxOwner(args.owners).userId,
-        roomId: args.roomId,
-      });
-    }
   }
-
-  useEffect(() => setInboxShadow(1));
 
   useEffect(() => {
     handleGetInboxs();

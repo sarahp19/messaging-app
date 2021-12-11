@@ -22,12 +22,14 @@
 }
 .submit {
   display: flex;
+  justify-content: flex-end;
 }
 .submit .btn {
   color: #ffffff;
   background: #393E46;
-  padding: 10px 20px;
+  padding: 10px 15px;
   cursor: pointer;
+  border-radius: 2rem;
 }
 
 .response {

@@ -27,19 +27,34 @@
   display: block;
 }
 .send-wrap {
-  height: 60px;
+  height: 40px;
   display: grid;
-  grid-template-columns: auto 1fr auto auto;
+  grid-template-columns: auto 1fr auto;
   align-items: center;
   gap: 5px;
-  padding: 0 10px;
+  padding: 10px;
+}
+.control-wrap {
+  height: 100%;
+  display: flex;
+  overflow: hidden;
 }
 .form-control {
   width: 100%;
+  padding: 10px 0 0 0;
+  white-space: normal;
+  resize: none;
+}
+.form-control::-webkit-scrollbar {
+  display: none;
 }
 .form-control::placeholder {
   color: #00000070;
-  transform: translate(5px, 0);
+}
+.not-send {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5px;
 }
 .btn {
   width: 35px; height: 35px;

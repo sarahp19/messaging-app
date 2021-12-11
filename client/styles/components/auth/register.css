@@ -46,14 +46,19 @@ h1, h3 {
 .form input {
   padding: 5px 0 10px 0;
 }
+.form input::placeholder {
+  color: #00000070;
+}
 .submit {
   display: flex;
+  justify-content: flex-end;
 }
 .submit .btn {
   color: #ffffff;
   background: #393E46;
-  padding: 10px 20px;
+  padding: 10px 15px;
   cursor: pointer;
+  border-radius: 2rem;
 }
 .forgot {
   text-decoration: underline;
@@ -85,8 +90,11 @@ h1, h3 {
   background: #222831;
 }
 .register.dark .form .cards {
-  border-color: #ffffffdd;
+  border-color: #393E46;
 }
 .register.dark * {
   color: #ffffffdd;
+}
+.register.dark .form input::placeholder {
+  color: #ffffff70;
 }

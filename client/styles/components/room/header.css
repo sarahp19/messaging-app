@@ -5,7 +5,7 @@
   grid-template-columns: auto 1fr auto;
   gap: 10px;
   align-items: center;
-  padding: 0 15px 0 10px;
+  padding: 0 10px;
   z-index: 1;
 }
 .close-btn {
@@ -35,6 +35,22 @@
   font-size: 0.95rem;
   color: #000000dd;
 }
+.action {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.action .btn {
+  width: 35px; height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.btn:hover {
+  background: #e9e9e9;
+}
 
 /* darkmode */
 .header.dark {
@@ -45,4 +61,7 @@
 }
 .header.dark .info .online {
   color: #ffffffdd;
+}
+.btn:hover {
+  background: #393E46;
 }

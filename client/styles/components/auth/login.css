@@ -54,6 +54,9 @@ h1, h3 {
   width: 100%;
   padding: 5px 0 10px 0;
 }
+.control input::placeholder {
+  color: #00000070;
+}
 .action {
   margin: 10px 0 20px 0;
   display: flex;
@@ -72,12 +75,14 @@ h1, h3 {
 }
 .submit {
   display: flex;
+  justify-content: flex-end;
 }
 .submit .btn {
   color: #ffffff;
   background: #393E46;
-  padding: 10px 20px;
+  padding: 10px 15px;
   cursor: pointer;
+  border-radius: 2rem;
 }
 .forgot {
   text-decoration: underline;
@@ -109,11 +114,14 @@ h1, h3 {
   background: #222831;
 }
 .login.dark .control .cards {
-  border-color: #ffffffdd;
+  border-color: #393E46;
 }
 .login.dark * {
   color: #ffffffdd;
 }
 .login.dark .remember-check {
   border-color: #ffffffdd;
+}
+.login.dark .control input::placeholder {
+  color: #ffffff70;
 }

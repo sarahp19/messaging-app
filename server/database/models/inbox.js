@@ -6,6 +6,10 @@ const InboxModel = model('inboxs', new Schema({
     required: true,
     default: 'private',
   },
+  userId: {
+    type: Schema.Types.String,
+    required: true,
+  },
   roomId: {
     type: Schema.Types.String,
     required: true,

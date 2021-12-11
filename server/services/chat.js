@@ -7,8 +7,6 @@ module.exports = (
   users,
 ) => {
   socket.on('chat/get', async (args) => {
-    const user = users.find((item) => item.socketId === args.socketId);
-
     try {
       const inbox = await InboxModel.findOne({
         $and: [
@@ -19,16 +17,14 @@ module.exports = (
 
       const data = await ChatModel.find({ roomId: inbox.roomId });
 
-      io
-        .to(user.socketId)
-        .emit('chat/get/callback', {
-          success: true,
-          data,
-          message: null,
-        });
+      socket.emit('chat/get/callback', {
+        success: true,
+        data,
+        message: null,
+      });
     }
     catch (error0) {
-      io.to(user.socketId).emit('chat/get/callback', {
+      socket.emit('chat/get/callback', {
         success: false,
         data: null,
         message: error0.message,
@@ -37,8 +33,6 @@ module.exports = (
   });
 
   socket.on('chat/add', async (args) => {
-    const user = users.find((item) => item.socketId === args.socketId);
-
     try {
       const inbox = await InboxModel.findOne({ roomId: args.roomId });
       const foreign = users.find((item) => item.userId === args.to.userId)
@@ -73,7 +67,7 @@ module.exports = (
             createdAt: chat.createdAt,
           },
           total: 1,
-        }).save()._doc;
+        }).save();
       }
 
       const data = await ChatModel.find({ roomId: args.roomId });
@@ -85,21 +79,17 @@ module.exports = (
         },
       }).sort({ updatedAt: -1 });
 
-      io
-        .to(user.socketId)
-        .emit('chat/get/callback', {
-          success: true,
-          data,
-          message: null,
-        });
+      socket.emit('chat/get/callback', {
+        success: true,
+        data,
+        message: null,
+      });
 
-      io
-        .to(user.socketId)
-        .emit('inbox/get/callback', {
-          success: true,
-          data: inboxData,
-          message: null,
-        });
+      socket.emit('inbox/get/callback', {
+        success: true,
+        data: inboxData,
+        message: null,
+      });
 
       if (foreign) {
         io
@@ -129,7 +119,7 @@ module.exports = (
       }
     }
     catch (error0) {
-      io.to(user.socketId).emit('chat/add/callback', {
+      socket.emit('chat/add/callback', {
         success: false,
         data: null,
         message: error0.message,
@@ -156,7 +146,6 @@ module.exports = (
         { $set: { condition: 'read' } },
       );
 
-      const chat = await ChatModel.find({ roomId: args.roomId });
       const inboxForeign = await InboxModel.find({
         owners: {
           $elemMatch: {
@@ -165,6 +154,7 @@ module.exports = (
         },
       }).sort({ updatedAt: -1 });
 
+      const chatUser = await ChatModel.find({ roomId: args.roomId });
       const inboxUser = await InboxModel.find({
         owners: {
           $elemMatch: {
@@ -175,19 +165,19 @@ module.exports = (
 
       io.to(foreign.socketId).emit('chat/get/callback', {
         success: true,
-        data: chat,
-        message: null,
-      });
-
-      io.to(foreign.socketId).emit('inbox/get/callback', {
-        success: true,
-        data: inboxForeign,
+        data: chatUser,
         message: null,
       });
 
       socket.emit('inbox/get/callback', {
         success: true,
         data: inboxUser,
+        message: null,
+      });
+
+      io.to(foreign.socketId).emit('inbox/get/callback', {
+        success: true,
+        data: inboxForeign,
         message: null,
       });
     }

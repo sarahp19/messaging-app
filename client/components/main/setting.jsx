@@ -25,44 +25,63 @@ function Setting({
         <h2 className={style.title}>Setting</h2>
       </div>
       <div className={style['setting-wrap']}>
-        <div className={style.theme}>
-          <p>theme</p>
+        <div
+          className={style.section}
+        >
+          <div className={style.cards}>
+            <box-icon name="adjust" color={darkmode ? '#ffffffdd' : '#000000dd'}></box-icon>
+            <p className={style.title}>Dark Mode</p>
+            <span className={style.check}>
+              <span className={style.dot}></span>
+            </span>
+          </div>
         </div>
         <div
-          className={style.cards}
+          className={style.section}
         >
-          <box-icon name="key" color={darkmode ? '#ffffffdd' : '#000000dd'}></box-icon>
-          <span className={style.text}>
-            <h3 className={style.title}>Account</h3>
-            <p className={style.paragraf}>Privacy, security, change password</p>
-          </span>
+          <h3 className={style.label}>Account</h3>
+          <div className={style.cards}>
+            <box-icon name="key" color={darkmode ? '#ffffffdd' : '#000000dd'}></box-icon>
+            <p className={style.title}>Change password</p>
+          </div>
+          <div className={style.cards}>
+            <box-icon name="power-off" color={darkmode ? '#ffffffdd' : '#000000dd'}></box-icon>
+            <p className={style.title}>Delete account</p>
+          </div>
         </div>
         <div
-          className={style.cards}
+          className={style.section}
         >
-          <box-icon name="message-square-dots" color={darkmode ? '#ffffffdd' : '#000000dd'}></box-icon>
-          <span className={style.text}>
-            <h3 className={style.title}>Chat</h3>
-            <p className={style.paragraf}>Privacy, security, change password</p>
-          </span>
+          <h3 className={style.label}>Chat</h3>
+          <div className={style.cards}>
+            <box-icon name="paper-plane" color={darkmode ? '#ffffffdd' : '#000000dd'}></box-icon>
+            <p className={style.title}>Enter to send message</p>
+            <span className={style.check}>
+              <span className={style.dot}></span>
+            </span>
+          </div>
         </div>
         <div
-          className={style.cards}
+          className={style.section}
         >
-          <box-icon name="bell" color={darkmode ? '#ffffffdd' : '#000000dd'}></box-icon>
-          <span className={style.text}>
-            <h3 className={style.title}>Notification</h3>
-            <p className={style.paragraf}>Privacy, security, change password</p>
-          </span>
+          <h3 className={style.label}>Notification</h3>
+          <div className={style.cards}>
+            <box-icon name="bell" color={darkmode ? '#ffffffdd' : '#000000dd'}></box-icon>
+            <p className={style.title}>Ringtone</p>
+          </div>
         </div>
         <div
-          className={style.cards}
+          className={style.section}
         >
-          <box-icon name="help-circle" color={darkmode ? '#ffffffdd' : '#000000dd'}></box-icon>
-          <span className={style.text}>
-            <h3 className={style.title}>Help</h3>
-            <p className={style.paragraf}>Help center, contact us, privacy policy</p>
-          </span>
+          <h3 className={style.label}>Help</h3>
+          <div className={style.cards}>
+            <box-icon name="shield" color={darkmode ? '#ffffffdd' : '#000000dd'}></box-icon>
+            <p className={style.title}>Privacy policy</p>
+          </div>
+          <div className={style.cards}>
+            <box-icon name="info-circle" color={darkmode ? '#ffffffdd' : '#000000dd'}></box-icon>
+            <p className={style.title}>Information</p>
+          </div>
         </div>
       </div>
     </div>

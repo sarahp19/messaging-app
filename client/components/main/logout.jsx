@@ -3,21 +3,27 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import style from '../../styles/components/main/logout.css';
 
+import socket from '../../helpers/socket';
 import * as action from '../../redux/actions';
 
 function Logout({
   handleLogoutTabIsOpen,
   logoutTabIsOpen,
 }) {
-  const { darkmode } = useSelector((state) => state);
+  const { user, darkmode } = useSelector((state) => state);
   const dispatch = useDispatch();
 
   const handleLogout = () => {
     handleLogoutTabIsOpen();
+    socket.emit('user/logout', { userId: user.userId });
 
     setTimeout(() => {
       localStorage.removeItem('token');
       dispatch(action.logout());
+
+      socket.on('user/logout/callback', (args) => {
+        console.log(args);
+      });
     }, 800);
   }
 

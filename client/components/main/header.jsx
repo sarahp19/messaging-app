@@ -14,8 +14,19 @@ function Header({
   const dispatch = useDispatch();
 
   const handleArchived = () => {
-    socket.emit('inbox/update/archived', {
-      active: true,
+    if (selectedInbox.data.length > 0) {
+      socket.emit('inbox/archived', {
+        active: true,
+        data: selectedInbox.data,
+        userId: user.userId,
+      });
+
+      dispatch(action.clear());
+    }
+  }
+
+  const handleDeleteInbox = () => {
+    socket.emit('inbox/delete', {
       data: selectedInbox.data,
       userId: user.userId,
     });
@@ -53,14 +64,14 @@ function Header({
               <button
                 type="button"
                 className={`${style.btn} ${style['message-btn']}`}
-                onClick={handleContactIsOpen}
+                onClick={handleDeleteInbox}
               >
                 <box-icon name="trash" color={darkmode ? '#ffffffdd' : '#000000dd'}></box-icon>
               </button>
             </div>
           </div>
         </div>
-        <h2 className={style.title}>Messaging.</h2>
+        <h2 className={style.title}>Messaging</h2>
         <div className={style.navigation}>
           <button
             type="button"

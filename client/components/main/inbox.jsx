@@ -18,11 +18,9 @@ function Inbox({
   const dispatch = useDispatch();
 
   const [inboxs, setInboxs] = useState([]);
-  const [inboxShadow, setInboxShadow] = useState(0);
 
   const handleGetInboxs = () => {
     socket.emit('inbox/get', {
-      socketId: socket.id,
       userId: user.userId,
     });
 
@@ -35,7 +33,6 @@ function Inbox({
       }
 
       setInboxs(args.data);
-      setInboxShadow(1);
     });
   }
 
@@ -122,7 +119,8 @@ function Inbox({
   useEffect(() => {
     handleGetInboxs();
   }, [
-    inboxShadow,
+    selectedInbox,
+    inboxs.length,
   ]);
 
   return (
@@ -150,6 +148,9 @@ function Inbox({
               onTouchEnd={handleHoldEnd}
               onMouseDown={(event) => handleHoldStart(event, item.roomId)}
               onMouseUp={handleHoldEnd}
+              onClick={() => (
+                selectedInbox.active ? handleSelectedInbox(item.roomId) : handleOpenRoom(item)
+              )}
             >
               <img
                 src={isDev ? `http://localhost:8000/api/images/${inboxOwner(item.owners).avatar}` : `/api/images/${inboxOwner(item.owners).avatar}`}
@@ -158,9 +159,6 @@ function Inbox({
               <div
                 className={style.text}
                 aria-hidden="true"
-                onClick={() => (
-                  selectedInbox.active ? handleSelectedInbox(item.roomId) : handleOpenRoom(item)
-                )}
               >
                 <span className={style.top}>
                   <h3 className={style['profile-name']}>{inboxOwner(item.owners).profileName}</h3>

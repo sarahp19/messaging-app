@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { v4 as uuidv4 } from 'uuid';
 
 import style from '../../styles/components/main/contact.css';
 
@@ -43,11 +44,29 @@ function Contact({
   }
 
   const handleOpenChatRoom = (args) => {
-    dispatch(action.roomIsOpen({
-      active: true,
-      foreignId: args.foreignId,
+    socket.emit('inbox/open', {
       userId: user.userId,
-    }));
+      foreignId: args.foreignId,
+    });
+
+    socket.on('inbox/open/callback', (args1) => {
+      try {
+        if (!args1.success) throw args1;
+
+        dispatch(action.roomIsOpen({
+          active: true,
+          foreignId: args.foreignId,
+          roomId: args1.roomId,
+        }));
+      }
+      catch (error0) {
+        dispatch(action.roomIsOpen({
+          active: true,
+          foreignId: args.foreignId,
+          roomId: uuidv4(),
+        }));
+      }
+    });
   }
 
   useEffect(() => {

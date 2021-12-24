@@ -33,6 +33,14 @@
   padding: 20px 15px;
   cursor: pointer;
 }
+.inbox-cards * {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; 
+}
 .inbox-cards:hover,
 .archive-box:hover {
   background: #F2F2F270;
@@ -61,6 +69,9 @@
   font-size: 0.9rem;
   opacity: 0.9;
 }
+.top .time::first-letter {
+  text-transform: uppercase;
+}
 .text .message {
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -83,7 +94,7 @@
   display: block;
   right: 0;
   width: 20px; height: 20px;
-  background: #3f4958;
+  background: #cccccc;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -101,20 +112,21 @@
 }
 
 /* darkmode */
-.inbox.dark
-.inbox-cards,
-.archive-box {
+.inbox.dark .inbox-cards,
+.inbox.dark .archive-box {
   border-bottom: 1px solid #343941;
 }
-.inbox.dark
-.inbox-cards:hover,
-.archive-box:hover {
+.inbox.dark .inbox-cards:hover,
+.inbox.dark .archive-box:hover {
   background: #34394170;
 }
-.inbox::-webkit-scrollbar-thumb {
+.inbox.dark .ctx .total {
+  background: #3f4958;
+}
+.inbox.dark::-webkit-scrollbar-thumb {
   background: #3f4958bb;
 }
-.inbox::-webkit-scrollbar-thumb:hover {
+.inbox.dark::-webkit-scrollbar-thumb:hover {
   background: #3f4958;
 }
 .inbox.dark .inbox-cards.focus {

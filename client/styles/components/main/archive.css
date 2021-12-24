@@ -15,7 +15,9 @@
   overflow-y: auto;
 }
 .navigation {
-  display: flex;
+  position: relative;
+  display: grid;
+  grid-template-columns: auto auto 1fr;
   align-items: center;
   gap: 45px;
   padding: 0 10px;
@@ -31,6 +33,42 @@
 }
 .navigation .btn:hover {
   background: #e9e9e9bb;
+}
+.focused {
+  position: absolute;
+  width: 100%; height: 100%;
+  background: #222831;
+  transition: cubic-bezier(0.785, 0.135, 0.15, 0.86) 0.2s;
+  opacity: 0;
+  z-index: -1;
+}
+.focused.active {
+  opacity: 1;
+  z-index: 1;
+}
+.focused-wrap {
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  gap: 5px;
+}
+.focused .btn {
+  width: 35px; height: 35px;
+  border-radius: 50%;
+}
+.focused .left .count {
+  width: 25px; height: 25px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 0 0 20px;
+  font-family: var(--font-body)
+}
+.focused .right, .focused .left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 .archive-cards {
   display: grid;
@@ -76,8 +114,8 @@
 .ctx {
   display: flex;
   align-items: center;
-  gap: 5px;
   overflow-x: hidden;
+  gap: 5px;
   height: 30px;
 }
 .ctx .condition-icon {
@@ -89,11 +127,12 @@
   display: block;
   right: 0;
   width: 20px; height: 20px;
-  background: #FF6768bb;
+  background: #3f4958;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 50%;
+  opacity: 0;
 }
 .archive::-webkit-scrollbar {
   width: 8px;
@@ -109,13 +148,16 @@
 .archive.dark {
   background: #222831;
 }
-.archive.dark .archive-cards {
+.archive.dark
+.archive-cards,
+.archive-box {
   border-bottom: 1px solid #343941;
 }
-.archive.dark .archive-cards:hover {
+.archive-cards:hover,
+.archive-box:hover {
   background: #34394170;
 }
-.archive.dark .navigation .btn:hover {
+.navigation .btn:hover {
   background: #393E46;
 }
 .archive::-webkit-scrollbar-thumb {
@@ -123,6 +165,9 @@
 }
 .archive::-webkit-scrollbar-thumb:hover {
   background: #3f4958;
+}
+.archive.dark .archive-cards.focus {
+  background: #1c2229;
 }
 
 @media screen and (max-width: 1224px) {

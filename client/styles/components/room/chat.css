@@ -14,23 +14,26 @@
 .cards .message .info {
   position: absolute;
   bottom: 0;
-  font-size: 0.85rem;
-  transform: translate(0, 28px);
+  height: 20px;
+  transform: translate(0, 23px);
   display: flex;
   align-items: center;
   gap: 5px;
+}
+.message .info .time {
+  font-size: 0.9rem;
 }
 .message {
   background: #d7d9db;
   display: grid;
   gap: 10px;
-  border-radius: 15px 0 15px 15px;
   padding: 10px 15px;
   min-width: 40px;
-  line-height: 1.2rem;
+  line-height: 1.3rem;
 }
 .cards.is-not-user .message {
   margin: 0 80px 0 0;
+  border-radius: 0 15px 15px 15px;
   transform: translate(8px, 0);
 }
 .cards.is-not-user .tip {
@@ -50,6 +53,7 @@
 }
 .cards.is-user .message {
   background: #a5afc2;
+  border-radius: 15px 0 15px 15px;
   margin: 0 0 0 80px;
   transform: translate(-8px, 0);
   justify-items: flex-end;

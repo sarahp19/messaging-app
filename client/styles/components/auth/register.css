@@ -51,12 +51,14 @@ h1, h3 {
 }
 .submit {
   display: flex;
-  justify-content: flex-end;
 }
 .submit .btn {
   color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 10px;
   background: #393E46;
-  padding: 10px 15px;
+  padding: 10px 10px 10px 15px;
   cursor: pointer;
   border-radius: 2rem;
 }

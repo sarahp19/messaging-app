@@ -4,7 +4,7 @@ export default (args) => ({
     active: args.active,
     data: {
       foreignId: args.foreignId,
-      roomId: `${args.userId}.${args.foreignId}`,
+      roomId: args.roomId,
     },
   },
 });

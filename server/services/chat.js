@@ -8,14 +8,22 @@ module.exports = (
 ) => {
   socket.on('chat/get', async (args) => {
     try {
+      const { userId, foreignId } = args;
+
       const inbox = await InboxModel.findOne({
         $and: [
-          { owners: { $elemMatch: { userId: args.userId } } },
-          { owners: { $elemMatch: { userId: args.foreignId } } },
+          { owners: { $elemMatch: { userId } } },
+          { owners: { $elemMatch: { userId: foreignId } } },
+          { userId },
         ],
       });
 
-      const data = await ChatModel.find({ roomId: inbox.roomId });
+      const data = await ChatModel.find({
+        $and: [
+          { userId },
+          { roomId: inbox.roomId },
+        ],
+      });
 
       socket.emit('chat/get/callback', {
         success: true,
@@ -34,24 +42,44 @@ module.exports = (
 
   socket.on('chat/add', async (args) => {
     try {
-      const inbox = await InboxModel.findOne({ roomId: args.roomId });
-      const foreign = users.find((item) => item.userId === args.to.userId)
+      const foreign = users.find((item) => item.userId === args.to.userId);
+      const {
+        roomId, message, reply, from, to,
+      } = args;
+
+      const userInboxExists = await InboxModel.findOne({
+        $and: [
+          { userId: from.userId },
+          { roomId },
+        ],
+      });
+
+      const foreignInboxExists = await InboxModel.findOne({
+        $and: [
+          { userId: to.userId },
+          { roomId },
+        ],
+      });
 
       const chat = await new ChatModel({
-        roomId: args.roomId,
-        userId: args.from.userId,
-        message: args.message,
-        reply: args.reply,
+        roomId, userId: from.userId, from: from.userId, message, reply,
       }).save();
 
-      if (inbox) {
+      await new ChatModel({
+        roomId, userId: to.userId, from: from.userId, message, reply,
+      }).save();
+
+      if (userInboxExists) {
         await InboxModel.findOneAndUpdate({
-          roomId: args.roomId,
+          $and: [
+            { userId: from.userId },
+            { roomId },
+          ],
         }, {
           $set: {
             lastMessage: {
-              from: args.from.userId,
-              text: args.message,
+              from: from.userId,
+              text: message,
               createdAt: chat.createdAt,
             },
           },
@@ -59,60 +87,91 @@ module.exports = (
         });
       } else {
         await new InboxModel({
-          roomId: args.roomId,
-          owners: [args.from, args.to],
+          userId: from.userId,
+          roomId,
+          owners: [from, to],
           lastMessage: {
-            from: args.from.userId,
-            text: args.message,
+            from: from.userId,
+            text: message,
             createdAt: chat.createdAt,
           },
           total: 1,
         }).save();
       }
 
-      const data = await ChatModel.find({ roomId: args.roomId });
-      const inboxData = await InboxModel.find({
-        owners: {
-          $elemMatch: {
-            userId: args.from.userId,
+      if (foreignInboxExists) {
+        await InboxModel.findOneAndUpdate({
+          $and: [
+            { userId: to.userId },
+            { roomId },
+          ],
+        }, {
+          $set: {
+            lastMessage: {
+              from: from.userId,
+              text: message,
+              createdAt: chat.createdAt,
+            },
           },
-        },
+          $inc: { total: 1 },
+        });
+      } else {
+        await new InboxModel({
+          userId: to.userId,
+          roomId,
+          owners: [to, from],
+          lastMessage: {
+            from: from.userId,
+            text: message,
+            createdAt: chat.createdAt,
+          },
+          total: 1,
+        }).save();
+      }
+
+      const userChat = await ChatModel.find({
+        $and: [{ userId: from.userId }, { roomId }],
+      });
+
+      const userInbox = await InboxModel.find({
+        userId: from.userId,
       }).sort({ updatedAt: -1 });
 
       socket.emit('chat/get/callback', {
         success: true,
-        data,
+        data: userChat,
         message: null,
       });
 
       socket.emit('inbox/get/callback', {
         success: true,
-        data: inboxData,
+        data: userInbox,
         message: null,
+        sound: false,
       });
 
       if (foreign) {
+        const foreignChat = await ChatModel.find({
+          $and: [{ userId: to.userId }, { roomId }],
+        });
+
         io
           .to(foreign.socketId)
           .emit('chat/get/callback', {
             success: true,
-            data,
+            data: foreignChat,
             message: null,
           });
 
-        const inboxDataForeign = await InboxModel.find({
-          owners: {
-            $elemMatch: {
-              userId: args.to.userId,
-            },
-          },
+        const foreignInbox = await InboxModel.find({
+          userId: to.userId,
         }).sort({ updatedAt: -1 });
 
         io
           .to(foreign.socketId)
           .emit('inbox/get/callback', {
             success: true,
-            data: inboxDataForeign,
+            data: foreignInbox,
             message: null,
             sound: true,
           });
@@ -129,56 +188,61 @@ module.exports = (
 
   socket.on('chat/read', async (args) => {
     try {
-      await InboxModel.findOneAndUpdate(
-        { roomId: args.roomId },
-        {
-          $set: {
-            'lastMessage.condition': 'read',
-            total: 0,
-          },
-        },
-      );
-
+      const { userId, foreignId, roomId } = args;
       const foreign = users.find((item) => item.userId === args.foreignId);
 
-      await ChatModel.updateMany(
-        { condition: 'sent' },
-        { $set: { condition: 'read' } },
-      );
-
-      const inboxForeign = await InboxModel.find({
-        owners: {
-          $elemMatch: {
-            userId: args.foreignId,
-          },
-        },
-      }).sort({ updatedAt: -1 });
-
-      const chatUser = await ChatModel.find({ roomId: args.roomId });
-      const inboxUser = await InboxModel.find({
-        owners: {
-          $elemMatch: {
-            userId: args.userId,
-          },
-        },
-      }).sort({ updatedAt: -1 });
-
-      io.to(foreign.socketId).emit('chat/get/callback', {
-        success: true,
-        data: chatUser,
-        message: null,
+      const check = await InboxModel.findOne({
+        $and: [{ roomId }, { 'lastMessage.condition': 'read' }],
       });
+
+      if (check) {
+        const newError = {
+          message: 'message has been read',
+        }
+        throw newError;
+      }
+
+      await InboxModel.updateMany({ roomId }, {
+        $set: {
+          'lastMessage.condition': 'read',
+          total: 0,
+        },
+      });
+
+      await ChatModel.updateMany({
+        $and: [{ roomId }, { condition: 'sent' }],
+      }, { $set: { condition: 'read' } });
+
+      const foreignInbox = await InboxModel.find({
+        userId: foreignId,
+      }).sort({ updatedAt: -1 });
+
+      const foreignChat = await ChatModel.find({
+        $and: [{ userId: foreignId }, { roomId }],
+      });
+
+      const userInbox = await InboxModel.find({
+        userId,
+      }).sort({ updatedAt: -1 });
 
       socket.emit('inbox/get/callback', {
         success: true,
-        data: inboxUser,
+        data: userInbox,
+        message: null,
+        sound: false,
+      });
+
+      io.to(foreign.socketId).emit('chat/get/callback', {
+        success: true,
+        data: foreignChat,
         message: null,
       });
 
       io.to(foreign.socketId).emit('inbox/get/callback', {
         success: true,
-        data: inboxForeign,
+        data: foreignInbox,
         message: null,
+        sound: false,
       });
     }
     catch (error0) {

@@ -16,7 +16,6 @@ function App() {
   const props = useSelector((state) => state);
   const dispatch = useDispatch();
 
-  const [title, setTitle] = useState(document.title);
   // const [block, setBlock] = useState(false);
   const [loadData, setLoadData] = useState(true);
 
@@ -30,6 +29,8 @@ function App() {
         Authorization: `bearer ${token}`,
       },
     })).json();
+
+    document.title = `Messaging - @${request.data.username}`;
 
     socket.emit('user/connect', {
       socketId: socket.id,
@@ -62,11 +63,8 @@ function App() {
     setTimeout(() => {
       setLoadData(false);
     }, 3000);
-
-    setTitle('Messaging - @febriadj');
-    document.title = title;
   }, [
-    title, props.loggedIn,
+    props.loggedIn,
   ]);
 
   return (

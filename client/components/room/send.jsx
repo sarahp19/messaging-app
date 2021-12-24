@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import Picker from 'emoji-picker-react';
 
@@ -16,6 +16,7 @@ function Send({
     reply: '',
   });
 
+  const [sendIcon, setSendIcon] = useState(false);
   const [emojiTabIsOpen, setEmojiTabIsOpen] = useState(false);
 
   const handleChange = (event) => {
@@ -26,7 +27,9 @@ function Send({
   }
 
   const handleSubmit = (event) => {
-    if (event.keyCode === 13 && formbody.message.length !== 0) {
+    event.preventDefault();
+
+    if (formbody.message.length !== 0) {
       socket.emit('chat/add', {
         socketId: socket.id,
         roomId: room.data.roomId,
@@ -62,6 +65,16 @@ function Send({
       message: prev.message + object.emoji,
     }));
   }
+
+  useEffect(() => {
+    if (formbody.message.length > 0) {
+      setSendIcon(true);
+    } else {
+      setSendIcon(false);
+    }
+  }, [
+    formbody.message,
+  ]);
 
   return (
     <div
@@ -103,34 +116,55 @@ function Send({
             </div>
           ) : null
       }
-      <div className={style['send-wrap']}>
+      <form
+        method="post"
+        className={style['send-wrap']}
+        onSubmit={handleSubmit}
+      >
         <button
+          type="button"
           className={`${style.btn} ${emojiTabIsOpen ? style.active : null}`}
           onClick={() => setEmojiTabIsOpen(!emojiTabIsOpen)}
         >
           <box-icon name="smile" color={darkmode ? '#ffffffdd' : '#000000dd'}></box-icon>
         </button>
-        <input
-          type="text"
-          name="message"
-          className={style['form-control']}
-          placeholder="Type Message..."
-          autoComplete="off"
-          value={formbody.message}
-          onKeyUp={handleSubmit}
-          onChange={handleChange}
-        />
-        <button
-          className={style.btn}
-        >
-          <box-icon name="paperclip" color={darkmode ? '#ffffffdd' : '#000000dd'}></box-icon>
-        </button>
-        <button
-          className={style.btn}
-        >
-          <box-icon type="solid" name="microphone-alt" color={darkmode ? '#ffffffdd' : '#000000dd'}></box-icon>
-        </button>
-      </div>
+        <div className={style['control-wrap']}>
+          <textarea
+            name="message"
+            className={style['form-control']}
+            placeholder="Type Message..."
+            autoComplete="off"
+            value={formbody.message}
+            onChange={handleChange}
+          >
+          </textarea>
+        </div>
+        {
+          sendIcon ? (
+            <button
+              type="submit"
+              className={style.btn}
+            >
+              <box-icon name="send" color={darkmode ? '#ffffffdd' : '#000000dd'}></box-icon>
+            </button>
+          ) : (
+            <div className={style['not-send']}>
+              <button
+                type="button"
+                className={style.btn}
+              >
+                <box-icon name="paperclip" color={darkmode ? '#ffffffdd' : '#000000dd'}></box-icon>
+              </button>
+              <button
+                type="button"
+                className={style.btn}
+              >
+                <box-icon type="solid" name="microphone-alt" color={darkmode ? '#ffffffdd' : '#000000dd'}></box-icon>
+              </button>
+            </div>
+          )
+        }
+      </form>
     </div>
   );
 }

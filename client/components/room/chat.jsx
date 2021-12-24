@@ -12,7 +12,6 @@ function Chat() {
 
   const handleGetChats = () => {
     socket.emit('chat/get', {
-      socketId: socket.id,
       foreignId: room.data.foreignId,
       userId: user.userId,
       roomId: room.data.roomId,
@@ -20,7 +19,7 @@ function Chat() {
 
     socket.on('chat/get/callback', (args) => {
       if (!args.success) {
-        setChats([])
+        setChats([]);
       } else {
         setChats(args.data);
       }
@@ -36,14 +35,58 @@ function Chat() {
     return displayTime;
   }
 
+  const Condition = ({ condition }) => {
+    if (condition === 'read') {
+      return (
+        <span
+          className={style['condition-icon']}
+        >
+          <box-icon
+            name="check-double"
+            color={darkmode ? '#00A19D' : '#00A19D'}
+          >
+          </box-icon>
+        </span>
+      );
+    }
+
+    return (
+      <span
+        className={style['condition-icon']}
+      >
+        <box-icon
+          name="check-double"
+          color={darkmode ? '#ffffffdd' : '#000000dd'}
+        >
+        </box-icon>
+      </span>
+    );
+  }
+
   useEffect(() => {
     const parent = document.getElementsByClassName(style.chat)[0];
     parent.scrollTop = parent.scrollHeight;
-  });
 
-  useEffect(() => {
     handleGetChats();
-  }, [room]);
+
+    if (room.active) {
+      if (chats.length > 0) {
+        if (
+          chats[chats.length - 1].roomId === room.data.roomId
+          && chats[chats.length - 1].from !== user.userId
+        ) {
+          socket.emit('chat/read', {
+            socketId: socket.id,
+            userId: user.userId,
+            foreignId: room.data.foreignId,
+            roomId: room.data.roomId,
+          });
+        }
+      }
+    }
+  }, [
+    room, chats.length,
+  ]);
 
   return (
     <div
@@ -53,13 +96,23 @@ function Chat() {
         chats.length !== 0 && (
           chats.map((item) => (
             <div
-              className={`${style.cards} ${item.userId === user.userId ? style['is-user'] : style['is-not-user']}`}
+              className={`${style.cards} ${item.from === user.userId ? style['is-user'] : style['is-not-user']}`}
               key={item._id}
             >
               <span className={style.tip}></span>
               <div className={style.message}>
                 <p className={style.text}>{item.message}</p>
-                <p className={style.time}>{formatTime(item.createdAt)}</p>
+                <div className={style.info}>
+                  <p className={style.time}>{formatTime(item.createdAt)}</p>
+                  {
+                    item.from === user.userId
+                    && (
+                      <Condition
+                        condition={item.condition}
+                      />
+                    )
+                  }
+                </div>
               </div>
             </div>
           ))

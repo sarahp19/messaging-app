@@ -205,7 +205,15 @@ function Login({
             <button className={style.forgot}>Forgot Password</button>
           </div>
           <span className={style.submit}>
-            <button type="submit" className={style.btn}>Get Started</button>
+            <button type="submit" className={style.btn}>
+              <p>Login</p>
+              <box-icon
+                type="solid"
+                name="right-top-arrow-circle"
+                color={darkmode ? '#ffffffdd' : '#000000dd'}
+              >
+              </box-icon>
+            </button>
           </span>
         </form>
         <div className={style.footer}>

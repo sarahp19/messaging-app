@@ -2,7 +2,8 @@ const mongoose = require('mongoose');
 
 module.exports = async () => {
   try {
-    const uri = process.env.MONGO_URI ?? 'mongodb://localhost:27017/messaging';
+    const isDev = process.env.NODE_ENV === 'development';
+    const uri = isDev ? 'mongodb://localhost:27017/messaging' : process.env.MONGO_URI;
 
     await mongoose.connect(uri);
     console.log('mongodb connected');

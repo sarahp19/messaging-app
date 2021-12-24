@@ -269,7 +269,15 @@ function Register({
                 <p>{response.message}</p>
               </div>
               <span className={style.submit}>
-                <button type="submit" className={style.btn}>Create Account</button>
+                <button type="submit" className={style.btn}>
+                  <p>Create Account</p>
+                  <box-icon
+                    type="solid"
+                    name="right-top-arrow-circle"
+                    color={darkmode ? '#ffffffdd' : '#000000dd'}
+                  >
+                  </box-icon>
+                </button>
               </span>
             </form>
           )

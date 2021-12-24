@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import style from '../styles/containers/auth.css';
 
@@ -8,9 +8,15 @@ function Auth() {
   const { darkmode } = useSelector((state) => state);
   const [registerPage, setRegisterPage] = useState(false);
 
-  const handleRegisterPage = () => {
-    setRegisterPage(!registerPage);
-  }
+  const handleRegisterPage = () => setRegisterPage(!registerPage);
+
+  useEffect(() => {
+    if (registerPage) {
+      document.title = 'Messaging - Register';
+    } else {
+      document.title = 'Messaging - Login';
+    }
+  });
 
   return (
     <div className={`${style.auth} ${darkmode ? style.dark : null}`}>

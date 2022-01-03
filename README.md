@@ -17,7 +17,7 @@ The stack of technologies I used to create this app, includes:
 - React.js & Redux
 - MongoDB
 
-# Get Started
+# Getting Started
 Clone this Project to your Local Repository, then go to your project folder.
 ~~~
 $ git clone https://github.com/febriadj/messaging-app
@@ -41,29 +41,29 @@ Run the app in development mode. then open http://localhost:3000 in the browser.
 $ npm run dev
 ~~~
 
-# Screenshot
+# Screenshot 📸
 ![desktop-dark](./docs/images/desktop-light.png)
 ![mobile-dark](./docs/images/mobile-light.png)
 
 ![desktop-dark](./docs/images/desktop-dark.png)
 ![mobile-dark](./docs/images/mobile-dark.png)
 
-# Contribution
-Contributions make the open source community 🌐 a great place to learn, inspire and create. I really appreciate every contribution you make.
+# Contributing
+Contributions make the open source community a great place to learn, inspire and create. I really appreciate every contribution you make.
 
-If you have any suggestions that would make this even better, please fork  this repo and pull request. You can also open an issue on this project and don't forget to give this project a star. Thank you. 🙏
+If you have any suggestions that would make this even better, please fork  this repo and pull request. You can also open an issue on this project and don't forget to give this project a star. Thank you.
 
-- Fork this project (git clone https://github.com/febriadj/messaging-app)
+- Fork this project
 - Create a new branch (git checkout -b branchName)
 - Commit your changes (git commit -m "Add new features")
 - Push to your branch (git push origin branchName)
 - Submit a pull request
+
+# License 📄
+Distributed under the MIT License. See [LICENSE.txt](https://github.com/febriadj/messaging-app/blob/master/LICENSE) for more information.
 
 # Contact
 LinkedIn: [linkedin.com/in/febri-adji](https://www.linkedin.com/in/febri-adji)
 
 Phone: +62 851-5670-3982\
 Email: <iamfebriadji@gmail.com>
-
-# License
-This project is licensed under the [MIT license](https://github.com/febriadj/messaging-app/blob/master/LICENSE)

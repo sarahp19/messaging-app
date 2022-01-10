@@ -12,34 +12,33 @@
 It's a free and open source 🌐 web-based instant messaging application. With this application users can send messages and exchange photos 📷, videos 🎥, stickers, audio 🎵 and other types of files.
 
 The stack of technologies I used to create this app, includes:
-- Node.js & Express.js
-- Socket.io
-- React.js & Redux
-- MongoDB
+- [Node.js](https://nodejs.org/en) & [Express.js](https://expressjs.com)
+- [Socket.io](https://socket.io)
+- [React.js](https://reactjs.org) & [Redux](https://redux.js.org)
+- [MongoDB](https://www.mongodb.com)
 
 # Getting Started
-Clone this Project to your Local Repository, then go to your project folder.
 ~~~
 $ git clone https://github.com/febriadj/messaging-app
 
 $ cd messaging-app/ && code .
 ~~~
+Clone this project to your local repository, then go to your project folder.
 
-Rename the .env.example file to .env
 ~~~
 $ mv .env.example .env
 ~~~
+Rename the `.env.example` file to `.env`, then adjust the environment to your needs.
 
-Install and update all dependencies on this project.
 ~~~
-$ npm install && npm update
+$ npm install
 ~~~
-`npm update` is optional, run that command if you want to update all dependencies of this project.
+Install all dependencies on this project.
 
-Run the app in development mode. then open http://localhost:3000 in the browser.
 ~~~
 $ npm run dev
 ~~~
+Run the app in development mode. then open http://localhost:3000 in the browser.
 
 # Screenshot 📸
 ![desktop-dark](./docs/images/desktop-light.png)

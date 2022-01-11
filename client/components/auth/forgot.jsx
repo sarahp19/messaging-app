@@ -6,6 +6,7 @@ function Forgot({
   forgotIsOpen,
   setForgotIsOpen,
 }) {
+  const isDev = process.env.NODE_ENV === 'development';
   const { darkmode } = useSelector((state) => state);
 
   const [formbody, setFormbody] = useState({
@@ -32,8 +33,30 @@ function Forgot({
   const handleSubmit = async (event) => {
     try {
       event.preventDefault();
+      const url = isDev ? 'http://localhost:8000/api/users/change-pass' : '/api/users/change-pass';
 
-      console.log('form is submited');
+      const request = await (await fetch(url, {
+        method: 'post',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          usernameOrEmail: formbody.usernameOrEmail,
+          newPass: formbody.newPass,
+        }),
+      })).json();
+
+      if (!request.success) throw request;
+      localStorage.setItem('pending', JSON.stringify(request.data));
+
+      setFormbody((prev) => ({
+        ...prev,
+        usernameOrEmail: '',
+        newPass: '',
+        confirmNewPass: '',
+      }));
+
+      console.log(request.data);
     }
     catch (error0) {
       console.error(error0.message);

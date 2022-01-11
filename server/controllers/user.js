@@ -5,7 +5,7 @@ const { UserModel, ProfileModel } = require('../database/models/user');
 const mail = require('../helpers/mail');
 const response = require('../helpers/response');
 
-exports.userRegisterStep1 = async (req, res) => {
+exports.registerStep1 = async (req, res) => {
   try {
     const { username, email, password } = req.body;
 
@@ -52,7 +52,7 @@ exports.userRegisterStep1 = async (req, res) => {
   }
 };
 
-exports.userRegisterStep2 = async (req, res) => {
+exports.registerStep2 = async (req, res) => {
   try {
     const { username, email, password } = req.body;
 
@@ -83,7 +83,7 @@ exports.userRegisterStep2 = async (req, res) => {
   }
 };
 
-exports.userLogin = async (req, res) => {
+exports.login = async (req, res) => {
   try {
     const { usernameOrEmail, password } = req.body;
     // find user by username or email
@@ -129,7 +129,7 @@ exports.userLogin = async (req, res) => {
   }
 };
 
-exports.userFind = async (req, res) => {
+exports.find = async (req, res) => {
   try {
     let data;
 
@@ -162,6 +162,61 @@ exports.userFind = async (req, res) => {
     }
 
     response({ res, data });
+  }
+  catch (error0) {
+    response({
+      success: false,
+      res,
+      statusCode: 400,
+      message: error0.message,
+    });
+  }
+};
+
+exports.changePasswordStep1 = async (req, res) => {
+  try {
+    const user = await UserModel.findOne({
+      $or: [
+        { email: req.body.usernameOrEmail },
+        { username: req.body.usernameOrEmail },
+      ],
+    });
+
+    response({
+      res,
+      message: '',
+      data: {
+        referral: 356003,
+        ...user._doc,
+      },
+    });
+  }
+  catch (error0) {
+    response({
+      success: false,
+      res,
+      statusCode: 400,
+      message: error0.message,
+    });
+  }
+};
+
+exports.changePasswordStep2 = async (req, res) => {
+  try {
+    const { userId, password } = req.body;
+    const hash = await bcrypt.hash(password, await bcrypt.genSalt(10));
+
+    const user = await UserModel.findOneAndUpdate({
+      _id: userId,
+    }, {
+      $set: { password: hash },
+    });
+
+    response({
+      res,
+      message: '',
+      data: user,
+    });
   }
   catch (error0) {
     response({

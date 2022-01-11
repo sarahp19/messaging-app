@@ -54,7 +54,9 @@ h1, h3 {
 }
 .submit .btn {
   color: #ffffff;
+  width: 200px;
   display: flex;
+  justify-content: space-between;
   align-items: center;
   gap: 10px;
   background: #393E46;

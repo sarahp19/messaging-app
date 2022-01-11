@@ -1,18 +1,15 @@
 const router = require('express').Router();
 const authenticate = require('../middleware/auth');
-const {
-  userRegisterStep1,
-  userRegisterStep2,
-  userLogin,
-  userFind,
-} = require('../controllers/user');
+const user = require('../controllers/user');
 const { getImage } = require('../controllers/file');
 
-router.post('/users/register', userRegisterStep1);
-router.post('/users/register/confirm', userRegisterStep2);
-router.post('/users/login', userLogin);
+router.post('/users/register', user.registerStep1);
+router.post('/users/register/confirm', user.registerStep2);
+router.post('/users/login', user.login);
+router.post('/users/change-pass', user.changePasswordStep1);
+router.post('/users/change-pass/confirm', user.changePasswordStep2);
 
-router.get('/users', authenticate, userFind);
+router.get('/users', authenticate, user.find);
 router.get('/images/:image', getImage);
 
 module.exports = router;

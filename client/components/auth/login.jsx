@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import style from '../../styles/components/auth/login.css';
 import * as action from '../../redux/actions';
+import Forgot from './forgot';
 
 function Login({
   registerPage,
@@ -12,6 +13,7 @@ function Login({
   const dispatch = useDispatch();
   const { darkmode } = useSelector((state) => state);
 
+  const [forgotIsOpen, setForgotIsOpen] = useState(false);
   const [formbody, setFormbody] = useState({
     usernameOrEmail: '',
     password: '',
@@ -33,7 +35,7 @@ function Login({
       ...prev,
       [event.target.name]: event.target.value,
     }));
-  }
+  };
 
   const handleSubmit = async (event) => {
     try {
@@ -42,7 +44,7 @@ function Login({
       if (!control.usernameOrEmail || !control.password) {
         const newError = {
           message: 'Form data is not approved, please fill in the form correctly',
-        }
+        };
         throw newError;
       }
 
@@ -61,7 +63,7 @@ function Login({
       if (!request.success) {
         const newError = {
           message: request.message,
-        }
+        };
         throw newError;
       }
 
@@ -92,7 +94,7 @@ function Login({
         active: true,
       }));
     }
-  }
+  };
 
   useEffect(() => {
     if (formbody.usernameOrEmail.length >= 3) {
@@ -132,6 +134,10 @@ function Login({
         ${darkmode ? style.dark : null}
       `}
     >
+      <Forgot
+        forgotIsOpen={forgotIsOpen}
+        setForgotIsOpen={setForgotIsOpen}
+      />
       <div className={style['login-wrap']}>
         <div className={style.header}>
           <h2>Messaging.</h2>
@@ -202,7 +208,13 @@ function Login({
               <button type="button" className={style['remember-check']}></button>
               <p>Remember Me</p>
             </div>
-            <button className={style.forgot}>Forgot Password</button>
+            <button
+              type="button"
+              className={style.forgot}
+              onClick={() => setForgotIsOpen(true)}
+            >
+              Forgot Password
+            </button>
           </div>
           <span className={style.submit}>
             <button type="submit" className={style.btn}>

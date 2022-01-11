@@ -21,7 +21,6 @@
     "rules": {
         "linebreak-style": "off",
         "brace-style": "off",
-        "semi": "off",
         "no-underscore-dangle": "off",
         "no-console": "off",
         "default-param-last": "off",

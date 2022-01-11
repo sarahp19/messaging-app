@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import style from '../../styles/components/auth/forgot.css';
 
@@ -11,13 +11,15 @@ function Forgot({
   const [formbody, setFormbody] = useState({
     usernameOrEmail: '',
     token: '',
-    newPassword: '',
-    confirmNewPassword: '',
+    newPass: '',
+    confirmNewPass: '',
   });
 
   const [control, setControl] = useState({
     usernameOrEmail: false,
-    password: false,
+    token: false,
+    newPass: false,
+    confirmNewPass: false,
   });
 
   const handleChange = (event) => {
@@ -38,11 +40,28 @@ function Forgot({
     }
   };
 
+  useEffect(() => {
+    const passValid = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z])(?=.*\W).{8,16}$/g;
+
+    setControl((prev) => {
+      const cnp1 = formbody.confirmNewPass.length > 0;
+      const cnp2 = formbody.newPass === formbody.confirmNewPass;
+
+      return {
+        ...prev,
+        usernameOrEmail: formbody.usernameOrEmail.length >= 3,
+        token: formbody.token.length === 6,
+        newPass: passValid.test(formbody.newPass),
+        confirmNewPass: cnp1 && cnp2,
+      };
+    });
+  }, [formbody]);
+
   return (
     <div className={`${style.forgot} ${forgotIsOpen && style.active}`}>
       <div className={style['forgot-wrap']}>
         <div className={style.header}>
-          <h2>Change Password</h2>
+          <h2>Forgot Password</h2>
           <button
             type="submit"
             className={style.btn}
@@ -58,7 +77,7 @@ function Forgot({
           </button>
         </div>
         <form method="post" className={style.form} onSubmit={handleSubmit}>
-          <label htmlFor="usernameOrEmail" className={style.cards}>
+          <label htmlFor="forgotUsernameOrEmail" className={style.cards}>
             <box-icon
               name="user"
               color={darkmode ? '#ffffffdd' : '#000000dd'}
@@ -69,7 +88,7 @@ function Forgot({
               <input
                 type="text"
                 name="usernameOrEmail"
-                id="usernameOrEmail"
+                id="forgotUsernameOrEmail"
                 value={formbody.usernameOrEmail}
                 onChange={handleChange}
                 required
@@ -81,33 +100,57 @@ function Forgot({
             >
             </box-icon>
           </label>
-          <label htmlFor="token" className={style.cards}>
+          <label htmlFor="newPass" className={style.cards}>
             <box-icon
-              name="user"
+              name="lock-open"
               color={darkmode ? '#ffffffdd' : '#000000dd'}
             >
             </box-icon>
             <span className={style['input-field']}>
-              <p className={style.label}>Token</p>
+              <p className={style.label}>New Password</p>
               <input
-                type="text"
-                name="token"
-                id="token"
-                placeholder="6 digit code from email"
-                value={formbody.token}
+                type="password"
+                name="newPass"
+                id="newPass"
+                placeholder="Must contain A-Za-z, 0-9 & symbols"
+                value={formbody.newPass}
                 onChange={handleChange}
                 required
               />
             </span>
             <box-icon
-              name={control.token ? 'check-circle' : 'x-circle'}
-              color={`${control.token ? '#00A19D' : '#B91646'}`}
+              name={control.newPass ? 'check-circle' : 'x-circle'}
+              color={`${control.newPass ? '#00A19D' : '#B91646'}`}
+            >
+            </box-icon>
+          </label>
+          <label htmlFor="confirmNewPass" className={style.cards}>
+            <box-icon
+              name="lock-open"
+              color={darkmode ? '#ffffffdd' : '#000000dd'}
+            >
+            </box-icon>
+            <span className={style['input-field']}>
+              <p className={style.label}>Confirm New Password</p>
+              <input
+                type="password"
+                name="confirmNewPass"
+                id="confirmNewPass"
+                placeholder="Re-enter password"
+                value={formbody.confirmNewPass}
+                onChange={handleChange}
+                required
+              />
+            </span>
+            <box-icon
+              name={control.confirmNewPass ? 'check-circle' : 'x-circle'}
+              color={`${control.confirmNewPass ? '#00A19D' : '#B91646'}`}
             >
             </box-icon>
           </label>
           <span className={style.submit}>
             <button type="submit" className={style.btn}>
-              <p>Login</p>
+              <p>Change Password</p>
               <box-icon
                 type="solid"
                 name="right-top-arrow-circle"

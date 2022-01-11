@@ -11,4 +11,4 @@ module.exports = async () => {
   catch (error0) {
     console.log(error0.message);
   }
-}
+};

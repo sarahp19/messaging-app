@@ -5,7 +5,7 @@ const inboxService = require('./inbox');
 
 let users = [];
 
-function service(io, socket) {
+const service = (io, socket) => {
   socket.on('user/connect', (args) => {
     try {
       const exists = users.find((item) => item.userId === args.userId);
@@ -13,7 +13,7 @@ function service(io, socket) {
       if (exists && users.length > 0) {
         const newError = {
           message: 'pengguna sedang aktif di tab lain',
-        }
+        };
         throw newError;
       }
 
@@ -57,6 +57,6 @@ function service(io, socket) {
       message: null,
     });
   });
-}
+};
 
 module.exports = service;

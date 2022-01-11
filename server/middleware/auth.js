@@ -9,7 +9,7 @@ module.exports = async (req, res, next) => {
     if (!headers) {
       const newError = {
         message: 'server requires token in header',
-      }
+      };
       throw newError;
     }
 
@@ -27,4 +27,4 @@ module.exports = async (req, res, next) => {
       message: error0.message,
     });
   }
-}
+};

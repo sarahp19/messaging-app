@@ -14,7 +14,7 @@ module.exports = async (args) => {
           user: process.env.SMTP_USER,
           pass: process.env.SMTP_PASS,
         },
-      }
+      };
     } else {
       transportConfig = {
         service: 'gmail',
@@ -22,7 +22,7 @@ module.exports = async (args) => {
           user: process.env.GMAIL_NAME,
           pass: process.env.GMAIL_PASS,
         },
-      }
+      };
     }
 
     const transport = await nodemailer.createTransport(transportConfig);
@@ -42,4 +42,4 @@ module.exports = async (args) => {
   catch (error0) {
     console.log(error0.message);
   }
-}
+};

@@ -16,4 +16,4 @@ exports.getImage = async (req, res) => {
       message: error0.message,
     });
   }
-}
+};

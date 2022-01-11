@@ -15,14 +15,14 @@ exports.userRegisterStep1 = async (req, res) => {
     if (byUsername) {
       const newError = {
         message: 'Username has been used by another user',
-      }
+      };
       throw newError;
     }
 
     if (byEmail) {
       const newError = {
         message: 'Email has been used by another user',
-      }
+      };
       throw newError;
     }
 
@@ -50,7 +50,7 @@ exports.userRegisterStep1 = async (req, res) => {
       message: error0.message,
     });
   }
-}
+};
 
 exports.userRegisterStep2 = async (req, res) => {
   try {
@@ -81,7 +81,7 @@ exports.userRegisterStep2 = async (req, res) => {
       message: error0.message,
     });
   }
-}
+};
 
 exports.userLogin = async (req, res) => {
   try {
@@ -97,7 +97,7 @@ exports.userLogin = async (req, res) => {
     if (!user) {
       const newError = {
         message: 'User with this username or email was not found',
-      }
+      };
       throw newError;
     }
 
@@ -107,7 +107,7 @@ exports.userLogin = async (req, res) => {
     if (!comparePass) {
       const newError = {
         message: 'Password does not match',
-      }
+      };
       throw newError;
     }
 
@@ -127,7 +127,7 @@ exports.userLogin = async (req, res) => {
       message: error0.message,
     });
   }
-}
+};
 
 exports.userFind = async (req, res) => {
   try {
@@ -171,4 +171,4 @@ exports.userFind = async (req, res) => {
       message: error0.message,
     });
   }
-}
+};

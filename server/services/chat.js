@@ -198,7 +198,7 @@ module.exports = (
       if (check) {
         const newError = {
           message: 'message has been read',
-        }
+        };
         throw newError;
       }
 
@@ -253,4 +253,4 @@ module.exports = (
       });
     }
   });
-}
+};

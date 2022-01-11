@@ -73,12 +73,17 @@ h1, h3 {
   border: 1px solid #212121;
   border-radius: 50%;
 }
+.forgot {
+  cursor: pointer;
+}
 .submit {
   display: flex;
 }
 .submit .btn {
   color: #ffffff;
+  width: 200px;
   display: flex;
+  justify-content: space-between;
   align-items: center;
   gap: 10px;
   background: #393E46;

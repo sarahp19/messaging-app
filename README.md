@@ -60,9 +60,3 @@ If you have any suggestions that would make this even better, please fork  this 
 
 # License 📄
 Distributed under the MIT License. See [LICENSE.txt](https://github.com/febriadj/messaging-app/blob/master/LICENSE) for more information.
-
-# Contact
-LinkedIn: [linkedin.com/in/febri-adji](https://www.linkedin.com/in/febri-adji)
-
-Phone: +62 851-5670-3982\
-Email: <iamfebriadji@gmail.com>
